@@ -17,11 +17,11 @@ jobs:
       - name: Run clang-format
         run: |
           # 检查所有 .cpp, .h, .cu, .cuh, .c 文件是否符合格式
-          find . -regex ".*\.\(cpp\|c\|h\|cu\|cuh\)" | xargs clang-format --dry-run --Werror --style=file
+          find . -regex ".*\.\(cpp\|c\|h\|cu\|cuh\)$" | xargs clang-format --dry-run --Werror --style=file
 
       - name: Check for Changes
         run: |
           if ! git diff --exit-code; then
-            echo "Code needs formatting, please run 'find . -regex \".*\.\(cpp\|c\|h\|cu\|cuh\)\" | xargs clang-format -i' and commit the changes."
+            echo "Code needs formatting, please run 'find . -regex ".*\.\(cpp\|c\|h\|cu\|cuh\)$" | xargs clang-format -i' and commit the changes."
             exit 1
           fi
