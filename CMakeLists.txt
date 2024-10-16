@@ -65,7 +65,7 @@ endif()
 # # build src
 include_directories(include)
 # using clang
-set(CMAKE_CXX_COMPILER "clang++" CACHE STRING "C++ compiler" FORCE)
+# set(CMAKE_CXX_COMPILER "clang++" CACHE STRING "C++ compiler" FORCE)
 
 file(GLOB_RECURSE SRC_RECURSE "src/*.cpp")
 if(NOT SRC_RECURSE)
@@ -105,3 +105,7 @@ install(DIRECTORY include/ DESTINATION include)
 
 # # build app train_cnn
 add_subdirectory(apps/train_cnn)
+add_subdirectory(apps/simple_inference)
+
+# # build test
+add_subdirectory(tests)

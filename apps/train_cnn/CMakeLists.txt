@@ -8,12 +8,6 @@ set(TRAIN_CNN_SOURCES
 
 add_executable(train_cnn ${TRAIN_CNN_SOURCES})
 
-if(BUILD_STATIC_LIB)
-    target_link_libraries(train_cnn PRIVATE hddt_static_lib)
-else()
-    target_link_libraries(train_cnn PRIVATE hddt_shared_lib)
-endif()
-
 if(ROCM_FOUND)
     target_link_libraries(train_cnn PRIVATE hddt_rocm_shared)
 elseif(CUDA_FOUND)
