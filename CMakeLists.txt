@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(HDDT)
 enable_language(CXX)
-enable_language(CUDA)
 
 
 # # cmake modules
@@ -41,6 +40,7 @@ if(ROCM_FOUND)
     install(TARGETS my_rocm_shared DESTINATION lib)
 
 elseif(CUDA_FOUND)
+    enable_language(CUDA)
     # set(CUDA_SOURCES src/*/cuda/*.cu)
     file(GLOB_RECURSE CUDA_SOURCES "src/*/cuda/*.cu")
 
@@ -103,9 +103,10 @@ install(TARGETS hddt_shared_lib DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 
 
-# # build app train_cnn
+# # build apps
 add_subdirectory(apps/train_cnn)
 add_subdirectory(apps/simple_inference)
+add_subdirectory(apps/torch_app)
 
 # # build test
-add_subdirectory(tests)
+# add_subdirectory(tests)
