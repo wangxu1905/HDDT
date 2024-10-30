@@ -25,7 +25,7 @@
 > note: make sure you have deleted the build dir
 
 ```
-find . -regex ".*\.\(cpp\|c\|h\|cu\|cuh\)$" | xargs clang-format -i
+find . -regex ".*\.\(cpp\|c\|h\|hpp\|cu\|cuh\)$" | xargs clang-format -i
 ``` 
 
 # How to update local dev branch from upstream
