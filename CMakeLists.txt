@@ -18,6 +18,9 @@ include(FindRocm)
 include(FindCuda)
 
 if(ROCM_FOUND)
+    # pass var to code
+    add_definitions(-DENABLE_ROCM)
+
     enable_language(HIP)
 
     file(GLOB_RECURSE ROCM_SOURCES "src/*/rocm/*.hip")
@@ -37,6 +40,9 @@ if(ROCM_FOUND)
     install(TARGETS hddt_rocm_shared DESTINATION lib)
 
 elseif(CUDA_FOUND)
+    # pass var to code
+    add_definitions(-DENABLE_CUDA)
+
     enable_language(CUDA)
 
     file(GLOB_RECURSE CUDA_SOURCES "src/*/cuda/*.cu")
@@ -72,9 +78,9 @@ if(BUILD_STATIC_LIB)
     add_library(hddt_static_lib STATIC ${SRC_RECURSE})
     target_include_directories(hddt_static_lib PUBLIC include)
     if(ROCM_FOUND)
-        target_link_libraries(hddt_static_lib PRIVATE hddt_rocm_static)
+        target_link_libraries(hddt_static_lib PUBLIC hddt_rocm_static)
     elseif(CUDA_FOUND)
-        target_link_libraries(hddt_static_lib PRIVATE hddt_cuda_static)
+        target_link_libraries(hddt_static_lib PUBLIC hddt_cuda_static)
     else()
         message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
     endif()
@@ -85,9 +91,9 @@ endif()
 add_library(hddt_shared_lib SHARED ${SRC_RECURSE})
 target_include_directories(hddt_shared_lib PUBLIC include)
 if(ROCM_FOUND)
-    target_link_libraries(hddt_shared_lib PRIVATE hddt_rocm_shared)
+    target_link_libraries(hddt_shared_lib PUBLIC hddt_rocm_shared)
 elseif(CUDA_FOUND)
-    target_link_libraries(hddt_shared_lib PRIVATE hddt_cuda_shared)
+    target_link_libraries(hddt_shared_lib PUBLIC hddt_cuda_shared)
 else()
     message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
 endif()
@@ -102,6 +108,7 @@ install(DIRECTORY include/ DESTINATION include)
 add_subdirectory(apps/train_cnn)
 add_subdirectory(apps/simple_inference)
 add_subdirectory(apps/torch_app)
+add_subdirectory(apps/rdma_app)
 
 # # build test
 # add_subdirectory(tests)
