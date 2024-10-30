@@ -10,6 +10,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 # # option
 option(BUILD_STATIC_LIB "Build static library" OFF)
 
+# using clang
+# set(CMAKE_CXX_COMPILER "clang++" CACHE STRING "C++ compiler" FORCE)
 
 # # build gpu-related module
 include(FindRocm)
@@ -19,35 +21,30 @@ if(ROCM_FOUND)
     # pass var to code
     add_definitions(-DENABLE_ROCM)
 
-    # set(ROCM_SOURCES src/*/rocm/*.cu)
-    file(GLOB_RECURSE ROCM_SOURCES "src/*/rocm/*.cu")
+    enable_language(HIP)
+
+    file(GLOB_RECURSE ROCM_SOURCES "src/*/rocm/*.hip")
 
     # static
     if(BUILD_STATIC_LIB)
         add_library(hddt_rocm_static STATIC ${ROCM_SOURCES})
         target_include_directories(hddt_rocm_static PUBLIC ${HIP_INCLUDE_DIRS})
-        target_link_libraries(hddt_rocm_static PRIVATE rocblas rocrand)
-        set_target_properties(hddt_rocm_static PROPERTIES
-            CXX_COMPILER "${HIP_HCC}"
-        )
-        install(TARGETS my_rocm_static DESTINATION lib)
+        target_link_libraries(hddt_rocm_static PRIVATE ${HIP_LIBRARIES})
+        install(TARGETS hddt_rocm_static DESTINATION lib)
     endif()
 
     # dynamic
     add_library(hddt_rocm_shared SHARED ${ROCM_SOURCES})
     target_include_directories(hddt_rocm_shared PUBLIC ${HIP_INCLUDE_DIRS})
-    target_link_libraries(hddt_rocm_shared PRIVATE rocblas rocrand)
-    set_target_properties(hddt_rocm_shared PROPERTIES
-        CXX_COMPILER "${HIP_HCC}"
-    )
-    install(TARGETS my_rocm_shared DESTINATION lib)
+    target_link_libraries(hddt_rocm_shared PRIVATE ${HIP_LIBRARIES})
+    install(TARGETS hddt_rocm_shared DESTINATION lib)
 
 elseif(CUDA_FOUND)
     # pass var to code
     add_definitions(-DENABLE_CUDA)
 
     enable_language(CUDA)
-    # set(CUDA_SOURCES src/*/cuda/*.cu)
+
     file(GLOB_RECURSE CUDA_SOURCES "src/*/cuda/*.cu")
 
     # static
@@ -70,8 +67,6 @@ endif()
 
 # # build src
 include_directories(include)
-# using clang
-# set(CMAKE_CXX_COMPILER "clang++" CACHE STRING "C++ compiler" FORCE)
 
 file(GLOB_RECURSE SRC_RECURSE "src/*.cpp")
 if(NOT SRC_RECURSE)
