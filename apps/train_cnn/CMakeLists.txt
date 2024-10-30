@@ -20,4 +20,9 @@ target_include_directories(train_cnn PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
 
+include(FindPyTorch)
+
+target_link_libraries(train_cnn PRIVATE
+    ${TORCH_LIBRARIES}
+)
 # install(TARGETS train_cnn DESTINATION bin)
