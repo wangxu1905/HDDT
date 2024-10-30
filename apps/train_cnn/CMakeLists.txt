@@ -6,6 +6,10 @@ set(TRAIN_CNN_SOURCES
     main.cpp
 )
 
+set(CMAKE_CXX_STANDARD 17)  # 设置 C++17
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 add_executable(train_cnn ${TRAIN_CNN_SOURCES})
 
 if(ROCM_FOUND)
