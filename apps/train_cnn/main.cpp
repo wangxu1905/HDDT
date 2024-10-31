@@ -3,7 +3,7 @@
 #include <iostream>
 #include <torch/torch.h>
 
-int main() {
+int main(int argc, char **argv) {
   std::cout << "FeedForward Neural Network\n\n";
 
   // Device
@@ -21,7 +21,16 @@ int main() {
   const size_t num_epochs = 5;
   const double learning_rate = 0.001;
 
-  const std::string MNIST_data_path = "../../../data/mnist";
+  // Allow user to specify the dataset path via command line argument
+  std::string MNIST_data_path;
+  if (argc > 1) {
+    // Use the provided path from the command line
+    MNIST_data_path = argv[1];
+  } else {
+    // Default path if no argument is provided
+    MNIST_data_path = "./data/mnist";
+  }
+  std::cout << "Using data path: " << MNIST_data_path << '\n';
 
   // MNIST Dataset
   auto train_dataset =
