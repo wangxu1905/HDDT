@@ -68,6 +68,9 @@ endif()
 # # build src
 include_directories(include)
 
+# with rdma
+include(FindRdma)
+
 file(GLOB_RECURSE SRC_RECURSE "src/*.cpp")
 if(NOT SRC_RECURSE)
     message(FATAL_ERROR "No sources files found in the 'src' directory.")
@@ -84,6 +87,14 @@ if(BUILD_STATIC_LIB)
     else()
         message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
     endif()
+
+    if(RDMA_FOUND)
+        target_include_directories(hddt_static_lib PUBLIC ${VERBS_INCLUDE_DIR} ${RDMACM_INCLUDE_DIR})
+        target_link_libraries(hddt_static_lib PUBLIC ${VERBS_LIBRARIES} ${RDMACM_LIBRARIES})
+    else()
+        message(FATAL_ERROR "RDMA is required but was not found.")
+    endif()
+    
     install(TARGETS hddt_static_lib DESTINATION lib)
 endif()
 
@@ -97,6 +108,15 @@ elseif(CUDA_FOUND)
 else()
     message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
 endif()
+
+# with rdma
+if(RDMA_FOUND)
+    target_include_directories(hddt_shared_lib PUBLIC ${VERBS_INCLUDE_DIR} ${RDMACM_INCLUDE_DIR})
+    target_link_libraries(hddt_shared_lib PUBLIC ${VERBS_LIBRARIES} ${RDMACM_LIBRARIES})
+else()
+    message(FATAL_ERROR "RDMA is required but was not found.")
+endif()
+
 install(TARGETS hddt_shared_lib DESTINATION lib)
 
 
@@ -105,9 +125,9 @@ install(DIRECTORY include/ DESTINATION include)
 
 
 # # build apps
-add_subdirectory(apps/train_cnn)
-add_subdirectory(apps/simple_inference)
-add_subdirectory(apps/torch_app)
+# add_subdirectory(apps/train_cnn)
+# add_subdirectory(apps/simple_inference)
+# add_subdirectory(apps/torch_app)
 add_subdirectory(apps/rdma_app)
 
 # # build test
