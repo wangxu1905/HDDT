@@ -1,14 +1,13 @@
-#include <hddt.h>
+#include <hddt.hpp>
 #include <iostream>
 
 int main() {
-  hddt::status_t ret;
-
-  ret = hddt::init_gpu_driver(1);
-  if (ret == hddt::status_t::SUCCESS) {
-    hddt::logInfo("init gpu driver success!");
+  hddt_status_t ret;
+  ret = hddt::init_gpu_driver();
+  if (ret == hddt_status_t::SUCCESS) {
+    logInfo("init gpu driver success!");
   } else {
-    hddt::logError("init gpu driver failed!");
+    logError("init gpu driver failed!");
   }
   return 0;
 }
