@@ -1,30 +1,27 @@
-/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
-/*
- * Copyright 2023 Amazon.com, Inc. or its affiliates. All rights reserved.
- * Copyright 2024 IIC-SIG-MLsys(SDU), jacalau. All rights reserved.
- */
 
-#include <hddt.h>
-
-namespace hddt {
+#include <hddt.hpp>
 
 #ifdef ENABLE_CUDA
+#include <cuda_runtime.h>
 // cuda device init
-status_t cuda_init(int device_id) {
-  // used to count the device numbers
+hddt_status_t cuda_init(void) {
+  static pthread_mutex_t cuda_init_mutex = PTHREAD_MUTEX_INITIALIZER;
+  static volatile int cuda_initialized = 0;
+  hddt_status_t status = hddt_status_t::SUCCESS;
   int count;
 
-  // get the cuda device count
   cudaGetDeviceCount(&count);
+
   if (count == 0) {
-    logError("There is no device.\n");
-    return status_t::ERROR;
+    logError("There is no device.");
+    status = hddt_status_t::ERROR;
+    goto end;
   }
 
-  // find the device >= 1.X
   int i;
-  for (i = 0; i < count; ++i) {
-    cudaDeviceProp prop;
+
+  for (i = 0; i < count; i++) {
+    struct cudaDeviceProp prop;
     if (cudaGetDeviceProperties(&prop, i) == cudaSuccess) {
       if (prop.major >= 1) {
         break;
@@ -32,85 +29,87 @@ status_t cuda_init(int device_id) {
     }
   }
 
-  // if can't find the device
   if (i == count) {
-    logError("There is no device supporting CUDA 1.x.\n");
-    return status_t::ERROR;
+    logError("There is no device supporting CUDA 1.x.");
+    status = hddt_status_t::ERROR;
+    goto end;
   }
 
-  if (device_id <= count) {
-    // set cuda device
-    cudaSetDevice(i);
-  } else {
-    logError("Device id does not be supported.\n");
-    return status_t::ERROR;
-  }
+  cudaSetDevice(i);
 
-  return status_t::SUCCESS;
+  cuda_initialized = 1;
+
+end:
+  pthread_mutex_unlock(&cuda_init_mutex);
+  return status;
 }
 
 #endif
 
 #ifdef ENABLE_ROCM
 // rocm driver init
-status_t rocm_init(int device_id) {
-  int deviceCount = 0;
-  hipError_t error = hipGetDeviceCount(&deviceCount);
+#include <hip/hip_runtime.h>
+#include <hsa.h>
+#include <hsa_ext_amd.h>
 
-  if (error != hipSuccess) {
-    printf("hipDeviceGetCount() returned %d\n", error);
-    return status_t::ERROR;
+hddt_status_t rocm_init(void) {
+  static pthread_mutex_t rocm_init_mutex = PTHREAD_MUTEX_INITIALIZER;
+  static volatile int rocm_initialized = 0;
+  hsa_status_t hsa_status;
+  hddt_status_t status = hddt_status_t::SUCCESS;
+
+  if (pthread_mutex_lock(&rocm_init_mutex) == 0) {
+    if (rocm_initialized) {
+      goto end;
+    }
+  } else {
+    logError("Could not take mutex.");
+    status = hddt_status_t::ERROR;
+    return status;
   }
 
-  if (device_id >= deviceCount) {
-    printf("Requested ROCm device %d but found only %d device(s)\n", device_id,
-           deviceCount);
-    return status_t::ERROR;
+  memset(&rocm_agents, 0, sizeof(rocm_agents));
+
+  hsa_status = hsa_init();
+  if (hsa_status != HSA_STATUS_SUCCESS) {
+    status = hddt_status_t::ERROR;
+    logDebug("Failure to open HSA connection: 0x%x.", status);
+    goto end;
   }
 
-  error = hipSetDevice(device_id);
-  if (error != hipSuccess)
-    return status_t::ERROR;
+  hsa_status = hsa_iterate_agents(rocm_hsa_agent_callback, NULL);
+  if (hsa_status != HSA_STATUS_SUCCESS) {
+    status = hddt_status_t::ERROR;
+    logDebug("Failure to iterate HSA agents: 0x%x.", status);
+    goto end;
+  }
 
-  hipDeviceProp_t prop = {0};
-  error = hipGetDeviceProperties(&prop, device_id);
-  if (error != hipSuccess)
-    return status_t::ERROR;
-
-  /* Need 256 bytes to silence compiler warning */
-  char archName[256];
-#if HIP_VERSION >= 60000000
-  snprintf(archName, 256, "%s", prop.gcnArchName);
-#else
-  snprintf(archName, 256, "%d", prop.gcnArch);
+#if ROCM_DMABUF_SUPPERTED
+  status = rocmLibraryInit();
+  if (status != STATUS_SUCCESS) {
+    logDebug("Failure to initialize ROCm library: 0x%x.", status);
+    goto end;
+  }
 #endif
 
-  printf("Using ROCm Device with ID: %d, Name: %s, PCI Bus ID: 0x%x, GCN Arch: "
-         "%s\n",
-         device_id, prop.name, prop.pciBusID, archName);
+  rocm_initialized = 1;
 
-  return status_t::SUCCESS;
+end:
+  pthread_mutex_unlock(&rocm_init_mutex);
+  return status;
 }
 
 #endif
 
-status_t init_gpu_driver(int device_id) {
-  status_t ret = status_t::SUCCESS;
+namespace hddt {
+hddt_status_t init_gpu_driver() {
+  hddt_status_t ret = hddt_status_t::SUCCESS;
 #ifdef ENABLE_CUDA
-  ret = cuda_init(device_id);
+  ret = cuda_init();
 #endif
 #ifdef ENABLE_ROCM
-  ret = rocm_init(device_id);
+  ret = rocm_init();
 #endif
   return ret;
 }
-
-status_t free_gpu_driver() {
-#ifdef ENABLE_CUDA
-  printf("destroying current CUDA Ctx\n");
-  // todo
-#endif
-  return status_t::SUCCESS;
-}
-
 } // namespace hddt
