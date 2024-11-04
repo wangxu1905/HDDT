@@ -15,6 +15,7 @@ target_include_directories(torch_app PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
 include(FindPyTorch)
+include(fetch_mnist)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 target_link_libraries(torch_app PRIVATE
     ${TORCH_LIBRARIES}
