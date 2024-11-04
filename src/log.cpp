@@ -1,15 +1,34 @@
 #include <hddt.h>
+#include <cstdarg>
+#include <cstdio>
 
 namespace hddt {
 
-void logError(const char *message) {
-  std::cerr << "[ERROR] " << message << std::endl;
+void logError(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    std::cerr << "[ERROR] ";
+    vfprintf(stderr, format, args);
+    std::cerr << std::endl;
+    va_end(args);
 }
-void logDebug(const char *message) {
-  std::cerr << "[DEBUG] " << message << std::endl;
+
+void logDebug(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    std::cerr << "[DEBUG] ";
+    vfprintf(stderr, format, args);
+    std::cerr << std::endl;
+    va_end(args);
 }
-void logInfo(const char *message) {
-  std::cerr << "[INFO] " << message << std::endl;
+
+void logInfo(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    std::cerr << "[INFO] ";
+    vfprintf(stderr, format, args);
+    std::cerr << std::endl;
+    va_end(args);
 }
 
 } // namespace hddt

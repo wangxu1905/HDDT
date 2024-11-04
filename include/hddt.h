@@ -22,9 +22,9 @@
 namespace hddt {
 /* status and log */
 enum class status_t { SUCCESS, ERROR, UNSUPPORT };
-void logError(const char *message);
-void logDebug(const char *message);
-void logInfo(const char *message);
+void logError(const char *format, ...);
+void logDebug(const char *format, ...);
+void logInfo(const char *format, ...);
 
 /*
 gpu driver init
