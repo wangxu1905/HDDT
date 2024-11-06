@@ -88,12 +88,18 @@ if(BUILD_STATIC_LIB)
         message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
     endif()
 
+    # with rdma
     if(RDMA_FOUND)
         target_include_directories(hddt_static_lib PUBLIC ${VERBS_INCLUDE_DIR} ${RDMACM_INCLUDE_DIR})
         target_link_libraries(hddt_static_lib PUBLIC ${VERBS_LIBRARIES} ${RDMACM_LIBRARIES})
     else()
         message(FATAL_ERROR "RDMA is required but was not found.")
     endif()
+
+    # with glog
+    find_package(glog REQUIRED)
+    target_include_directories(hddt_static_lib PUBLIC ${GLOG_INCLUDE_DIRS})
+    target_link_libraries(hddt_static_lib PUBLIC glog)
     
     install(TARGETS hddt_static_lib DESTINATION lib)
 endif()
@@ -116,6 +122,11 @@ if(RDMA_FOUND)
 else()
     message(FATAL_ERROR "RDMA is required but was not found.")
 endif()
+
+# with glog
+find_package(glog REQUIRED)
+target_include_directories(hddt_shared_lib PUBLIC ${GLOG_INCLUDE_DIRS})
+target_link_libraries(hddt_shared_lib PUBLIC glog)
 
 install(TARGETS hddt_shared_lib DESTINATION lib)
 
