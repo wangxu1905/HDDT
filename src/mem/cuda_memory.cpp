@@ -94,6 +94,27 @@ status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
+#else
+status_t CudaMemory::init() { return status_t::SUCCESS; }
+status_t CudaMemory::free() { return status_t::SUCCESS; }
+status_t CudaMemory::allocate_buffer(void **addr, size_t size) {
+  return status_t::SUCCESS;
+}
+status_t CudaMemory::free_buffer(void *addr) { return status_t::SUCCESS; }
+
+status_t CudaMemory::copy_host_to_buffer(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::SUCCESS;
+}
+status_t CudaMemory::copy_buffer_to_host(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::SUCCESS;
+}
+status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
+                                           size_t size) {
+  return status_t::SUCCESS;
+}
+
 #endif
 
 } // namespace hddt

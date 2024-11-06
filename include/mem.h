@@ -58,7 +58,6 @@ public:
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
 
-#ifdef ENABLE_CUDA
 class CudaMemory : public Memory {
 public:
   CudaMemory(int device_id, memory_type_t mem_type)
@@ -76,9 +75,7 @@ public:
   status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
-#endif
 
-#ifdef ENABLE_ROCM
 class RocmMemory : public Memory {
 public:
   RocmMemory(int device_id, memory_type_t mem_type)
@@ -96,7 +93,6 @@ public:
   status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
-#endif
 
 } // namespace hddt
 #endif
