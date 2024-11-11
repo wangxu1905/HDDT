@@ -111,4 +111,4 @@ add_subdirectory(apps/torch_app)
 add_subdirectory(apps/rdma_app)
 
 # # build test
-# add_subdirectory(tests)
+add_subdirectory(tests)

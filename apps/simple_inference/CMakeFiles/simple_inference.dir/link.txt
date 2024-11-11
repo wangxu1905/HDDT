@@ -1,0 +1,1 @@
+/usr/bin/mpicxx CMakeFiles/simple_inference.dir/main.cpp.o -o simple_inference  -Wl,-rpath,/home/mahaoyuan/mhyHDDT/HDDT ../../libhddt_cuda_shared.so 

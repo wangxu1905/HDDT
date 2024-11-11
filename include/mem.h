@@ -4,6 +4,7 @@
 #include <cstring>
 #include <hddt.h>
 
+
 namespace hddt {
 
 #define ACCEL_PAGE_SIZE (64 * 1024)
@@ -42,12 +43,14 @@ public:
 
 class HostMemory : public Memory {
 public:
+
   HostMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+        this->init();
+      };
+  ~HostMemory() {
+    this->free();
   };
-  ~HostMemory() { this->free(); };
-
   status_t init();
   status_t free();
   status_t allocate_buffer(void **addr, size_t size);
@@ -56,6 +59,8 @@ public:
   status_t copy_host_to_buffer(void *dest, const void *src, size_t size);
   status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
+
+  
 };
 
 #ifdef ENABLE_CUDA
