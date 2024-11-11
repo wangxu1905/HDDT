@@ -1,6 +1,6 @@
 # which conda Env
-set(CONDA_ENV "chatglm")
-set(PYTHON_ENV "python3.8")
+set(CONDA_ENV "py310")
+set(PYTHON_ENV "python3.10")
 # which Conda
 execute_process(
     COMMAND conda run -n ${CONDA_ENV} python -c "import sys; print(sys.prefix)"
