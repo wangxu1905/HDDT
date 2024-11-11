@@ -15,9 +15,19 @@ target_include_directories(torch_app PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
 include(FindPyTorch)
-include(fetch_mnist)
+#include(fetch_mnist)
+
+
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+if(ROCM_FOUND)
+target_link_libraries(torch_app PRIVATE
+    ${TORCH_LIBRARIES}
+    ${GLOG_LIBRARY}  # 使用glog的库变量
+)
+elseif(CUDA_FOUND)
 target_link_libraries(torch_app PRIVATE
     ${TORCH_LIBRARIES}
 )
+endif()
+
 # install(TARGETS torch_app DESTINATION bin)
