@@ -21,15 +21,13 @@ int main() {
 
   uint8_t data[20] = "Hello World!\n";
 
-  // 使用正确的指针类型进行赋值
-  uint8_t *ptr = (uint8_t *)addr;  // 强制转换 addr 为 uint8_t* 类型指针
+  uint8_t *ptr = (uint8_t *)addr;
   for (int i = 0; i < 20; i++) {
-      ptr[i] = data[i];  // 逐个赋值
+    ptr[i] = data[i];
   }
 
-  printf("Server get Data: %s\n", (char *)ptr);  // 使用 (char *) 进行打印，假设是字符串
+  printf("Server get Data: %s\n", (char *)ptr);
 
-  // 释放内存
   free(addr);
 
   delete mem_ops;

@@ -6,29 +6,30 @@ using namespace hddt;
 
 int main() {
   // google::InitGoogleLogging("HDDT");
-  // google::SetLogDestination(google::GLOG_WARNING, "/tmp/today");
+  // google::SetLogDestination(google::GLOG_INFO, "./today");
+  FLAGS_colorlogtostderr = true;
+  FLAGS_alsologtostderr = true;
+  FLAGS_timestamp_in_logfile_name = false;
 
   status_t ret;
 
-	char* aim = "192.168.2.245";
+  std::string client_ip = "192.168.2.245";
 
   CudaMemory *mem_ops = new CudaMemory(1, memory_type_t::NVIDIA_GPU);
-  
-  RDMACommunicator *con = new RDMACommunicator(mem_ops, 1024, aim);
+  // Memory *mem_ops = new HostMemory(1, memory_type_t::CPU);
+
+  RDMACommunicator *con =
+      new RDMACommunicator(mem_ops, 1024, false, true, client_ip);
   con->Start();
+  uint8_t data[] = "Hello World!";
 
-  void *addr = con->share_buffer;
-  // 要写入的数据缓冲区
-  uint8_t data[] = "Hello World!\n";
+  mem_ops->copy_host_to_buffer(con->share_buffer, data, sizeof(data));
 
-  cudaMemcpy(addr, data, sizeof(data), cudaMemcpyHostToDevice);
-
-  // 验证写入的数据是否正确
   char host_data[sizeof(data)];
-  cudaMemcpy(host_data, addr, sizeof(data), cudaMemcpyDeviceToHost);
+  mem_ops->copy_buffer_to_host(host_data, con->share_buffer, sizeof(data));
   printf("client Write Data: %s\n", host_data);
 
-  con->Write(addr, sizeof(data));
+  con->Write(con->share_buffer, 1024);
 
   return 0;
 }
