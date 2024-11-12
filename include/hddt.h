@@ -25,27 +25,30 @@ namespace hddt {
 /* status and log */
 enum class status_t { SUCCESS, ERROR, UNSUPPORT };
 
-#define logError(fmt, ...) do { \
-    char buffer[1024]; \
-    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__); \
-    if (len >= 0) { \
-        LOG(ERROR) << __FILE__ << ":" << __LINE__ << " - " << buffer; \
-    } \
-} while (0)
-#define logDebug(fmt, ...) do { \
-    char buffer[1024]; \
-    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__); \
-    if (len >= 0) { \
-        LOG(WARNING) << __FILE__ << ":" << __LINE__ << " - " << buffer; \
-    } \
-} while (0)
-#define logInfo(fmt, ...) do { \
-    char buffer[1024]; \
-    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__); \
-    if (len >= 0) { \
-        LOG(INFO) << __FILE__ << ":" << __LINE__ << " - " << buffer; \
-    } \
-} while (0)
+#define logError(fmt, ...)                                                     \
+  do {                                                                         \
+    char buffer[1024];                                                         \
+    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__);            \
+    if (len >= 0) {                                                            \
+      LOG(ERROR) << buffer;                                                    \
+    }                                                                          \
+  } while (0)
+#define logDebug(fmt, ...)                                                     \
+  do {                                                                         \
+    char buffer[1024];                                                         \
+    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__);            \
+    if (len >= 0) {                                                            \
+      LOG(WARNING) << buffer;                                                  \
+    }                                                                          \
+  } while (0)
+#define logInfo(fmt, ...)                                                      \
+  do {                                                                         \
+    char buffer[1024];                                                         \
+    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__);            \
+    if (len >= 0) {                                                            \
+      LOG(INFO) << buffer;                                                     \
+    }                                                                          \
+  } while (0)
 
 /*
 gpu driver init

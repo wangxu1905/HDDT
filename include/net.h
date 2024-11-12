@@ -44,7 +44,7 @@ protected:
   Memory *mem_op;
 
 public:
-  Communicator(Memory *mem_op) : mem_op(mem_op) { return ; }
+  Communicator(Memory *mem_op) : mem_op(mem_op) { return; }
   ~Communicator() { this->mem_op->free(); }
 
   virtual status_t alloc_buffer(size_t size) { return status_t::SUCCESS; };
@@ -60,7 +60,7 @@ public:
 
 class TCPCommunicator : public Communicator {
 private:
-  char* ip;
+  char *ip;
   int32_t port;
   size_t mem_size;
 
@@ -114,9 +114,11 @@ class RDMACommunicator : public Communicator {
   // connection_type : RC, UC，UD : current only support RC
 private:
   struct sockaddr_in server_addr;
-  struct sockaddr_in
-      server_newconnection_addr; // remote addr (accepted client)
+  struct sockaddr_in server_newconnection_addr; // remote addr (accepted client)
   struct sockaddr_in client_addr;
+
+  bool is_server = false;
+  bool is_client = false;
 
   uint8_t initiator_depth = 8; // suggest 2-8
   uint8_t responder_resources = 8;
@@ -140,6 +142,7 @@ private:
   struct ibv_mr *server_metadata_mr = NULL;
   struct ibv_mr *server_send_buffer_mr = NULL;
   struct ibv_mr *server_recv_buffer_mr = NULL;
+
   struct ibv_mr *client_newserver_metadata_mr = NULL;
   struct ibv_mr *client_metadata_mr = NULL;
   struct ibv_mr *client_send_buffer_mr = NULL;
@@ -164,8 +167,8 @@ private:
   struct ibv_cq *client_cq = NULL;
 
   // init attr
-  struct ibv_qp_init_attr *server_qp_init_attr;
-  struct ibv_qp_init_attr *client_qp_init_attr;
+  struct ibv_qp_init_attr server_qp_init_attr;
+  struct ibv_qp_init_attr client_qp_init_attr;
 
 public:
   void *share_buffer;
@@ -173,28 +176,48 @@ public:
   size_t mem_size;
 
   // e.g. connect_to: "192.168.2.134"
-  RDMACommunicator(Memory *mem_op, size_t mem_size, char* connect_to)
-      : Communicator(mem_op), mem_size(mem_size) {
+  RDMACommunicator(Memory *mem_op, size_t mem_size, bool is_server = false,
+                   bool is_client = false, std::string client_ip = "",
+                   uint16_t client_port = 0, std::string server_ip = "",
+                   uint16_t server_port = 0)
+      : Communicator(mem_op), mem_size(mem_size), is_server(is_server),
+        is_client(is_client) {
     status_t sret;
     logDebug("init sockaddr");
-    this->init_sockaddr(connect_to);
+    if (server_ip == "")
+      server_ip = "0.0.0.0";
+    if (server_port == 0)
+      server_port = RDMA_DEFAULT_PORT;
+    if (is_client && client_ip == "") {
+      logError("client_ip must be set for client.");
+      return;
+    }
+    if (client_port == 0)
+      client_port = RDMA_DEFAULT_PORT;
+    this->Init_sockaddr(client_ip.c_str(), client_port, server_ip.c_str(),
+                        server_port);
     logDebug("alloc buffer");
     sret = this->alloc_buffer(this->mem_size);
     if (sret != status_t::SUCCESS) {
-      return ;
+      return;
     }
-    logDebug("setup server");
-    setup_server();
-    logDebug("setup client");
-    setup_client();
+
+    if (is_server) {
+      logDebug("setup server");
+      setup_server();
+    }
+    if (is_client) {
+      logDebug("setup client");
+      setup_client();
+    }
   };
+
   ~RDMACommunicator() {
     Close();
     if (is_buffer_ok) {
       this->mem_op->free_buffer(this->share_buffer);
     }
   }
-
   // for rdma, client and server operate the same buffer
   status_t alloc_buffer(size_t size) {
     status_t sret = status_t::SUCCESS;
@@ -208,18 +231,19 @@ public:
     return sret;
   };
 
-  status_t init_sockaddr(char* connect_to) {
+  status_t Init_sockaddr(const char *client_ip, uint16_t client_port,
+                         const char *server_ip, uint16_t server_port) {
     status_t sret = status_t::SUCCESS;
     // server addr
     bzero(&this->server_addr, sizeof this->server_addr);
     this->server_addr.sin_family = AF_INET;
-    this->server_addr.sin_port = htons(RDMA_DEFAULT_PORT);
-    inet_pton(AF_INET, "0.0.0.0", &this->server_addr.sin_addr);
+    this->server_addr.sin_port = htons(server_port);
+    inet_pton(AF_INET, server_ip, &this->server_addr.sin_addr);
     // client addr
     bzero(&this->client_addr, sizeof this->client_addr);
     this->client_addr.sin_family = AF_INET;
-    this->client_addr.sin_port = htons(RDMA_DEFAULT_PORT);
-    inet_pton(AF_INET, connect_to, &this->client_addr.sin_addr);
+    this->client_addr.sin_port = htons(client_port);
+    inet_pton(AF_INET, client_ip, &this->client_addr.sin_addr);
     return status_t::SUCCESS;
   }
 
@@ -242,9 +266,8 @@ private:
   status_t process_rdma_cm_event(struct rdma_event_channel *echannel,
                                  enum rdma_cm_event_type expected_event,
                                  struct rdma_cm_event **cm_event);
-  status_t process_work_completion_events(struct ibv_comp_channel *comp_channel,
-                                          struct ibv_wc *wc, int max_wc,
-                                          int *wc_count);
+  int process_work_completion_events(struct ibv_comp_channel *comp_channel,
+                                     struct ibv_wc *wc, int max_wc);
   struct ibv_mr *rdma_buffer_register(struct ibv_pd *pd, void *addr,
                                       uint32_t length,
                                       enum ibv_access_flags permission);

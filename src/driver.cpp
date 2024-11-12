@@ -65,7 +65,7 @@ status_t rocm_init(int device_id) {
 
   if (device_id >= deviceCount) {
     logError("Requested ROCm device %d but found only %d device(s).", device_id,
-           deviceCount);
+             deviceCount);
     return status_t::ERROR;
   }
 
@@ -86,9 +86,10 @@ status_t rocm_init(int device_id) {
   snprintf(archName, 256, "%d", prop.gcnArch);
 #endif
 
-  logInfo("Using ROCm Device with ID: %d, Name: %s, PCI Bus ID: 0x%x, GCN Arch: "
-         "%s.",
-         device_id, prop.name, prop.pciBusID, archName);
+  logInfo(
+      "Using ROCm Device with ID: %d, Name: %s, PCI Bus ID: 0x%x, GCN Arch: "
+      "%s.",
+      device_id, prop.name, prop.pciBusID, archName);
 
   return status_t::SUCCESS;
 }
