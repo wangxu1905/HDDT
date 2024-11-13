@@ -17,7 +17,7 @@ status_t cuda_init(int device_id) {
   // get the cuda device count
   cudaGetDeviceCount(&count);
   if (count == 0) {
-    logError("There is no device.\n");
+    logError("There is no device.");
     return status_t::ERROR;
   }
 
@@ -34,15 +34,16 @@ status_t cuda_init(int device_id) {
 
   // if can't find the device
   if (i == count) {
-    logError("There is no device supporting CUDA 1.x.\n");
+    logError("There is no device supporting CUDA 1.x.");
     return status_t::ERROR;
   }
 
   if (device_id <= count) {
     // set cuda device
     cudaSetDevice(i);
+    logInfo("Using CUDA Device with ID: %d.", device_id);
   } else {
-    logError("Device id does not be supported.\n");
+    logError("Device id does not be supported.");
     return status_t::ERROR;
   }
 
@@ -58,13 +59,13 @@ status_t rocm_init(int device_id) {
   hipError_t error = hipGetDeviceCount(&deviceCount);
 
   if (error != hipSuccess) {
-    printf("hipDeviceGetCount() returned %d\n", error);
+    logError("hipDeviceGetCount() returned %d.", error);
     return status_t::ERROR;
   }
 
   if (device_id >= deviceCount) {
-    printf("Requested ROCm device %d but found only %d device(s)\n", device_id,
-           deviceCount);
+    logError("Requested ROCm device %d but found only %d device(s).", device_id,
+             deviceCount);
     return status_t::ERROR;
   }
 
@@ -85,9 +86,10 @@ status_t rocm_init(int device_id) {
   snprintf(archName, 256, "%d", prop.gcnArch);
 #endif
 
-  printf("Using ROCm Device with ID: %d, Name: %s, PCI Bus ID: 0x%x, GCN Arch: "
-         "%s\n",
-         device_id, prop.name, prop.pciBusID, archName);
+  logInfo(
+      "Using ROCm Device with ID: %d, Name: %s, PCI Bus ID: 0x%x, GCN Arch: "
+      "%s.",
+      device_id, prop.name, prop.pciBusID, archName);
 
   return status_t::SUCCESS;
 }

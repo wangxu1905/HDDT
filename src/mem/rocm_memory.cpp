@@ -8,22 +8,109 @@ namespace hddt {
 /*
  * amd gpu memory
  */
-status_t RocmMemory::init() {}
+status_t RocmMemory::init() { return init_gpu_driver(this->device_id); }
 
-status_t RocmMemory::free() {}
+status_t RocmMemory::free() { return free_gpu_driver(); }
 
-status_t RocmMemory::allocate_buffer(void **addr, size_t size) {}
+status_t RocmMemory::allocate_buffer(void **addr, size_t size) {
+  size_t buf_size = (size + ACCEL_PAGE_SIZE - 1) & ~(ACCEL_PAGE_SIZE - 1);
+  hipError_t ret;
 
-status_t RocmMemory::free_buffer(void *addr) {}
+  if (this->mem_type != memory_type_t::AMD_GPU) {
+    return status_t::UNSUPPORT;
+  }
+
+  logInfo("Allocate memory using hipMalloc.");
+  ret = hipMalloc(addr, buf_size);
+  if (ret != hipSuccess) {
+    logError("failed to allocate memory");
+    return status_t::ERROR;
+  }
+  // todo : dmabuf support :pfn_hsa_amd_portable_export_dmabuf
+  return status_t::SUCCESS;
+}
+
+status_t RocmMemory::free_buffer(void *addr) {
+  hipError_t ret;
+  ret = hipFree(addr);
+  if (ret != hipSuccess) {
+    logError("failed to free memory");
+    return status_t::ERROR;
+  }
+
+  return status_t::SUCCESS;
+}
 
 status_t RocmMemory::copy_host_to_buffer(void *dest, const void *src,
-                                         size_t size) {}
+                                         size_t size) {
+  hipError_t ret;
+
+  if (dest == nullptr || src == nullptr) {
+    logError("HostMemory::copy_host_to_buffer Error.");
+    return status_t::ERROR;
+  }
+  ret = hipMemcpy(dest, src, size, hipMemcpyDeviceToHost);
+  if (ret != hipSuccess) {
+    logError("failed to copy memory from host to memory");
+    return status_t::ERROR;
+  }
+
+  return status_t::SUCCESS;
+}
 
 status_t RocmMemory::copy_buffer_to_host(void *dest, const void *src,
-                                         size_t size) {}
+                                         size_t size) {
+  hipError_t ret;
+
+  if (dest == nullptr || src == nullptr) {
+    logError("HostMemory::copy_host_to_buffer Error.");
+    return status_t::ERROR;
+  }
+  ret = hipMemcpy(dest, src, size, hipMemcpyHostToDevice);
+  if (ret != hipSuccess) {
+    logError("failed to copy memory from host to memory");
+    return status_t::ERROR;
+  }
+
+  return status_t::SUCCESS;
+}
 
 status_t RocmMemory::copy_buffer_to_buffer(void *dest, const void *src,
-                                           size_t size) {}
+                                           size_t size) {
+  hipError_t ret;
 
+  if (dest == nullptr || src == nullptr) {
+    logError("HostMemory::copy_host_to_buffer Error.");
+    return status_t::ERROR;
+  }
+  ret = hipMemcpy(dest, src, size, hipMemcpyDeviceToDevice);
+  if (ret != hipSuccess) {
+    logError("failed to copy memory from host to memory");
+    return status_t::ERROR;
+  }
+
+  return status_t::SUCCESS;
+}
+
+#else
+status_t RocmMemory::init() { return status_t::UNSUPPORT; }
+status_t RocmMemory::free() { return status_t::UNSUPPORT; }
+status_t RocmMemory::allocate_buffer(void **addr, size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t RocmMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
+
+status_t RocmMemory::copy_host_to_buffer(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t RocmMemory::copy_buffer_to_host(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t RocmMemory::copy_buffer_to_buffer(void *dest, const void *src,
+                                           size_t size) {
+  return status_t::UNSUPPORT;
+}
 #endif
 } // namespace hddt

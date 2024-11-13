@@ -44,7 +44,12 @@ class HostMemory : public Memory {
 public:
   HostMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~HostMemory() { this->free(); };
 
@@ -58,12 +63,16 @@ public:
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
 
-#ifdef ENABLE_CUDA
 class CudaMemory : public Memory {
 public:
   CudaMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~CudaMemory() { this->free(); };
 
@@ -76,14 +85,17 @@ public:
   status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
-#endif
 
-#ifdef ENABLE_ROCM
 class RocmMemory : public Memory {
 public:
   RocmMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~RocmMemory() { this->free(); };
 
@@ -96,7 +108,6 @@ public:
   status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
-#endif
 
 } // namespace hddt
 #endif

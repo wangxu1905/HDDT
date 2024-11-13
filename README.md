@@ -30,3 +30,5 @@ make
 4. pytorch
     - `pip3 install torch torchvision torchaudio`
     - `python -c "import torch; print(torch.cuda.is_available())"`
+5. glog
+    - `sudo apt-get install libgoogle-glog-dev`

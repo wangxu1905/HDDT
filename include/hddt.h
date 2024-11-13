@@ -7,24 +7,49 @@
 #endif
 #ifdef ENABLE_ROCM
 #include <hip/hip_runtime.h>
-#include <hsa.h>
-#include <hsa_ext_amd.h>
+#include <hsa/hsa.h>
+#include <hsa/hsa_ext_amd.h>
 #endif
 
 #include <iostream>
 #include <pthread.h>
 
+#include <cstdlib>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <unistd.h>
 
+#include <glog/logging.h>
+
 namespace hddt {
 /* status and log */
 enum class status_t { SUCCESS, ERROR, UNSUPPORT };
-void logError(const char *message);
-void logDebug(const char *message);
-void logInfo(const char *message);
+
+#define logError(fmt, ...)                                                     \
+  do {                                                                         \
+    char buffer[1024];                                                         \
+    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__);            \
+    if (len >= 0) {                                                            \
+      LOG(ERROR) << buffer;                                                    \
+    }                                                                          \
+  } while (0)
+#define logDebug(fmt, ...)                                                     \
+  do {                                                                         \
+    char buffer[1024];                                                         \
+    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__);            \
+    if (len >= 0) {                                                            \
+      LOG(WARNING) << buffer;                                                  \
+    }                                                                          \
+  } while (0)
+#define logInfo(fmt, ...)                                                      \
+  do {                                                                         \
+    char buffer[1024];                                                         \
+    int len = snprintf(buffer, sizeof(buffer), fmt, ##__VA_ARGS__);            \
+    if (len >= 0) {                                                            \
+      LOG(INFO) << buffer;                                                     \
+    }                                                                          \
+  } while (0)
 
 /*
 gpu driver init

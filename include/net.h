@@ -5,13 +5,35 @@
 #include <mem.h>
 #include <string>
 
-namespace hddt {
-enum class communicator_type_t { CLIENT, SERVER };
+#include <infiniband/verbs.h>
+#include <rdma/rdma_cma.h>
 
-class TaskQueue {};
-status_t dummy_mem_alloc(void **addr, size_t length, memory_type_t mem_type);
-// todo dmabuf status_t dummy_mem_free(void **addr, size_t length,
-memory_type_t mem_type;
+#include <arpa/inet.h> // inet_ntoa
+
+#define CQ_CAPACITY (16)
+#define MAX_SGE (2)
+#define MAX_WR (8)
+#define RDMA_DEFAULT_PORT (2024)
+
+struct __attribute((packed)) rdma_buffer_attr {
+  uint64_t address;
+  uint32_t length;
+  union stag {
+    /* if we send, we call it local stags */
+    uint32_t local_stag;
+    /* if we receive, we call it remote stag */
+    uint32_t remote_stag;
+  } stag;
+};
+/* resolves a given destination name to sin_addr */
+int get_addr(char *dst, struct sockaddr *addr);
+
+namespace hddt {
+
+struct socket_addr {
+  uint32_t addr;
+  uint16_t port;
+};
 
 /*
 Communicator: P2P Transport
@@ -19,94 +41,249 @@ implemented by TCP and RDMA(libverbs)
 */
 class Communicator {
 protected:
-  communicator_type_t type;
-  void **send_buffer;
-  void **recv_buffer;
-  // TaskQueue send_task_queue;
-  // TaskQueue recv_task_queue;
+  Memory *mem_op;
 
 public:
-  Communicator(communicator_type_t type, size_t buffer_length) : type(type) {
-    dummy_mem_alloc(this->send_buffer, buffer_length,
-                    memory_type_t::NVIDIA_GPU);
-    dummy_mem_alloc(this->recv_buffer, buffer_length,
-                    memory_type_t::NVIDIA_GPU);
-  }
-  ~Communicator() { std::cout << "Derived destructor" << std::endl; }
+  Communicator(Memory *mem_op) : mem_op(mem_op) { return; }
+  ~Communicator() { this->mem_op->free(); }
 
-  virtual status_t Send();
-  virtual status_t Recv();
+  virtual status_t alloc_buffer(size_t size) { return status_t::SUCCESS; };
+
+  virtual status_t Send() = 0;
+  virtual status_t Recv() = 0;
+  virtual status_t Write(void *addr, size_t length) = 0;
+  virtual status_t Read(void *addr, size_t length) = 0;
+
+  virtual status_t Start() = 0;
+  virtual status_t Close() = 0;
 };
 
 class TCPCommunicator : public Communicator {
 private:
-  std::string ip;
+  char *ip;
   int32_t port;
+  size_t mem_size;
+
+  void *client_send_buffer;
+  void *client_recv_buffer;
+  void *server_send_buffer;
+  void *server_recv_buffer;
+  bool is_buffer_ok = false;
 
 public:
-  TCPCommunicator(communicator_type_t type, size_t buffer_length)
-      : Communicator(type, buffer_length){};
-  ~TCPCommunicator();
+  TCPCommunicator(Memory *mem_op) : Communicator(mem_op){};
+  ~TCPCommunicator() {
+    if (is_buffer_ok) {
+      this->mem_op->free_buffer(this->client_send_buffer);
+      this->mem_op->free_buffer(this->client_recv_buffer);
+      this->mem_op->free_buffer(this->server_send_buffer);
+      this->mem_op->free_buffer(this->server_recv_buffer);
+    }
+  }
+
+  // for TCP, client send data from send_buffer, recv data to recv_buffer
+  status_t alloc_buffer(size_t size) {
+    status_t sret = status_t::SUCCESS;
+    sret = this->mem_op->allocate_buffer(&this->client_send_buffer, size);
+    if (sret != status_t::SUCCESS)
+      return sret;
+    sret = this->mem_op->allocate_buffer(&this->client_recv_buffer, size);
+    if (sret != status_t::SUCCESS)
+      return sret;
+    sret = this->mem_op->allocate_buffer(&this->server_send_buffer, size);
+    if (sret != status_t::SUCCESS)
+      return sret;
+    sret = this->mem_op->allocate_buffer(&this->server_recv_buffer, size);
+    if (sret != status_t::SUCCESS)
+      return sret;
+    this->is_buffer_ok = true;
+    this->mem_size = size;
+    return sret;
+  };
+
   status_t Send();
   status_t Recv();
-};
+  status_t Write(void *addr, size_t length);
+  status_t Read(void *addr, size_t length);
 
-class RDMACommunicator : public Communicator {
-private:
-  struct sockaddr_in server_sockaddr;
-
-  mr pd connection_type // RC, UC， UD
-
-      // rdma
-      struct rdma_event_channel *client_cm_event_channel = NULL;
-  struct rdma_event_channel *server_cm_event_channel = NULL;
-  struct rdma_cm_id *cm_server_id = NULL, *cm_client_id = NULL;
-  struct ibv_pd *pd = NULL;
-  struct ibv_comp_channel *io_completion_channel = NULL;
-  struct ibv_cq *cq = NULL;
-  struct ibv_qp_init_attr qp_init_attr;
-  struct ibv_qp *client_qp = NULL;
-
-  /* RDMA memory resources */
-  struct ibv_mr *client_metadata_mr = NULL, *server_buffer_mr = NULL,
-                *server_metadata_mr = NULL;
-  struct rdma_buffer_attr client_metadata_attr, server_metadata_attr;
-  struct ibv_recv_wr client_recv_wr, *bad_client_recv_wr = NULL;
-  struct ibv_send_wr server_send_wr, *bad_server_send_wr = NULL;
-  struct ibv_sge client_recv_sge, server_send_sge;
-
-public:
-  RDMACommunicator(communicator_type_t type, size_t buffer_length)
-      : Communicator(type, buffer_length){
-
-        };
-  ~RDMACommunicator();
-  status_t Send(); // client_remote_memory_ops();
-  status_t Recv();
-
-  int setup_client_resources();
-  client_prepare_connection(&server_sockaddr);
-  client_pre_post_recv_buffer();
-  client_connect_to_server();
-  client_xchange_metadata_with_server();
-  client_remote_memory_ops();
-  client_disconnect_and_clean();
-  status_t Connect();
-  status_t Close()
-
-      start_rdma_server(&server_sockaddr);
-  setup_client_resources();
-  accept_client_connection();
-  send_server_metadata_to_client();
-  disconnect_and_cleanup();
-  status_t Server();
+  status_t Start();
   status_t Close();
 };
 
-/*
-CommunicatorConfigs: Configs
-implemented by TCP and RDMA(libverbs)
-*/
+class RDMACommunicator : public Communicator {
+  // connection_type : RC, UC，UD : current only support RC
+private:
+  struct sockaddr_in server_addr;
+  struct sockaddr_in server_newconnection_addr; // remote addr (accepted client)
+  struct sockaddr_in client_addr;
+
+  bool is_server = false;
+  bool is_client = false;
+
+  uint8_t initiator_depth = 8; // suggest 2-8
+  uint8_t responder_resources = 8;
+
+  // the RDMA connection identifier
+  // cm: connection management
+  struct rdma_cm_id *server_cm_id = NULL;
+  struct rdma_cm_id *server_cm_newconnection_id = NULL;
+  struct rdma_cm_id *client_cm_id = NULL;
+
+  // queue pair
+  struct ibv_qp *server_newconnection_qp = NULL;
+  struct ibv_qp *client_qp = NULL;
+
+  // Protect Domain
+  struct ibv_pd *server_newconnection_pd = NULL;
+  struct ibv_pd *client_pd = NULL;
+
+  // Memory Region
+  struct ibv_mr *server_newconnection_metadata_mr = NULL;
+  struct ibv_mr *server_metadata_mr = NULL;
+  struct ibv_mr *server_send_buffer_mr = NULL;
+  struct ibv_mr *server_recv_buffer_mr = NULL;
+
+  struct ibv_mr *client_newserver_metadata_mr = NULL;
+  struct ibv_mr *client_metadata_mr = NULL;
+  struct ibv_mr *client_send_buffer_mr = NULL;
+  struct ibv_mr *client_recv_buffer_mr = NULL;
+  struct rdma_buffer_attr
+      server_newconnection_metadata_attr;       // recv from newconnection
+  struct rdma_buffer_attr server_metadata_attr; // send to newconnection
+  struct rdma_buffer_attr client_newserver_metadata_attr; // remote server
+  struct rdma_buffer_attr client_metadata_attr;           // local client
+
+  // Event Channel : report asynchronous communication event
+  struct rdma_event_channel *client_cm_event_channel =
+      NULL; // 是否可以用同一个channel
+  struct rdma_event_channel *server_cm_event_channel = NULL;
+
+  // Completion Channel
+  struct ibv_comp_channel *server_completion_channel = NULL; // newconnection
+  struct ibv_comp_channel *client_completion_channel = NULL;
+
+  // completion queue
+  struct ibv_cq *server_cq = NULL; // notify for receive completion operations
+  struct ibv_cq *client_cq = NULL;
+
+  // init attr
+  struct ibv_qp_init_attr server_qp_init_attr;
+  struct ibv_qp_init_attr client_qp_init_attr;
+
+public:
+  void *share_buffer;
+  bool is_buffer_ok = false;
+  size_t mem_size;
+
+  RDMACommunicator(Memory *mem_op, size_t mem_size, bool is_server = false,
+                   bool is_client = false, std::string client_ip = "",
+                   uint16_t client_port = 0, std::string server_ip = "",
+                   uint16_t server_port = 0)
+      : Communicator(mem_op), mem_size(mem_size), is_server(is_server),
+        is_client(is_client) {
+    status_t sret;
+    logDebug("init sockaddr.");
+    if (server_ip == "")
+      server_ip = "0.0.0.0";
+    if (server_port == 0)
+      server_port = RDMA_DEFAULT_PORT;
+    if (is_client && client_ip == "") {
+      logError("client_ip must be set for client.");
+      return;
+    }
+    if (client_port == 0)
+      client_port = RDMA_DEFAULT_PORT;
+    this->Init_sockaddr(client_ip.c_str(), client_port, server_ip.c_str(),
+                        server_port);
+    logDebug("start alloc buffer.");
+    sret = this->alloc_buffer(this->mem_size);
+    if (sret != status_t::SUCCESS) {
+      return;
+    }
+
+    if (is_server) {
+      logDebug("setup server.");
+      setup_server();
+    }
+    if (is_client) {
+      logDebug("setup client.");
+      setup_client();
+    }
+  };
+
+  ~RDMACommunicator() {
+    Close();
+    if (is_buffer_ok) {
+      this->mem_op->free_buffer(this->share_buffer);
+    }
+  }
+  // for rdma, client and server operate the same buffer
+  status_t alloc_buffer(size_t size) {
+    status_t sret = status_t::SUCCESS;
+    sret = this->mem_op->allocate_buffer(&this->share_buffer, size);
+    if (sret != status_t::SUCCESS)
+      logError("mem_op alloc buffer failed.");
+    return sret;
+    logDebug("mem_op alloc buffer success: %p.", this->share_buffer);
+    this->is_buffer_ok = true;
+    this->mem_size = size;
+    return sret;
+  };
+
+  status_t Init_sockaddr(const char *client_ip, uint16_t client_port,
+                         const char *server_ip, uint16_t server_port) {
+    status_t sret = status_t::SUCCESS;
+    // server addr
+    bzero(&this->server_addr, sizeof this->server_addr);
+    this->server_addr.sin_family = AF_INET;
+    this->server_addr.sin_port = htons(server_port);
+    inet_pton(AF_INET, server_ip, &this->server_addr.sin_addr);
+    // client addr
+    bzero(&this->client_addr, sizeof this->client_addr);
+    this->client_addr.sin_family = AF_INET;
+    this->client_addr.sin_port = htons(client_port);
+    inet_pton(AF_INET, client_ip, &this->client_addr.sin_addr);
+    return status_t::SUCCESS;
+  }
+
+  // IO interface()
+  status_t Send();
+  status_t Recv();
+  status_t Write(void *addr, size_t length);
+  status_t Read(void *addr, size_t length);
+
+  // Control interface
+  status_t Start();
+  status_t Close();
+
+private:
+  status_t post_work_request(struct ibv_qp *qp, uint64_t sge_addr,
+                             size_t sge_length, uint32_t sge_lkey, int sge_num,
+                             ibv_wr_opcode opcode, ibv_send_flags send_flags,
+                             uint32_t remote_key, uint64_t remote_addr,
+                             bool is_send);
+  status_t process_rdma_cm_event(struct rdma_event_channel *echannel,
+                                 enum rdma_cm_event_type expected_event,
+                                 struct rdma_cm_event **cm_event);
+  int process_work_completion_events(struct ibv_comp_channel *comp_channel,
+                                     struct ibv_wc *wc, int max_wc);
+  struct ibv_mr *rdma_buffer_register(struct ibv_pd *pd, void *addr,
+                                      uint32_t length,
+                                      enum ibv_access_flags permission);
+  void rdma_buffer_deregister(struct ibv_mr *mr);
+  void show_rdma_buffer_attr(struct rdma_buffer_attr *attr);
+
+  status_t server_accept_newconnection();
+  status_t server_send_metadata_to_newconnection();
+
+  status_t setup_server();
+  status_t start_server();
+  status_t close_server();
+
+  status_t setup_client();
+  status_t start_client();
+  status_t close_client();
+};
 
 } // namespace hddt
 

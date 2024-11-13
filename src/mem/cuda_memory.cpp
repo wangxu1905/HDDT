@@ -17,7 +17,7 @@ status_t CudaMemory::allocate_buffer(void **addr, size_t size) {
   if (this->mem_type != memory_type_t::NVIDIA_GPU) {
     return status_t::UNSUPPORT;
   }
-
+  logInfo("Allocate memory using cudaMalloc.");
   ret = cudaMalloc(addr, buf_size);
   if (ret != cudaSuccess) {
     logError("failed to allocate memory.");
@@ -92,6 +92,27 @@ status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
   }
 
   return status_t::SUCCESS;
+}
+
+#else
+status_t CudaMemory::init() { return status_t::UNSUPPORT; }
+status_t CudaMemory::free() { return status_t::UNSUPPORT; }
+status_t CudaMemory::allocate_buffer(void **addr, size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t CudaMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
+
+status_t CudaMemory::copy_host_to_buffer(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t CudaMemory::copy_buffer_to_host(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
+                                           size_t size) {
+  return status_t::UNSUPPORT;
 }
 
 #endif
