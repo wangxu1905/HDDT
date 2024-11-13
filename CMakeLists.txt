@@ -16,6 +16,7 @@ option(BUILD_STATIC_LIB "Build static library" OFF)
 # # build gpu-related module
 include(FindRocm)
 include(FindCuda)
+include(FindNeuware)
 
 if(ROCM_FOUND)
     # pass var to code
@@ -61,8 +62,31 @@ elseif(CUDA_FOUND)
     target_include_directories(hddt_cuda_shared PUBLIC ${CUDA_INCLUDE_DIRS})
     target_link_libraries(hddt_cuda_shared PRIVATE ${CUDA_LIBRARIES})
     install(TARGETS hddt_cuda_shared DESTINATION lib)
+
+elseif(NEUWARE_FOUND)
+    # pass var to code
+    add_definitions(-DENABLE_NEUWARE)
+    # set(CMAKE_CXX_COMPILER "cncc" CACHE STRING "C++ compiler" FORCE) # we should use hipcc
+    file(GLOB_RECURSE NEUWARE_SOURCES "src/*/neuware/*.mlu")
+
+    # enable_language(HIP)
+
+    # static
+    if(BUILD_STATIC_LIB)
+        bang_add_library(hddt_neuware_static STATIC ${NEUWARE_SOURCES})  # we should use bang_add_library for neuware
+        target_include_directories(hddt_neuware_static PUBLIC ${NEUWARE_INCLUDE_DIRS})
+        target_link_libraries(hddt_neuware_static PRIVATE ${NEUWARE_LIBRARIES})
+        install(TARGETS hddt_neuware_static DESTINATION lib)
+    endif()
+
+    # dynamic
+    bang_add_library(hddt_neuware_shared SHARED ${NEUWARE_SOURCES})
+    target_include_directories(hddt_neuware_shared PUBLIC ${NEUWARE_INCLUDE_DIRS})
+    target_link_libraries(hddt_neuware_shared PRIVATE ${NEUWARE_LIBRARIES})
+    install(TARGETS hddt_neuware_shared DESTINATION lib)
+
 else()
-    message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
+    message(FATAL_ERROR "ROCm or CUDA or NEUWARE is required but was not found.")
 endif()
 
 
@@ -85,8 +109,10 @@ if(BUILD_STATIC_LIB)
         target_link_libraries(hddt_static_lib PUBLIC hddt_rocm_static)
     elseif(CUDA_FOUND)
         target_link_libraries(hddt_static_lib PUBLIC hddt_cuda_static)
+    elseif(NEUWARE_FOUND)
+        target_link_libraries(hddt_static_lib PUBLIC hddt_neuware_static)
     else()
-        message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
+        message(FATAL_ERROR "ROCm or CUDA or NEUWARE is required but was not found.")
     endif()
 
     # with rdma
@@ -112,8 +138,10 @@ if(ROCM_FOUND)
     target_link_libraries(hddt_shared_lib PUBLIC hddt_rocm_shared)
 elseif(CUDA_FOUND)
     target_link_libraries(hddt_shared_lib PUBLIC hddt_cuda_shared)
+elseif(NEUWARE_FOUND)
+    target_link_libraries(hddt_shared_lib PUBLIC hddt_neuware_shared)
 else()
-    message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
+    message(FATAL_ERROR "ROCm or CUDA or NEUWARE is required but was not found.")
 endif()
 
 # with rdma
@@ -130,7 +158,6 @@ target_include_directories(hddt_shared_lib PUBLIC ${GLOG_INCLUDE_DIRS})
 target_link_libraries(hddt_shared_lib PUBLIC glog)
 
 install(TARGETS hddt_shared_lib DESTINATION lib)
-
 
 # # install header
 install(DIRECTORY include/ DESTINATION include)

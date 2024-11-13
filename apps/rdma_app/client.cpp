@@ -10,12 +10,11 @@ int main() {
   FLAGS_colorlogtostderr = true;
   FLAGS_alsologtostderr = true;
 
-  status_t ret;
-
-  std::string client_ip = "192.168.2.241";
+  std::string client_ip = "192.168.2.251";
 
   // Memory *mem_ops = new CudaMemory(1, memory_type_t::NVIDIA_GPU);
-  Memory *mem_ops = new RocmMemory(1, memory_type_t::AMD_GPU);
+  // Memory *mem_ops = new RocmMemory(1, memory_type_t::AMD_GPU);
+  Memory *mem_ops = new NeuwareMemory(1, memory_type_t::CAMBRICON_MLU);
   // Memory *mem_ops = new HostMemory(1, memory_type_t::CPU);
 
   RDMACommunicator *con =

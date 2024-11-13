@@ -43,7 +43,6 @@ status_t RDMACommunicator::Recv() {
 // client write data to remote server buffer
 status_t RDMACommunicator::Write(void *addr, size_t length) {
   status_t sret;
-  int ret = -1;
   struct ibv_wc wc;
   int wc_count;
 
@@ -70,7 +69,6 @@ status_t RDMACommunicator::Write(void *addr, size_t length) {
 // client read data from remote server buffer
 status_t RDMACommunicator::Read(void *addr, size_t length) {
   status_t sret;
-  int ret = -1;
   struct ibv_wc wc;
   int wc_count;
 
@@ -854,7 +852,6 @@ status_t RDMACommunicator::server_accept_newconnection() {
 status_t RDMACommunicator::server_send_metadata_to_newconnection() {
   struct ibv_wc wc;
   int wc_count;
-  int ret = -1;
   status_t sret;
 
   // Client start a new connection by sending its metadata info.
