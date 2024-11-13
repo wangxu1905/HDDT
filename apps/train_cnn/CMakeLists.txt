@@ -24,7 +24,14 @@ target_include_directories(train_cnn PRIVATE
 
 include(FindPyTorch)
 
+if(ROCM_FOUND)
+target_link_libraries(train_cnn PRIVATE
+    ${TORCH_LIBRARIES}
+    ${GLOG_LIBRARY}  # 使用rocm的glog的库变量
+)
+elseif(CUDA_FOUND)
 target_link_libraries(train_cnn PRIVATE
     ${TORCH_LIBRARIES}
 )
+endif()
 # install(TARGETS train_cnn DESTINATION bin)
