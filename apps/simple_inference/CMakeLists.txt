@@ -12,8 +12,10 @@ if(ROCM_FOUND)
     target_link_libraries(simple_inference PRIVATE hddt_rocm_shared)
 elseif(CUDA_FOUND)
     target_link_libraries(simple_inference PRIVATE hddt_cuda_shared)
+elseif(NEUWARE_FOUND)
+    target_link_libraries(simple_inference PRIVATE hddt_neuware_shared)
 else()
-    message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
+    message(FATAL_ERROR "ROCm or CUDA or NEUWARE is required but was not found.")
 endif()
 
 target_include_directories(simple_inference PRIVATE

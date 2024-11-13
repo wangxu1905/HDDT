@@ -171,9 +171,9 @@ private:
   struct ibv_qp_init_attr client_qp_init_attr;
 
 public:
+  size_t mem_size;
   void *share_buffer;
   bool is_buffer_ok = false;
-  size_t mem_size;
 
   RDMACommunicator(Memory *mem_op, size_t mem_size, bool is_server = false,
                    bool is_client = false, std::string client_ip = "",
@@ -232,7 +232,6 @@ public:
 
   status_t Init_sockaddr(const char *client_ip, uint16_t client_port,
                          const char *server_ip, uint16_t server_port) {
-    status_t sret = status_t::SUCCESS;
     // server addr
     bzero(&this->server_addr, sizeof this->server_addr);
     this->server_addr.sin_family = AF_INET;

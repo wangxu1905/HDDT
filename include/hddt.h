@@ -10,6 +10,11 @@
 #include <hsa/hsa.h>
 #include <hsa/hsa_ext_amd.h>
 #endif
+#ifdef ENABLE_NEUWARE
+#include "cn_api.h" // CNresult
+#include "cnrt.h"
+#include "mlu_op.h"
+#endif
 
 #include <iostream>
 #include <pthread.h>

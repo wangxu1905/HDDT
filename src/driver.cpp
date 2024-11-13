@@ -96,6 +96,31 @@ status_t rocm_init(int device_id) {
 
 #endif
 
+#ifdef ENABLE_NEUWARE
+// neuware driver init
+status_t neuware_init(int device_id) {
+  CNresult ret;
+
+  // cnInit Driver
+  ret = cnInit(0);
+  if (ret != CN_SUCCESS) {
+    logError("failed to cnInit %d", ret);
+    return status_t::ERROR;
+  }
+
+  // need create context first
+  CNcontext context;
+  ret = cnCtxCreate(&context, 0, 0);
+  if (ret != CN_SUCCESS) {
+    logError("failed to create cnCtx %d.", ret);
+    return status_t::ERROR;
+  }
+
+  return status_t::SUCCESS;
+}
+
+#endif
+
 status_t init_gpu_driver(int device_id) {
   status_t ret = status_t::SUCCESS;
 #ifdef ENABLE_CUDA
@@ -103,6 +128,9 @@ status_t init_gpu_driver(int device_id) {
 #endif
 #ifdef ENABLE_ROCM
   ret = rocm_init(device_id);
+#endif
+#ifdef ENABLE_NEUWARE
+  ret = neuware_init(device_id);
 #endif
   return ret;
 }
