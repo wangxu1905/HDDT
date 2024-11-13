@@ -9,13 +9,13 @@ int main() {
   // google::SetLogDestination(google::GLOG_INFO, "./today");
   FLAGS_colorlogtostderr = true;
   FLAGS_alsologtostderr = true;
-  FLAGS_timestamp_in_logfile_name = false;
 
   status_t ret;
 
-  std::string client_ip = "192.168.2.245";
+  std::string client_ip = "192.168.2.241";
 
-  CudaMemory *mem_ops = new CudaMemory(1, memory_type_t::NVIDIA_GPU);
+  // Memory *mem_ops = new CudaMemory(1, memory_type_t::NVIDIA_GPU);
+  Memory *mem_ops = new RocmMemory(1, memory_type_t::AMD_GPU);
   // Memory *mem_ops = new HostMemory(1, memory_type_t::CPU);
 
   RDMACommunicator *con =

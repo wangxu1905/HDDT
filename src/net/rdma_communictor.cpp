@@ -415,8 +415,6 @@ status_t RDMACommunicator::setup_client() {
     logError("Failed to alloc pd.");
     return status_t::ERROR;
   }
-  logDebug("pd allocated at %p.", this->client_pd);
-
   // 5. prepare client's memory region
   ibv_access_flags access = static_cast<const ibv_access_flags>(
       IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_READ |
@@ -749,7 +747,11 @@ RDMACommunicator::rdma_buffer_register(struct ibv_pd *pd, void *addr,
     logError("Protection domain is NULL, ignoring.");
     return NULL;
   }
-  mr = ibv_reg_mr(pd, addr, length, permission);
+
+  logDebug("rdma_buffer_register: pd is %p, addr is %p, len is %d, permission "
+           "is %d.",
+           pd, addr, length, permission);
+  mr = ibv_reg_mr(pd, addr, length, permission); // todo error
   if (!mr) {
     logError("Failed to create mr on buffer.");
     return NULL;

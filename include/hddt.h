@@ -7,13 +7,14 @@
 #endif
 #ifdef ENABLE_ROCM
 #include <hip/hip_runtime.h>
-#include <hsa.h>
-#include <hsa_ext_amd.h>
+#include <hsa/hsa.h>
+#include <hsa/hsa_ext_amd.h>
 #endif
 
 #include <iostream>
 #include <pthread.h>
 
+#include <cstdlib>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>

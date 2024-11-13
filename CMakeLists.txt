@@ -20,8 +20,9 @@ include(FindCuda)
 if(ROCM_FOUND)
     # pass var to code
     add_definitions(-DENABLE_ROCM)
-
+    set(CMAKE_CXX_COMPILER "hipcc" CACHE STRING "C++ compiler" FORCE) # we should use hipcc
     enable_language(HIP)
+    add_definitions(-D__HIP_PLATFORM_AMD__)
 
     file(GLOB_RECURSE ROCM_SOURCES "src/*/rocm/*.hip")
 

@@ -175,7 +175,6 @@ public:
   bool is_buffer_ok = false;
   size_t mem_size;
 
-  // e.g. connect_to: "192.168.2.134"
   RDMACommunicator(Memory *mem_op, size_t mem_size, bool is_server = false,
                    bool is_client = false, std::string client_ip = "",
                    uint16_t client_port = 0, std::string server_ip = "",
@@ -183,7 +182,7 @@ public:
       : Communicator(mem_op), mem_size(mem_size), is_server(is_server),
         is_client(is_client) {
     status_t sret;
-    logDebug("init sockaddr");
+    logDebug("init sockaddr.");
     if (server_ip == "")
       server_ip = "0.0.0.0";
     if (server_port == 0)
@@ -196,18 +195,18 @@ public:
       client_port = RDMA_DEFAULT_PORT;
     this->Init_sockaddr(client_ip.c_str(), client_port, server_ip.c_str(),
                         server_port);
-    logDebug("alloc buffer");
+    logDebug("start alloc buffer.");
     sret = this->alloc_buffer(this->mem_size);
     if (sret != status_t::SUCCESS) {
       return;
     }
 
     if (is_server) {
-      logDebug("setup server");
+      logDebug("setup server.");
       setup_server();
     }
     if (is_client) {
-      logDebug("setup client");
+      logDebug("setup client.");
       setup_client();
     }
   };
@@ -221,11 +220,11 @@ public:
   // for rdma, client and server operate the same buffer
   status_t alloc_buffer(size_t size) {
     status_t sret = status_t::SUCCESS;
-    logDebug("mem op alloc buffer");
     sret = this->mem_op->allocate_buffer(&this->share_buffer, size);
     if (sret != status_t::SUCCESS)
-      return sret;
-    logDebug("mem op alloc buffer ok");
+      logError("mem_op alloc buffer failed.");
+    return sret;
+    logDebug("mem_op alloc buffer success: %p.", this->share_buffer);
     this->is_buffer_ok = true;
     this->mem_size = size;
     return sret;

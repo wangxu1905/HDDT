@@ -44,7 +44,12 @@ class HostMemory : public Memory {
 public:
   HostMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~HostMemory() { this->free(); };
 
@@ -62,7 +67,12 @@ class CudaMemory : public Memory {
 public:
   CudaMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~CudaMemory() { this->free(); };
 
@@ -80,7 +90,12 @@ class RocmMemory : public Memory {
 public:
   RocmMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~RocmMemory() { this->free(); };
 
