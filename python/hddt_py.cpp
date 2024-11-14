@@ -1,4 +1,4 @@
-#include "hddt.h"W
+#include "hddt.h"
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;
