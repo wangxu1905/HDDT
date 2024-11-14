@@ -12947,3 +12947,1221 @@ events:
         8.9 8.9 8.9 8.9 
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_013e6/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_013e6.dir/build.make CMakeFiles/cmTC_013e6.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_013e6.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_013e6.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_013e6
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_013e6.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_013e6.dir/detect_cuda_version.cc.o -o cmTC_013e6  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7eef5/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_7eef5.dir/build.make CMakeFiles/cmTC_7eef5.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_7eef5.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_7eef5.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_7eef5.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_7eef5.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_7eef5
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7eef5.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_7eef5.dir/objects1.rsp -o cmTC_7eef5 @CMakeFiles/cmTC_7eef5.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+      exitCode: 255
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7c383/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_7c383.dir/build.make CMakeFiles/cmTC_7c383.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_7c383.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_7c383.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_7c383
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c383.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_7c383.dir/detect_cuda_version.cc.o -o cmTC_7c383  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d7e2a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_d7e2a.dir/build.make CMakeFiles/cmTC_d7e2a.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_d7e2a.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_d7e2a.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_d7e2a.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_d7e2a.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_d7e2a
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d7e2a.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_d7e2a.dir/objects1.rsp -o cmTC_d7e2a @CMakeFiles/cmTC_d7e2a.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+      exitCode: 255
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c1d16/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c1d16.dir/build.make CMakeFiles/cmTC_c1d16.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_c1d16.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_c1d16.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_c1d16
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c1d16.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_c1d16.dir/detect_cuda_version.cc.o -o cmTC_c1d16  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ca650/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ca650.dir/build.make CMakeFiles/cmTC_ca650.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_ca650.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_ca650.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_ca650.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_ca650.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_ca650
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca650.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_ca650.dir/objects1.rsp -o cmTC_ca650 @CMakeFiles/cmTC_ca650.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+      exitCode: 255
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_11753/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_11753.dir/build.make CMakeFiles/cmTC_11753.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_11753.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_11753.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_11753
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_11753.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_11753.dir/detect_cuda_version.cc.o -o cmTC_11753  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c57d6/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c57d6.dir/build.make CMakeFiles/cmTC_c57d6.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_c57d6.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_c57d6.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_c57d6.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_c57d6.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_c57d6
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c57d6.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_c57d6.dir/objects1.rsp -o cmTC_c57d6 @CMakeFiles/cmTC_c57d6.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+      exitCode: 255
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d7d9a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_d7d9a.dir/build.make CMakeFiles/cmTC_d7d9a.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_d7d9a.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_d7d9a.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_d7d9a
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d7d9a.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_d7d9a.dir/detect_cuda_version.cc.o -o cmTC_d7d9a  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_32104/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_32104.dir/build.make CMakeFiles/cmTC_32104.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_32104.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_32104.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_32104.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_32104.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_32104
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_32104.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_32104.dir/objects1.rsp -o cmTC_32104 @CMakeFiles/cmTC_32104.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_2cb8a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_2cb8a.dir/build.make CMakeFiles/cmTC_2cb8a.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_2cb8a.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_2cb8a.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_2cb8a
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2cb8a.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_2cb8a.dir/detect_cuda_version.cc.o -o cmTC_2cb8a  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8377c/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_8377c.dir/build.make CMakeFiles/cmTC_8377c.dir/build
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_8377c.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_8377c.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_8377c.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_8377c.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_8377c
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8377c.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_8377c.dir/objects1.rsp -o cmTC_8377c @CMakeFiles/cmTC_8377c.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_e7129/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_e7129.dir/build.make CMakeFiles/cmTC_e7129.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_e7129.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_e7129.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_e7129
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e7129.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_e7129.dir/detect_cuda_version.cc.o -o cmTC_e7129  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8ebc8/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_8ebc8.dir/build.make CMakeFiles/cmTC_8ebc8.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_8ebc8.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_8ebc8.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_8ebc8.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_8ebc8.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_8ebc8
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8ebc8.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_8ebc8.dir/objects1.rsp -o cmTC_8ebc8 @CMakeFiles/cmTC_8ebc8.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ff7f2/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ff7f2.dir/build.make CMakeFiles/cmTC_ff7f2.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_ff7f2.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_ff7f2.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_ff7f2
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ff7f2.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_ff7f2.dir/detect_cuda_version.cc.o -o cmTC_ff7f2  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_33aeb/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_33aeb.dir/build.make CMakeFiles/cmTC_33aeb.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_33aeb.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_33aeb.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_33aeb.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_33aeb.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_33aeb
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_33aeb.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_33aeb.dir/objects1.rsp -o cmTC_33aeb @CMakeFiles/cmTC_33aeb.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_232f0/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_232f0.dir/build.make CMakeFiles/cmTC_232f0.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_232f0.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_232f0.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_232f0
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_232f0.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_232f0.dir/detect_cuda_version.cc.o -o cmTC_232f0  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9017f/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9017f.dir/build.make CMakeFiles/cmTC_9017f.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_9017f.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_9017f.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_9017f.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_9017f.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_9017f
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9017f.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_9017f.dir/objects1.rsp -o cmTC_9017f @CMakeFiles/cmTC_9017f.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d58df/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_d58df.dir/build.make CMakeFiles/cmTC_d58df.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_d58df.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_d58df.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_d58df
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d58df.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_d58df.dir/detect_cuda_version.cc.o -o cmTC_d58df  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_fcdf9/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_fcdf9.dir/build.make CMakeFiles/cmTC_fcdf9.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_fcdf9.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_fcdf9.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_fcdf9.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_fcdf9.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_fcdf9
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fcdf9.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_fcdf9.dir/objects1.rsp -o cmTC_fcdf9 @CMakeFiles/cmTC_fcdf9.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_2c815/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_2c815.dir/build.make CMakeFiles/cmTC_2c815.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_2c815.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_2c815.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_2c815
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2c815.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_2c815.dir/detect_cuda_version.cc.o -o cmTC_2c815  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3aa21/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3aa21.dir/build.make CMakeFiles/cmTC_3aa21.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_3aa21.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_3aa21.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_3aa21.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_3aa21.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_3aa21
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3aa21.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_3aa21.dir/objects1.rsp -o cmTC_3aa21 @CMakeFiles/cmTC_3aa21.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_abc4a/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_abc4a.dir/build.make CMakeFiles/cmTC_abc4a.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_abc4a.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_abc4a.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_abc4a
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_abc4a.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_abc4a.dir/detect_cuda_version.cc.o -o cmTC_abc4a  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3f4bc/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3f4bc.dir/build.make CMakeFiles/cmTC_3f4bc.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_3f4bc.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_3f4bc.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_3f4bc.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_3f4bc.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_3f4bc
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3f4bc.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_3f4bc.dir/objects1.rsp -o cmTC_3f4bc @CMakeFiles/cmTC_3f4bc.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_28252/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_28252.dir/build.make CMakeFiles/cmTC_28252.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_28252.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_28252.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_version.cc
+        Linking CXX executable cmTC_28252
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_28252.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_28252.dir/detect_cuda_version.cc.o -o cmTC_28252  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/train_cnn/CMakeLists.txt:23 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_185f8/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_185f8.dir/build.make CMakeFiles/cmTC_185f8.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_185f8.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_185f8.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_185f8.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_185f8.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_185f8
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_185f8.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_185f8.dir/objects1.rsp -o cmTC_185f8 @CMakeFiles/cmTC_185f8.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/train_cnn/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:99 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_71597/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_71597.dir/build.make CMakeFiles/cmTC_71597.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CXX object CMakeFiles/cmTC_71597.dir/detect_cuda_version.cc.o
+        /usr/bin/c++  -I/usr/local/cuda/include  -o CMakeFiles/cmTC_71597.dir/detect_cuda_version.cc.o -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_version.cc
+        Linking CXX executable cmTC_71597
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_71597.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_71597.dir/detect_cuda_version.cc.o -o cmTC_71597  -Wl,-rpath,/usr/local/cuda/lib64 /usr/local/cuda/lib64/libcudart.so 
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        12.6
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:113 (try_run)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Modules_CUDA_fix/upstream/FindCUDA/select_compute_arch.cmake:173 (CUDA_DETECT_INSTALLED_GPUS)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/utils.cmake:333 (cuda_select_nvcc_arch_flags)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/cuda.cmake:327 (torch_cuda_get_nvcc_gencode_flag)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/Caffe2Config.cmake:86 (include)"
+      - "/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "cmake/FindPyTorch.cmake:24 (find_package)"
+      - "apps/torch_app/CMakeLists.txt:17 (include)"
+    directories:
+      source: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+      binary: "/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CUDA_ARCHITECTURES: "52"
+      CMAKE_CUDA_FLAGS: ""
+      CMAKE_CUDA_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/mahaoyuan/mhyHDDT/HDDT/cmake;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2;/home/mahaoyuan/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/share/cmake/Caffe2/public/../Modules_CUDA_fix"
+    buildResult:
+      variable: "compile_result"
+      cached: true
+      stdout: |
+        Change Dir: '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_df294/fast
+        gmake[1]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        /usr/bin/gmake  -f CMakeFiles/cmTC_df294.dir/build.make CMakeFiles/cmTC_df294.dir/build
+        gmake[2]: Entering directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        Building CUDA object CMakeFiles/cmTC_df294.dir/detect_cuda_compute_capabilities.cu.o
+        /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler   "--generate-code=arch=compute_52,code=[compute_52,sm_52]" -MD -MT CMakeFiles/cmTC_df294.dir/detect_cuda_compute_capabilities.cu.o -MF CMakeFiles/cmTC_df294.dir/detect_cuda_compute_capabilities.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/detect_cuda_compute_capabilities.cu -o CMakeFiles/cmTC_df294.dir/detect_cuda_compute_capabilities.cu.o
+        Linking CUDA executable cmTC_df294
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df294.dir/link.txt --verbose=1
+        /usr/bin/g++ @CMakeFiles/cmTC_df294.dir/objects1.rsp -o cmTC_df294 @CMakeFiles/cmTC_df294.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
+        gmake[2]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        gmake[1]: Leaving directory '/home/mahaoyuan/mhyHDDT/HDDT/apps/torch_app/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+    runResult:
+      variable: "run_result"
+      cached: true
+      stdout: |
+        8.9 8.9 8.9 8.9 
+      exitCode: 0
+...

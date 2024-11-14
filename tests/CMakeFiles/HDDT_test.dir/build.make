@@ -69,19 +69,19 @@ include tests/CMakeFiles/HDDT_test.dir/progress.make
 # Include the compile flags for this target's objects.
 include tests/CMakeFiles/HDDT_test.dir/flags.make
 
-tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
-tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o: tests/cuda_memory_test.cpp
-tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o"
-	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o -MF CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o.d -o CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/tests/cuda_memory_test.cpp
+tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
+tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o: tests/hddt_memory_test.cpp
+tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o"
+	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o -MF CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o.d -o CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/tests/hddt_memory_test.cpp
 
-tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.i"
-	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mahaoyuan/mhyHDDT/HDDT/tests/cuda_memory_test.cpp > CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.i
+tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.i"
+	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mahaoyuan/mhyHDDT/HDDT/tests/hddt_memory_test.cpp > CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.i
 
-tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.s"
-	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mahaoyuan/mhyHDDT/HDDT/tests/cuda_memory_test.cpp -o CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.s
+tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.s"
+	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mahaoyuan/mhyHDDT/HDDT/tests/hddt_memory_test.cpp -o CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.s
 
 tests/CMakeFiles/HDDT_test.dir/__/src/driver.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/driver.cpp.o: src/driver.cpp
@@ -125,10 +125,24 @@ tests/CMakeFiles/HDDT_test.dir/__/src/mem/cuda_memory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HDDT_test.dir/__/src/mem/cuda_memory.cpp.s"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mahaoyuan/mhyHDDT/HDDT/src/mem/cuda_memory.cpp -o CMakeFiles/HDDT_test.dir/__/src/mem/cuda_memory.cpp.s
 
+tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
+tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o: src/mem/hddt_memory.cpp
+tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o"
+	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp
+
+tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.i"
+	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp > CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.i
+
+tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.s"
+	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp -o CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.s
+
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o: src/mem/host_memory.cpp
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/mem/host_memory.cpp
 
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.i: cmake_force
@@ -142,7 +156,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.s: cmake_force
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o: src/mem/rocm_memory.cpp
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/mem/rocm_memory.cpp
 
 tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.i: cmake_force
@@ -157,7 +171,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o: tests/CMake
 tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o: tests/CMakeFiles/HDDT_test.dir/includes_CUDA.rsp
 tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o: src/net/cuda/net_cuda_reduce.cu
 tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CUDA object tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CUDA object tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o -MF CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/cuda/net_cuda_reduce.cu -o CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o
 
 tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.i: cmake_force
@@ -171,7 +185,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.s: cmake_force
 tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o: src/net/net.cpp
 tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/net.cpp
 
 tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.i: cmake_force
@@ -185,7 +199,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/net/net.cpp.s: cmake_force
 tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o: src/net/rdmaCommunictor.cpp
 tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/rdmaCommunictor.cpp
 
 tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.i: cmake_force
@@ -199,7 +213,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/net/rdmaCommunictor.cpp.s: cmake_force
 tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o: src/net/tcpCommunictor.cpp
 tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/tcpCommunictor.cpp
 
 tests/CMakeFiles/HDDT_test.dir/__/src/net/tcpCommunictor.cpp.i: cmake_force
@@ -214,7 +228,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o: tests/CMakeFiles
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o: tests/CMakeFiles/HDDT_test.dir/includes_CUDA.rsp
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o: src/nn/cuda/nn_cuda_cnn.cu
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CUDA object tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CUDA object tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o -MF CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o.d -x cu -c /home/mahaoyuan/mhyHDDT/HDDT/src/nn/cuda/nn_cuda_cnn.cu -o CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.o
 
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.i: cmake_force
@@ -228,7 +242,7 @@ tests/CMakeFiles/HDDT_test.dir/__/src/nn/cuda/nn_cuda_cnn.cu.s: cmake_force
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o: tests/CMakeFiles/HDDT_test.dir/flags.make
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o: src/nn/nn.cpp
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o: tests/CMakeFiles/HDDT_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o -MF CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o.d -o CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/nn/nn.cpp
 
 tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.i: cmake_force
@@ -241,10 +255,11 @@ tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.s: cmake_force
 
 # Object files for target HDDT_test
 HDDT_test_OBJECTS = \
-"CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o" \
+"CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o" \
 "CMakeFiles/HDDT_test.dir/__/src/driver.cpp.o" \
 "CMakeFiles/HDDT_test.dir/__/src/log.cpp.o" \
 "CMakeFiles/HDDT_test.dir/__/src/mem/cuda_memory.cpp.o" \
+"CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o" \
 "CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o" \
 "CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o" \
 "CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o" \
@@ -257,10 +272,11 @@ HDDT_test_OBJECTS = \
 # External object files for target HDDT_test
 HDDT_test_EXTERNAL_OBJECTS =
 
-tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o
+tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/driver.cpp.o
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/log.cpp.o
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/mem/cuda_memory.cpp.o
+tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/mem/host_memory.cpp.o
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/__/src/net/cuda/net_cuda_reduce.cu.o
@@ -273,7 +289,7 @@ tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/build.make
 tests/HDDT_test: /usr/lib/x86_64-linux-gnu/libgtest_main.a
 tests/HDDT_test: /usr/lib/x86_64-linux-gnu/libgtest.a
 tests/HDDT_test: tests/CMakeFiles/HDDT_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable HDDT_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable HDDT_test"
 	cd /home/mahaoyuan/mhyHDDT/HDDT/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HDDT_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

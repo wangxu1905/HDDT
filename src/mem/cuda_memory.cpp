@@ -2,7 +2,6 @@
 
 namespace hddt {
 
-#ifdef ENABLE_CUDA
 /*
  * nvidia gpu memory
  */
@@ -96,6 +95,5 @@ status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-#endif
 
 } // namespace hddt

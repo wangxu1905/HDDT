@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/hddt_shared_lib.dir/src/log.cpp.o.d"
   "CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.o"
   "CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.o.d"
+  "CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o"
+  "CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o.d"
   "CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o"
   "CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o.d"
   "CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o"

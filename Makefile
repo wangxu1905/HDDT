@@ -324,6 +324,30 @@ src/mem/cuda_memory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.s
 .PHONY : src/mem/cuda_memory.cpp.s
 
+src/mem/hddt_memory.o: src/mem/hddt_memory.cpp.o
+.PHONY : src/mem/hddt_memory.o
+
+# target to build an object file
+src/mem/hddt_memory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o
+.PHONY : src/mem/hddt_memory.cpp.o
+
+src/mem/hddt_memory.i: src/mem/hddt_memory.cpp.i
+.PHONY : src/mem/hddt_memory.i
+
+# target to preprocess a source file
+src/mem/hddt_memory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.i
+.PHONY : src/mem/hddt_memory.cpp.i
+
+src/mem/hddt_memory.s: src/mem/hddt_memory.cpp.s
+.PHONY : src/mem/hddt_memory.s
+
+# target to generate assembly for a file
+src/mem/hddt_memory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.s
+.PHONY : src/mem/hddt_memory.cpp.s
+
 src/mem/host_memory.o: src/mem/host_memory.cpp.o
 .PHONY : src/mem/host_memory.o
 
@@ -544,6 +568,9 @@ help:
 	@echo "... src/mem/cuda_memory.o"
 	@echo "... src/mem/cuda_memory.i"
 	@echo "... src/mem/cuda_memory.s"
+	@echo "... src/mem/hddt_memory.o"
+	@echo "... src/mem/hddt_memory.i"
+	@echo "... src/mem/hddt_memory.s"
 	@echo "... src/mem/host_memory.o"
 	@echo "... src/mem/host_memory.i"
 	@echo "... src/mem/host_memory.s"

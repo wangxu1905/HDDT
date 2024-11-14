@@ -247,6 +247,30 @@ __/src/mem/cuda_memory.cpp.s:
 	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/__/src/mem/cuda_memory.cpp.s
 .PHONY : __/src/mem/cuda_memory.cpp.s
 
+__/src/mem/hddt_memory.o: __/src/mem/hddt_memory.cpp.o
+.PHONY : __/src/mem/hddt_memory.o
+
+# target to build an object file
+__/src/mem/hddt_memory.cpp.o:
+	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.o
+.PHONY : __/src/mem/hddt_memory.cpp.o
+
+__/src/mem/hddt_memory.i: __/src/mem/hddt_memory.cpp.i
+.PHONY : __/src/mem/hddt_memory.i
+
+# target to preprocess a source file
+__/src/mem/hddt_memory.cpp.i:
+	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.i
+.PHONY : __/src/mem/hddt_memory.cpp.i
+
+__/src/mem/hddt_memory.s: __/src/mem/hddt_memory.cpp.s
+.PHONY : __/src/mem/hddt_memory.s
+
+# target to generate assembly for a file
+__/src/mem/hddt_memory.cpp.s:
+	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/__/src/mem/hddt_memory.cpp.s
+.PHONY : __/src/mem/hddt_memory.cpp.s
+
 __/src/mem/host_memory.o: __/src/mem/host_memory.cpp.o
 .PHONY : __/src/mem/host_memory.o
 
@@ -439,29 +463,29 @@ __/src/nn/nn.cpp.s:
 	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/__/src/nn/nn.cpp.s
 .PHONY : __/src/nn/nn.cpp.s
 
-cuda_memory_test.o: cuda_memory_test.cpp.o
-.PHONY : cuda_memory_test.o
+hddt_memory_test.o: hddt_memory_test.cpp.o
+.PHONY : hddt_memory_test.o
 
 # target to build an object file
-cuda_memory_test.cpp.o:
-	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.o
-.PHONY : cuda_memory_test.cpp.o
+hddt_memory_test.cpp.o:
+	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.o
+.PHONY : hddt_memory_test.cpp.o
 
-cuda_memory_test.i: cuda_memory_test.cpp.i
-.PHONY : cuda_memory_test.i
+hddt_memory_test.i: hddt_memory_test.cpp.i
+.PHONY : hddt_memory_test.i
 
 # target to preprocess a source file
-cuda_memory_test.cpp.i:
-	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.i
-.PHONY : cuda_memory_test.cpp.i
+hddt_memory_test.cpp.i:
+	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.i
+.PHONY : hddt_memory_test.cpp.i
 
-cuda_memory_test.s: cuda_memory_test.cpp.s
-.PHONY : cuda_memory_test.s
+hddt_memory_test.s: hddt_memory_test.cpp.s
+.PHONY : hddt_memory_test.s
 
 # target to generate assembly for a file
-cuda_memory_test.cpp.s:
-	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/cuda_memory_test.cpp.s
-.PHONY : cuda_memory_test.cpp.s
+hddt_memory_test.cpp.s:
+	cd /home/mahaoyuan/mhyHDDT/HDDT && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/HDDT_test.dir/build.make tests/CMakeFiles/HDDT_test.dir/hddt_memory_test.cpp.s
+.PHONY : hddt_memory_test.cpp.s
 
 # Help Target
 help:
@@ -485,6 +509,9 @@ help:
 	@echo "... __/src/mem/cuda_memory.o"
 	@echo "... __/src/mem/cuda_memory.i"
 	@echo "... __/src/mem/cuda_memory.s"
+	@echo "... __/src/mem/hddt_memory.o"
+	@echo "... __/src/mem/hddt_memory.i"
+	@echo "... __/src/mem/hddt_memory.s"
 	@echo "... __/src/mem/host_memory.o"
 	@echo "... __/src/mem/host_memory.i"
 	@echo "... __/src/mem/host_memory.s"
@@ -509,9 +536,9 @@ help:
 	@echo "... __/src/nn/nn.o"
 	@echo "... __/src/nn/nn.i"
 	@echo "... __/src/nn/nn.s"
-	@echo "... cuda_memory_test.o"
-	@echo "... cuda_memory_test.i"
-	@echo "... cuda_memory_test.s"
+	@echo "... hddt_memory_test.o"
+	@echo "... hddt_memory_test.i"
+	@echo "... hddt_memory_test.s"
 .PHONY : help
 
 

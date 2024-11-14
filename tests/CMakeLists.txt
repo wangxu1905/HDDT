@@ -12,7 +12,7 @@ set(BINARY ${CMAKE_PROJECT_NAME}_test)
 file(GLOB_RECURSE SOURCES LIST_DIRECTORIES false ${CMAKE_SOURCE_DIR}/src/mem/*.cpp ${CMAKE_SOURCE_DIR}/src/* .cpp)
 
 # 查找测试文件
-file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false ${CMAKE_SOURCE_DIR}/tests/cuda_memory_test.cpp)
+file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false ${CMAKE_SOURCE_DIR}/tests/hddt_memory_test.cpp)
 
 # 创建可执行文件
 add_executable(${BINARY} ${TEST_SOURCES} ${SOURCES})

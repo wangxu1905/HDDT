@@ -1,5 +1,5 @@
-tests/CMakeFiles/HDDT_test.dir/__/src/mem/rocm_memory.cpp.o: \
- /home/mahaoyuan/mhyHDDT/HDDT/src/mem/rocm_memory.cpp \
+CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o: \
+ /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp \
  /usr/include/stdc-predef.h /home/mahaoyuan/mhyHDDT/HDDT/include/mem.h \
  /usr/include/c++/13/cstring \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \

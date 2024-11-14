@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/mahaoyuan/mhyHDDT/HDDT/src/driver.cpp" "CMakeFiles/hddt_shared_lib.dir/src/driver.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/driver.cpp.o.d"
   "/home/mahaoyuan/mhyHDDT/HDDT/src/log.cpp" "CMakeFiles/hddt_shared_lib.dir/src/log.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/log.cpp.o.d"
   "/home/mahaoyuan/mhyHDDT/HDDT/src/mem/cuda_memory.cpp" "CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.o.d"
+  "/home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp" "CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o.d"
   "/home/mahaoyuan/mhyHDDT/HDDT/src/mem/host_memory.cpp" "CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o.d"
   "/home/mahaoyuan/mhyHDDT/HDDT/src/mem/rocm_memory.cpp" "CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o.d"
   "/home/mahaoyuan/mhyHDDT/HDDT/src/net/net.cpp" "CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o" "gcc" "CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o.d"

@@ -111,10 +111,24 @@ CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mahaoyuan/mhyHDDT/HDDT/src/mem/cuda_memory.cpp -o CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.s
 
+CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
+CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o: src/mem/hddt_memory.cpp
+CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp
+
+CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp > CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.i
+
+CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mahaoyuan/mhyHDDT/HDDT/src/mem/hddt_memory.cpp -o CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.s
+
 CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
 CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o: src/mem/host_memory.cpp
 CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/mem/host_memory.cpp
 
 CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.s: cmake_force
 CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
 CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o: src/mem/rocm_memory.cpp
 CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/mem/rocm_memory.cpp
 
 CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.s: cmake_force
 CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
 CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o: src/net/net.cpp
 CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/net.cpp
 
 CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.s: cmake_force
 CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
 CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o: src/net/rdmaCommunictor.cpp
 CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/rdmaCommunictor.cpp
 
 CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.s: cmake_force
 CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
 CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o: src/net/tcpCommunictor.cpp
 CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/net/tcpCommunictor.cpp
 
 CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.i: cmake_force
@@ -184,7 +198,7 @@ CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.s: cmake_force
 CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o: CMakeFiles/hddt_shared_lib.dir/flags.make
 CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o: src/nn/nn.cpp
 CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o: CMakeFiles/hddt_shared_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o -MF CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o.d -o CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o -c /home/mahaoyuan/mhyHDDT/HDDT/src/nn/nn.cpp
 
 CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.i: cmake_force
@@ -200,6 +214,7 @@ hddt_shared_lib_OBJECTS = \
 "CMakeFiles/hddt_shared_lib.dir/src/driver.cpp.o" \
 "CMakeFiles/hddt_shared_lib.dir/src/log.cpp.o" \
 "CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.o" \
+"CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o" \
 "CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o" \
 "CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o" \
 "CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o" \
@@ -213,6 +228,7 @@ hddt_shared_lib_EXTERNAL_OBJECTS =
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/driver.cpp.o
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/log.cpp.o
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/mem/cuda_memory.cpp.o
+libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/mem/hddt_memory.cpp.o
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.o
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/mem/rocm_memory.cpp.o
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.o
@@ -222,7 +238,7 @@ libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.o
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/build.make
 libhddt_shared_lib.so: libhddt_cuda_shared.so
 libhddt_shared_lib.so: CMakeFiles/hddt_shared_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX shared library libhddt_shared_lib.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX shared library libhddt_shared_lib.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hddt_shared_lib.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
