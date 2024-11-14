@@ -6,11 +6,40 @@ namespace hddt {
  * Public API
  */
 status_t RDMACommunicator::Start() {
-  if (this->is_server)
-    this->start_server();
-  if (this->is_client)
-    this->start_client();
-  return status_t::SUCCESS;
+  status_t sret = status_t::SUCCESS;
+  std::atomic<status_t> server_sret(status_t::SUCCESS);
+
+  std::thread server_thread([this, &server_sret] {
+    if (this->is_server) {
+      server_sret.store(this->start_server());
+    }
+  });
+  if (this->is_client) {
+    while (this->retry_count < this->retry_times) {
+      sret = this->start_client();
+      if (sret == status_t::SUCCESS) {
+        break;
+      }
+      if (this->retry_count >= this->retry_times) {
+        sret = status_t::ERROR;
+        break;
+      }
+      this->retry_count++;
+      std::this_thread::sleep_for(
+          std::chrono::milliseconds(this->retry_delay_time));
+      logError("Retry to connect server. ...%d.", this->retry_count);
+      sret = this->setup_client(); // we need to re-setup the client.
+      if (sret != status_t::SUCCESS) {
+        break;
+      }
+    }
+  }
+  server_thread.join();
+  if (server_sret.load() != status_t::SUCCESS) {
+    sret = server_sret.load();
+  }
+
+  return sret;
 }
 status_t RDMACommunicator::Close() {
   if (this->is_server)
@@ -66,7 +95,19 @@ status_t RDMACommunicator::Write(void *addr, size_t length) {
   return status_t::SUCCESS;
 }
 
-// client read data from remote server buffer
+/**
+ * @brief Writes data to a remote memory address
+ *
+ * Uses RDMA to write data from the local buffer to a remote memory address.
+ *
+ * @param addr The address of the local buffer that contains the data to be
+ * written
+ * @param length The length of the data to be written
+ *
+ * @return The status code of the operation result
+ *         - Returns status_t::SUCCESS if the operation is successful
+ *         - Returns status_t::ERROR if the operation fails
+ */
 status_t RDMACommunicator::Read(void *addr, size_t length) {
   status_t sret;
   struct ibv_wc wc;
@@ -92,11 +133,16 @@ status_t RDMACommunicator::Read(void *addr, size_t length) {
   return status_t::SUCCESS;
 }
 
-/*
- * Private API
+/**
+ * @brief Set up the server side of the RDMA communicator
+ *
+ * Configure the server side of the RDMA communicator, including creating an
+ * event channel, creating an RDMA ID, and binding the server address.
+ *
+ * @return Returns status_t::SUCCESS if the setup is successful, otherwise
+ * returns status_t::ERROR.
  */
 status_t RDMACommunicator::setup_server() {
-  // allco resources for server and setup server
   int ret = -1;
 
   // 1. event channel
@@ -129,6 +175,14 @@ status_t RDMACommunicator::setup_server() {
   return status_t::SUCCESS;
 }
 
+/**
+ * @brief Starts the RDMA server
+ *
+ * Initiates the RDMA server and waits for client connections.
+ *
+ * @return The status of starting the server, returns status_t::SUCCESS on
+ * success, or status_t::ERROR on failure.
+ */
 status_t RDMACommunicator::start_server() {
   int ret = -1;
   status_t sret;
@@ -337,6 +391,17 @@ status_t RDMACommunicator::close_server() {
   return status_t::SUCCESS;
 }
 
+/**
+ * @brief Sets up the RDMA client
+ *
+ * This function initializes the relevant resources for the RDMA client,
+ * including the event channel, connection manager ID, address resolution, route
+ * resolution, protection domain, memory region, completion channel, completion
+ * queue, and queue pair.
+ *
+ * @return Returns status_t::SUCCESS if setup is successful; otherwise, returns
+ * status_t::ERROR.
+ */
 status_t RDMACommunicator::setup_client() {
   struct rdma_cm_event *cm_event = NULL;
   status_t sret;
@@ -514,8 +579,16 @@ status_t RDMACommunicator::setup_client() {
   return status_t::SUCCESS;
 }
 
+/**
+ * @brief Starts the RDMA client
+ *
+ * This function is used to start the RDMA client, establish a connection with
+ * the RDMA server, and exchange metadata.
+ *
+ * @return Returns the operation status. Returns status_t::SUCCESS on success,
+ * or status_t::ERROR on failure.
+ */
 status_t RDMACommunicator::start_client() {
-  // connect client to server
   struct rdma_conn_param conn_param;
   struct rdma_cm_event *cm_event = NULL;
   int ret = -1;
@@ -530,10 +603,11 @@ status_t RDMACommunicator::start_client() {
     return status_t::ERROR;
   }
   logDebug("Waiting for cm event: RDMA_CM_EVENT_ESTABLISHED.");
+  // retry while connect failed
   sret = process_rdma_cm_event(this->client_cm_event_channel,
                                RDMA_CM_EVENT_ESTABLISHED, &cm_event);
   if (sret != status_t::SUCCESS) {
-    logError("Failed to get cm event.");
+    logError("Failed to connect to server.");
     return status_t::ERROR;
   }
   ret = rdma_ack_cm_event(cm_event);
@@ -570,7 +644,6 @@ status_t RDMACommunicator::start_client() {
     logError("Failed to send client metadata.");
     return sret;
   }
-  // todo : 错误在这里
 
   // waiting and process work completion event
   // expecting 2 work completion. One for send and one for recv

@@ -174,13 +174,18 @@ public:
   size_t mem_size;
   void *share_buffer;
   bool is_buffer_ok = false;
+  int retry_times;
+  int retry_delay_time;
+  int retry_count = 0;
 
   RDMACommunicator(Memory *mem_op, size_t mem_size, bool is_server = false,
                    bool is_client = false, std::string client_ip = "",
                    uint16_t client_port = 0, std::string server_ip = "",
-                   uint16_t server_port = 0)
+                   uint16_t server_port = 0, int retry_times = 10,
+                   int retry_delay_time = 1000)
       : Communicator(mem_op), mem_size(mem_size), is_server(is_server),
-        is_client(is_client) {
+        is_client(is_client), retry_times(retry_times),
+        retry_delay_time(retry_delay_time) {
     status_t sret;
     logDebug("init sockaddr.");
     if (server_ip == "")
