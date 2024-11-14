@@ -11,9 +11,9 @@
 #include <hsa/hsa_ext_amd.h>
 #endif
 #ifdef ENABLE_NEUWARE
+#include "cn_api.h" // CNresult
 #include "cnrt.h"
 #include "mlu_op.h"
-#include "cn_api.h" // CNresult
 #endif
 
 #include <iostream>
@@ -61,6 +61,19 @@ gpu driver init
 */
 status_t init_gpu_driver(int device_id);
 status_t free_gpu_driver();
+
+// pybind11 example code
+int add(int i, int j);
+class Pet {
+public:
+  Pet(const std::string &name) : name(name) {}
+  void setName(const std::string &name_) { name = name_; }
+  const std::string &getName() const { return name; }
+
+private:
+  std::string name;
+};
+
 } // namespace hddt
 
 #endif

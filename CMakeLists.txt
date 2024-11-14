@@ -8,7 +8,11 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 
 # # option
-option(BUILD_STATIC_LIB "Build static library" OFF)
+set(BUILD_STATIC_LIB OFF)
+set(BUILD_PYTHON_MOD ON)
+if(BUILD_PYTHON_MOD)
+    set(BUILD_STATIC_LIB ON)
+endif()
 
 # using clang
 # set(CMAKE_CXX_COMPILER "clang++" CACHE STRING "C++ compiler" FORCE)
@@ -66,22 +70,18 @@ elseif(CUDA_FOUND)
 elseif(NEUWARE_FOUND)
     # pass var to code
     add_definitions(-DENABLE_NEUWARE)
-    # set(CMAKE_CXX_COMPILER "cncc" CACHE STRING "C++ compiler" FORCE) # we should use hipcc
     file(GLOB_RECURSE NEUWARE_SOURCES "src/*/neuware/*.mlu")
 
-    # enable_language(HIP)
-
+    include_directories(${NEUWARE_INCLUDE_DIRS})
     # static
     if(BUILD_STATIC_LIB)
         bang_add_library(hddt_neuware_static STATIC ${NEUWARE_SOURCES})  # we should use bang_add_library for neuware
-        target_include_directories(hddt_neuware_static PUBLIC ${NEUWARE_INCLUDE_DIRS})
         target_link_libraries(hddt_neuware_static PRIVATE ${NEUWARE_LIBRARIES})
         install(TARGETS hddt_neuware_static DESTINATION lib)
     endif()
 
     # dynamic
     bang_add_library(hddt_neuware_shared SHARED ${NEUWARE_SOURCES})
-    target_include_directories(hddt_neuware_shared PUBLIC ${NEUWARE_INCLUDE_DIRS})
     target_link_libraries(hddt_neuware_shared PRIVATE ${NEUWARE_LIBRARIES})
     install(TARGETS hddt_neuware_shared DESTINATION lib)
 
@@ -157,9 +157,25 @@ find_package(glog REQUIRED)
 target_include_directories(hddt_shared_lib PUBLIC ${GLOG_INCLUDE_DIRS})
 target_link_libraries(hddt_shared_lib PUBLIC glog)
 
-install(TARGETS hddt_shared_lib DESTINATION lib)
+if(BUILD_PYTHON_MOD)
+    # # pybind
+    # git submodule add -b stable ../../pybind/pybind11 extern/pybind11
+    # git submodule update --init
+    add_subdirectory(extern/pybind11)
+    set(PYBIND11_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/extern/pybind11/include)
+    include_directories(${PYBIND11_INCLUDE_DIR})
+    # add python module
+    file(GLOB_RECURSE PYTHON_SRC_RECURSE "python/*.cpp")
+    if(NOT PYTHON_SRC_RECURSE)
+        message(FATAL_ERROR "No sources files found in the 'python' directory.")
+    endif()
+    pybind11_add_module(hddt ${PYTHON_SRC_RECURSE})
 
-# # install header
+    # link C++ lib to Python module
+    target_link_libraries(hddt PRIVATE hddt_static_lib)
+    install(TARGETS hddt LIBRARY DESTINATION ${CMAKE_SOURCE_DIR}/python/pkg)
+endif()
+
 install(DIRECTORY include/ DESTINATION include)
 
 

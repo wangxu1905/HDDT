@@ -33,15 +33,15 @@ status_t NeuwareMemory::free_buffer(void *addr) {
   CNaddr addr_mlu = (CNaddr)addr;
   ret = cnFree(addr_mlu);
   if (ret != CN_SUCCESS) {
-      logError("failed to free memory");
-      return status_t::ERROR;
+    logError("failed to free memory");
+    return status_t::ERROR;
   }
 
   return status_t::SUCCESS;
 }
 
 status_t NeuwareMemory::copy_host_to_buffer(void *dest, const void *src,
-                                         size_t size) {
+                                            size_t size) {
   CNresult ret;
 
   if (dest == nullptr || src == nullptr) {
@@ -61,7 +61,7 @@ status_t NeuwareMemory::copy_host_to_buffer(void *dest, const void *src,
 }
 
 status_t NeuwareMemory::copy_buffer_to_host(void *dest, const void *src,
-                                         size_t size) {
+                                            size_t size) {
   CNresult ret;
 
   if (dest == nullptr || src == nullptr) {
@@ -81,7 +81,7 @@ status_t NeuwareMemory::copy_buffer_to_host(void *dest, const void *src,
 }
 
 status_t NeuwareMemory::copy_buffer_to_buffer(void *dest, const void *src,
-                                           size_t size) {
+                                              size_t size) {
   CNresult ret;
 
   if (dest == nullptr || src == nullptr) {
@@ -109,15 +109,15 @@ status_t NeuwareMemory::allocate_buffer(void **addr, size_t size) {
 status_t NeuwareMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
 
 status_t NeuwareMemory::copy_host_to_buffer(void *dest, const void *src,
-                                         size_t size) {
+                                            size_t size) {
   return status_t::UNSUPPORT;
 }
 status_t NeuwareMemory::copy_buffer_to_host(void *dest, const void *src,
-                                         size_t size) {
+                                            size_t size) {
   return status_t::UNSUPPORT;
 }
 status_t NeuwareMemory::copy_buffer_to_buffer(void *dest, const void *src,
-                                           size_t size) {
+                                              size_t size) {
   return status_t::UNSUPPORT;
 }
 
