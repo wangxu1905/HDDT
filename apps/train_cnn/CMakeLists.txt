@@ -12,8 +12,10 @@ if(ROCM_FOUND)
     target_link_libraries(train_cnn PRIVATE hddt_rocm_shared)
 elseif(CUDA_FOUND)
     target_link_libraries(train_cnn PRIVATE hddt_cuda_shared)
+elseif(NEUWARE_FOUND)
+    target_link_libraries(train_cnn PRIVATE hddt_neuware_shared)
 else()
-    message(FATAL_ERROR "ROCm or CUDA is required but was not found.")
+    message(FATAL_ERROR "ROCm or CUDA or NEUWARE is required but was not found.")
 endif()
 
 target_include_directories(train_cnn PRIVATE
@@ -22,7 +24,14 @@ target_include_directories(train_cnn PRIVATE
 
 include(FindPyTorch)
 
+if(ROCM_FOUND)
+target_link_libraries(train_cnn PRIVATE
+    ${TORCH_LIBRARIES}
+    ${GLOG_LIBRARY}  # 使用rocm的glog的库变量
+)
+elseif(CUDA_FOUND)
 target_link_libraries(train_cnn PRIVATE
     ${TORCH_LIBRARIES}
 )
+endif()
 # install(TARGETS train_cnn DESTINATION bin)

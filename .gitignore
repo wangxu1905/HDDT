@@ -1,3 +1,7 @@
 build
 .vscode
 dataset
+dist
+hddt.egg-info
+hddt/*so
+hddt/__pycache__*

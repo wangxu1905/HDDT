@@ -9,6 +9,7 @@
 namespace hddt {
 
 #define ACCEL_PAGE_SIZE (64 * 1024)
+typedef uint64_t CNaddr;
 
 enum class memory_type_t {
   DEFAULT,       // 默认情况, 系统决定
@@ -16,6 +17,7 @@ enum class memory_type_t {
   NVIDIA_GPU,
   AMD_GPU,
   CAMBRICON_MLU  
+
 }; // todo: NVIDIA_GPU_MANAGED, AMD_GPU_MANAGED
 
 memory_type_t memory_supported();
@@ -23,8 +25,8 @@ bool memory_dmabuf_supported();
 
 class Memory {
 protected:
-  memory_type_t mem_type;
   int device_id;
+  memory_type_t mem_type;
 
 public:
   Memory(int device_id, memory_type_t mem_type)
@@ -49,12 +51,16 @@ public:
 
   HostMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-        this->init();
-        //std::cout << "HostMemory init" << std::endl;
-      };
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
+  };
   ~HostMemory() {
     this->free();
-  };
+  }
   status_t init();
   status_t free();
   status_t allocate_buffer(void **addr, size_t size);
@@ -71,8 +77,12 @@ class CudaMemory : public Memory {
 public:
   CudaMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
-    //std::cout << "CudaMemory init" << std::endl;
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~CudaMemory() { this->free(); };
 
@@ -86,13 +96,16 @@ public:
   status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
 
-
-
 class RocmMemory : public Memory {
 public:
   RocmMemory(int device_id, memory_type_t mem_type)
       : Memory(device_id, mem_type) {
-    this->init();
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
   };
   ~RocmMemory() { this->free(); };
 
@@ -144,6 +157,7 @@ class HddtMemory {
   status_t get_init_Status();
   int get_DeviceId();
 };
+
 
 class NeuwareMemory : public Memory {
 public:

@@ -2,6 +2,10 @@
 
 namespace hddt {
 
+
+/*
+ * nvidia gpu memory
+ */
 status_t NeuwareMemory::init() { return init_gpu_driver(this->device_id); }
 
 status_t NeuwareMemory::free() { return free_gpu_driver(); }

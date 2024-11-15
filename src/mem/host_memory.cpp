@@ -29,8 +29,9 @@ status_t HostMemory::init() { return status_t::SUCCESS; }
 status_t HostMemory::free() { return status_t::SUCCESS; }
 
 status_t HostMemory::allocate_buffer(void **addr, size_t size) {
-  void *buffer = new (std::nothrow) char[size];
+  logInfo("Allocate memory using new malloc.");
 
+  void *buffer = new (std::nothrow) char[size];
   if (buffer == nullptr) {
     logError("HostMemory::allocate_buffer Error.");
     return status_t::ERROR;

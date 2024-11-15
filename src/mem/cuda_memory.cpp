@@ -18,7 +18,7 @@ status_t CudaMemory::allocate_buffer(void **addr, size_t size) {
   if (this->mem_type != memory_type_t::NVIDIA_GPU) {
     return status_t::UNSUPPORT;
   }
-
+  logInfo("Allocate memory using cudaMalloc.");
   ret = cudaMalloc(addr, buf_size);
   if (ret != cudaSuccess) {
     logError("failed to allocate memory.");
@@ -94,6 +94,5 @@ status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
 
   return status_t::SUCCESS;
 }
-
 
 } // namespace hddt
