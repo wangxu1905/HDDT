@@ -12,6 +12,7 @@ endif()
 find_package(HIP QUIET HINTS ${ROCM_PATH})
 
 if(HIP_FOUND)
+    message(WARN "--HIP_FOUND")
     find_package(rocblas REQUIRED)
     find_package(rocrand REQUIRED)
 

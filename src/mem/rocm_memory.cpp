@@ -2,7 +2,6 @@
 
 namespace hddt {
 
-#ifdef ENABLE_ROCM
 // todo : ref
 // https://github1s.com/linux-rdma/perftest/blob/master/src/rocm_memory.c
 /*
@@ -92,25 +91,4 @@ status_t RocmMemory::copy_buffer_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-#else
-status_t RocmMemory::init() { return status_t::UNSUPPORT; }
-status_t RocmMemory::free() { return status_t::UNSUPPORT; }
-status_t RocmMemory::allocate_buffer(void **addr, size_t size) {
-  return status_t::UNSUPPORT;
-}
-status_t RocmMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
-
-status_t RocmMemory::copy_host_to_buffer(void *dest, const void *src,
-                                         size_t size) {
-  return status_t::UNSUPPORT;
-}
-status_t RocmMemory::copy_buffer_to_host(void *dest, const void *src,
-                                         size_t size) {
-  return status_t::UNSUPPORT;
-}
-status_t RocmMemory::copy_buffer_to_buffer(void *dest, const void *src,
-                                           size_t size) {
-  return status_t::UNSUPPORT;
-}
-#endif
 } // namespace hddt
