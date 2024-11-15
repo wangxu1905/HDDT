@@ -41,8 +41,8 @@ TEST_F(CudaMemoryTest, CopyHostToBuffer_HappyPath) {
     char* src;
     char des[20]={0};
     cuda_memory->allocate_buffer((void**)&src, 20);
-    EXPECT_EQ(cuda_memory->copy_host_to_buffer(src, source, 20), status_t::SUCCESS);
-    EXPECT_EQ(cuda_memory->copy_buffer_to_host(des, src, 20), status_t::SUCCESS);
+    EXPECT_EQ(cuda_memory->copy_host_to_device(src, source, 20), status_t::SUCCESS);
+    EXPECT_EQ(cuda_memory->copy_device_to_host(des, src, 20), status_t::SUCCESS);
     EXPECT_STREQ(des, source);
 }
 
@@ -51,7 +51,7 @@ TEST_F(CudaMemoryTest, CopyHostToBuffer_NullDest) {
     const size_t size = 1024;
     void *src;
     cuda_memory->allocate_buffer(&src, size);
-    status_t status = cuda_memory->copy_host_to_buffer(nullptr, src, size);
+    status_t status = cuda_memory->copy_host_to_device(nullptr, src, size);
     EXPECT_EQ(status, status_t::ERROR);
     cuda_memory->free_buffer(src);
 }
@@ -60,7 +60,7 @@ TEST_F(CudaMemoryTest, CopyHostToBuffer_NullDest) {
 TEST_F(CudaMemoryTest, CopyHostToBuffer_NullSrc) {
     const size_t size = 1024;
     void *dest;
-    status_t status = cuda_memory->copy_host_to_buffer(dest, nullptr, size);
+    status_t status = cuda_memory->copy_host_to_device(dest, nullptr, size);
     EXPECT_EQ(status, status_t::ERROR);
 }
 
@@ -81,10 +81,10 @@ TEST_F(CudaMemoryTest, CopyBufferToBuffer_HappyPath) {
     }
 
     // Copy data to the source device buffer
-    EXPECT_EQ(cuda_memory->copy_host_to_buffer(src, srcData, bufferSize), status_t::SUCCESS);
+    EXPECT_EQ(cuda_memory->copy_host_to_device(src, srcData, bufferSize), status_t::SUCCESS);
 
     // Call the copy function
-    EXPECT_EQ(cuda_memory->copy_buffer_to_buffer(dest, src, bufferSize), status_t::SUCCESS);
+    EXPECT_EQ(cuda_memory->copy_device_to_device(dest, src, bufferSize), status_t::SUCCESS);
 
     // Cleanup
     delete[] srcData;
@@ -98,7 +98,7 @@ TEST_F(CudaMemoryTest, CopyBufferToBuffer_NullDestination) {
     size_t bufferSize = 1024;
 
     EXPECT_EQ(cuda_memory->allocate_buffer(&src, bufferSize), status_t::SUCCESS);
-    EXPECT_EQ(cuda_memory->copy_buffer_to_buffer(nullptr, src, bufferSize), status_t::ERROR);
+    EXPECT_EQ(cuda_memory->copy_device_to_device(nullptr, src, bufferSize), status_t::ERROR);
     cuda_memory->free_buffer(src);
 }
 
@@ -108,7 +108,7 @@ TEST_F(CudaMemoryTest, CopyBufferToBuffer_NullSource) {
     size_t bufferSize = 1024;
 
     EXPECT_EQ(cuda_memory->allocate_buffer(&dest, bufferSize), status_t::SUCCESS);
-    EXPECT_EQ(cuda_memory->copy_buffer_to_buffer(dest, nullptr, bufferSize), status_t::ERROR);
+    EXPECT_EQ(cuda_memory->copy_device_to_device(dest, nullptr, bufferSize), status_t::ERROR);
     cuda_memory->free_buffer(dest);
 }
 

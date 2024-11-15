@@ -2,7 +2,7 @@
 
 namespace hddt {
 
-
+#ifdef ENABLE_NEUWARE
 /*
  * nvidia gpu memory
  */
@@ -40,12 +40,12 @@ status_t NeuwareMemory::free_buffer(void *addr) {
   return status_t::SUCCESS;
 }
 
-status_t NeuwareMemory::copy_host_to_buffer(void *dest, const void *src,
+status_t NeuwareMemory::copy_host_to_device(void *dest, const void *src,
                                             size_t size) {
   CNresult ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("NeuwareMemory::copy_host_to_buffer Error.");
+    logError("NeuwareMemory::copy_host_to_device Error.");
     return status_t::ERROR;
   }
 
@@ -60,12 +60,12 @@ status_t NeuwareMemory::copy_host_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-status_t NeuwareMemory::copy_buffer_to_host(void *dest, const void *src,
+status_t NeuwareMemory::copy_device_to_host(void *dest, const void *src,
                                             size_t size) {
   CNresult ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("NeuwareMemory::copy_buffer_to_host Error.");
+    logError("NeuwareMemory::copy_device_to_host Error.");
     return status_t::ERROR;
   }
 
@@ -80,12 +80,12 @@ status_t NeuwareMemory::copy_buffer_to_host(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-status_t NeuwareMemory::copy_buffer_to_buffer(void *dest, const void *src,
+status_t NeuwareMemory::copy_device_to_device(void *dest, const void *src,
                                               size_t size) {
   CNresult ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("NeuwareMemory::copy_buffer_to_buffer Error.");
+    logError("NeuwareMemory::copy_device_to_device Error.");
     return status_t::ERROR;
   }
 
@@ -100,4 +100,26 @@ status_t NeuwareMemory::copy_buffer_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
+#else
+status_t NeuwareMemory::init() { return status_t::UNSUPPORT; }
+status_t NeuwareMemory::free() { return status_t::UNSUPPORT; }
+status_t NeuwareMemory::allocate_buffer(void **addr, size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t NeuwareMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
+
+status_t NeuwareMemory::copy_host_to_device(void *dest, const void *src,
+                                            size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t NeuwareMemory::copy_device_to_host(void *dest, const void *src,
+                                            size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t NeuwareMemory::copy_device_to_device(void *dest, const void *src,
+                                              size_t size) {
+  return status_t::UNSUPPORT;
+}
+
+#endif
 } // namespace hddt

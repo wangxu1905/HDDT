@@ -38,11 +38,11 @@ public:
   virtual status_t allocate_buffer(void **addr, size_t size) = 0;
   virtual status_t free_buffer(void *addr) = 0;
 
-  virtual status_t copy_host_to_buffer(void *dest, const void *src,
+  virtual status_t copy_host_to_device(void *dest, const void *src,
                                        size_t size) = 0;
-  virtual status_t copy_buffer_to_host(void *dest, const void *src,
+  virtual status_t copy_device_to_host(void *dest, const void *src,
                                        size_t size) = 0;
-  virtual status_t copy_buffer_to_buffer(void *dest, const void *src,
+  virtual status_t copy_device_to_device(void *dest, const void *src,
                                          size_t size) = 0;
 };
 
@@ -66,9 +66,9 @@ public:
   status_t allocate_buffer(void **addr, size_t size);
   status_t free_buffer(void *addr);
 
-  status_t copy_host_to_buffer(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
 
   
 };
@@ -91,9 +91,9 @@ public:
   status_t allocate_buffer(void **addr, size_t size);
   status_t free_buffer(void *addr);
 
-  status_t copy_host_to_buffer(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
 class RocmMemory : public Memory {
@@ -114,9 +114,9 @@ public:
   status_t allocate_buffer(void **addr, size_t size);
   status_t free_buffer(void *addr);
 
-  status_t copy_host_to_buffer(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
 /*
@@ -180,9 +180,9 @@ public:
   status_t allocate_buffer(void **addr, size_t size);
   status_t free_buffer(void *addr);
 
-  status_t copy_host_to_buffer(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
-  status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
 } // namespace hddt

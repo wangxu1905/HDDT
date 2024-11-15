@@ -30,10 +30,10 @@ int main() {
 
   uint8_t data[] = "Hello World!";
 
-  mem_ops->copy_host_to_buffer(con->share_buffer, data, sizeof(data));
+  mem_ops->copy_host_to_device(con->share_buffer, data, sizeof(data));
 
   char host_data[sizeof(data)];
-  mem_ops->copy_buffer_to_host(host_data, con->share_buffer, sizeof(data));
+  mem_ops->copy_device_to_host(host_data, con->share_buffer, sizeof(data));
   printf("client Write Data: %s\n", host_data);
 
   con->Write(con->share_buffer, 1024);

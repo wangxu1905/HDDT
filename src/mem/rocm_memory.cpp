@@ -1,7 +1,7 @@
 #include <mem.h>
 
 namespace hddt {
-
+#ifdef ENABLE_ROCM
 // todo : ref
 // https://github1s.com/linux-rdma/perftest/blob/master/src/rocm_memory.c
 /*
@@ -40,12 +40,12 @@ status_t RocmMemory::free_buffer(void *addr) {
   return status_t::SUCCESS;
 }
 
-status_t RocmMemory::copy_host_to_buffer(void *dest, const void *src,
+status_t RocmMemory::copy_host_to_device(void *dest, const void *src,
                                          size_t size) {
   hipError_t ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("HostMemory::copy_host_to_buffer Error.");
+    logError("HostMemory::copy_host_to_device Error.");
     return status_t::ERROR;
   }
   ret = hipMemcpy(dest, src, size, hipMemcpyDeviceToHost);
@@ -57,12 +57,12 @@ status_t RocmMemory::copy_host_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-status_t RocmMemory::copy_buffer_to_host(void *dest, const void *src,
+status_t RocmMemory::copy_device_to_host(void *dest, const void *src,
                                          size_t size) {
   hipError_t ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("HostMemory::copy_host_to_buffer Error.");
+    logError("HostMemory::copy_host_to_device Error.");
     return status_t::ERROR;
   }
   ret = hipMemcpy(dest, src, size, hipMemcpyHostToDevice);
@@ -74,12 +74,12 @@ status_t RocmMemory::copy_buffer_to_host(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-status_t RocmMemory::copy_buffer_to_buffer(void *dest, const void *src,
+status_t RocmMemory::copy_device_to_device(void *dest, const void *src,
                                            size_t size) {
   hipError_t ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("HostMemory::copy_host_to_buffer Error.");
+    logError("HostMemory::copy_host_to_device Error.");
     return status_t::ERROR;
   }
   ret = hipMemcpy(dest, src, size, hipMemcpyDeviceToDevice);
@@ -90,5 +90,27 @@ status_t RocmMemory::copy_buffer_to_buffer(void *dest, const void *src,
 
   return status_t::SUCCESS;
 }
+
+#else
+status_t RocmMemory::init() { return status_t::UNSUPPORT; }
+status_t RocmMemory::free() { return status_t::UNSUPPORT; }
+status_t RocmMemory::allocate_buffer(void **addr, size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t RocmMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
+
+status_t RocmMemory::copy_host_to_device(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t RocmMemory::copy_device_to_host(void *dest, const void *src,
+                                         size_t size) {
+  return status_t::UNSUPPORT;
+}
+status_t RocmMemory::copy_device_to_device(void *dest, const void *src,
+                                           size_t size) {
+  return status_t::UNSUPPORT;
+}
+#endif
 
 } // namespace hddt

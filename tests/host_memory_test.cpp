@@ -38,52 +38,52 @@ TEST_F(HostMemoryTest, FreeBuffer_Nullptr) {
 }
 
 
-// copy_host_to_buffer方法，正常路径
+// copy_host_to_device方法，正常路径
 TEST_F(HostMemoryTest, CopyHostToBuffer_HappyPath) {
     char source[] = "Hello, World!";
     char destination[20] = {0};
-    EXPECT_EQ(src_host_memory->copy_host_to_buffer(destination, source, sizeof(source)), status_t::SUCCESS);
+    EXPECT_EQ(src_host_memory->copy_host_to_device(destination, source, sizeof(source)), status_t::SUCCESS);
     EXPECT_STREQ(destination, "Hello, World!");
 }
 
-// copy_host_to_buffer方法，异常路径
+// copy_host_to_device方法，异常路径
 TEST_F(HostMemoryTest, CopyHostToBuffer_Nullptr) {
     char source[] = "Hello, World!";
     char destination[20] = {0};
-    EXPECT_EQ(src_host_memory->copy_host_to_buffer(nullptr, source, sizeof(source)), status_t::ERROR);
-    EXPECT_EQ(src_host_memory->copy_host_to_buffer(destination, nullptr, sizeof(source)), status_t::ERROR);
+    EXPECT_EQ(src_host_memory->copy_host_to_device(nullptr, source, sizeof(source)), status_t::ERROR);
+    EXPECT_EQ(src_host_memory->copy_host_to_device(destination, nullptr, sizeof(source)), status_t::ERROR);
 }
 
-// copy_buffer_to_host方法，正常路径
+// copy_device_to_host方法，正常路径
 TEST_F(HostMemoryTest, CopyBufferToHost_HappyPath) {
     char source[] = "Hello, World!";
     char destination[20] = {0};
-    EXPECT_EQ(src_host_memory->copy_buffer_to_host(destination, source, sizeof(source)), status_t::SUCCESS);
+    EXPECT_EQ(src_host_memory->copy_device_to_host(destination, source, sizeof(source)), status_t::SUCCESS);
     EXPECT_STREQ(destination, "Hello, World!");
 }
 
-// copy_buffer_to_host方法，异常路径
+// copy_device_to_host方法，异常路径
 TEST_F(HostMemoryTest, CopyBufferToHost_Nullptr) {
     char source[] = "Hello, World!";
     char destination[20] = {0};
-    EXPECT_EQ(src_host_memory->copy_buffer_to_host(nullptr, source, sizeof(source)), status_t::ERROR);
-    EXPECT_EQ(src_host_memory->copy_buffer_to_host(destination, nullptr, sizeof(source)), status_t::ERROR);
+    EXPECT_EQ(src_host_memory->copy_device_to_host(nullptr, source, sizeof(source)), status_t::ERROR);
+    EXPECT_EQ(src_host_memory->copy_device_to_host(destination, nullptr, sizeof(source)), status_t::ERROR);
 }
 
-// copy_buffer_to_buffer方法，正常路径
+// copy_device_to_device方法，正常路径
 TEST_F(HostMemoryTest, CopyBufferToBuffer_HappyPath) {
     char source[] = "Hello, World!";
     char destination[20] = {0};
-    EXPECT_EQ(src_host_memory->copy_buffer_to_buffer(destination, source, sizeof(source)), status_t::SUCCESS);
+    EXPECT_EQ(src_host_memory->copy_device_to_device(destination, source, sizeof(source)), status_t::SUCCESS);
     EXPECT_STREQ(destination, "Hello, World!");
 }
 
-// copy_buffer_to_buffer方法，异常路径
+// copy_device_to_device方法，异常路径
 TEST_F(HostMemoryTest, CopyBufferToBuffer_Nullptr) {
     char source[] = "Hello, World!";
     char destination[20] = {0};
-    EXPECT_EQ(src_host_memory->copy_buffer_to_buffer(nullptr, source, sizeof(source)), status_t::ERROR);
-    EXPECT_EQ(src_host_memory->copy_buffer_to_buffer(destination, nullptr, sizeof(source)), status_t::ERROR);
+    EXPECT_EQ(src_host_memory->copy_device_to_device(nullptr, source, sizeof(source)), status_t::ERROR);
+    EXPECT_EQ(src_host_memory->copy_device_to_device(destination, nullptr, sizeof(source)), status_t::ERROR);
 }
 
 }

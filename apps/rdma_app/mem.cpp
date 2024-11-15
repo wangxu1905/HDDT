@@ -11,10 +11,10 @@ int main() {
   mem_ops->allocate_buffer(&addr, 1024);
 
   uint8_t data[] = "Hello World!\n";
-  mem_ops->copy_host_to_buffer(addr, data, sizeof(data));
+  mem_ops->copy_host_to_device(addr, data, sizeof(data));
 
   char host_data[1024];
-  mem_ops->copy_buffer_to_host(host_data, addr, sizeof(data));
+  mem_ops->copy_device_to_host(host_data, addr, sizeof(data));
   printf("Server get Data: %s\n", host_data);
 
   /* Host memory test */

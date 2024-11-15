@@ -29,17 +29,17 @@ std::unique_ptr<Memory> HddtMemory::createMemoryClass(memory_type_t mem_type){
 
 // copy data from host to device
 status_t HddtMemory::copy_host_to_device(void *dest, const void *src, size_t size){
-    return this->memoryClass->copy_host_to_buffer(dest, src, size);
+    return this->memoryClass->copy_host_to_device(dest, src, size);
 }
 
 // copy data from device to host
 status_t HddtMemory::copy_device_to_host(void *dest, const void *src, size_t size){
-    return this->memoryClass->copy_buffer_to_host(dest, src, size);
+    return this->memoryClass->copy_device_to_host(dest, src, size);
 }
 
 // copy data from device to device
 status_t HddtMemory::copy_device_to_device(void *dest, const void *src, size_t size){
-    return this->memoryClass->copy_buffer_to_buffer(dest, src, size);
+    return this->memoryClass->copy_device_to_device(dest, src, size);
 }
 
 status_t HddtMemory::allocate_buffer(void **addr, size_t size){
@@ -77,6 +77,11 @@ status_t HddtMemory::set_DeviceId_and_MemoryType(int device_id, memory_type_t me
       #ifdef ENABLE_ROCM
       this->hddtMemoryType = memory_type_t::AMD_GPU;
       #endif
+    
+      #ifdef ENABLE_NEUWARE
+      this->hddtMemoryType = memory_type_t::CAMBRICON_MLU ;
+      #endif
+
 
       this->initStatus = status_t::SUCCESS;
     } 
@@ -85,11 +90,18 @@ status_t HddtMemory::set_DeviceId_and_MemoryType(int device_id, memory_type_t me
       if (mem_type == memory_type_t::NVIDIA_GPU) {
         #ifndef ENABLE_CUDA
         throw std::runtime_error("NVIDIA GPU is not supported");
+        this->initStatus = status_t::UNSUPPORT;
         #endif
       }
       else if (mem_type == memory_type_t::AMD_GPU) {
         #ifndef ENABLE_ROCM
         throw std::runtime_error("AMD GPU is not supported");
+        this->initStatus = status_t::UNSUPPORT;
+        #endif
+      }
+      else if (mem_type == memory_type_t::CAMBRICON_MLU) {
+        #ifndef ENABLE_NEUWARE
+        throw std::runtime_error("Cambricon MLU is not supported");
         this->initStatus = status_t::UNSUPPORT;
         #endif
       }
