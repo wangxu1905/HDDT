@@ -9,7 +9,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # # option
 set(BUILD_STATIC_LIB OFF)
-set(BUILD_PYTHON_MOD ON)
+set(BUILD_PYTHON_MOD OFF)
 if(BUILD_PYTHON_MOD)
     set(BUILD_STATIC_LIB ON)
 endif()
@@ -180,10 +180,11 @@ install(DIRECTORY include/ DESTINATION include)
 
 
 # # build apps
-# add_subdirectory(apps/train_cnn)
-# add_subdirectory(apps/simple_inference)
-# add_subdirectory(apps/torch_app)
+add_subdirectory(apps/train_cnn)
+add_subdirectory(apps/simple_inference)
+add_subdirectory(apps/torch_app)
 add_subdirectory(apps/rdma_app)
+add_subdirectory(apps/coll_app)
 
 # # build test
 # add_subdirectory(tests)

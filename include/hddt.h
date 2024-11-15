@@ -17,13 +17,16 @@
 #endif
 
 #include <iostream>
-#include <pthread.h>
+#include <thread>
 
 #include <cstdlib>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <unistd.h>
+
+#include <atomic>
+#include <chrono>
 
 #include <glog/logging.h>
 
