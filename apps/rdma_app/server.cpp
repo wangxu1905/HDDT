@@ -1,6 +1,6 @@
 #include <hddt.h>
 #include <iostream>
-#include <net.h>
+#include <p2p.h>
 
 #include <chrono>
 #include <thread>
@@ -35,6 +35,6 @@ int main() {
   mem_ops->copy_buffer_to_host(host_data, con->share_buffer, 1024);
 
   printf("Server get Data: %s\n", host_data);
-
+  con->Close();
   return 0;
 }

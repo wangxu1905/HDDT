@@ -180,10 +180,11 @@ install(DIRECTORY include/ DESTINATION include)
 
 
 # # build apps
-# add_subdirectory(apps/train_cnn)
-# add_subdirectory(apps/simple_inference)
-# add_subdirectory(apps/torch_app)
+add_subdirectory(apps/train_cnn)
+add_subdirectory(apps/simple_inference)
+add_subdirectory(apps/torch_app)
 add_subdirectory(apps/rdma_app)
+add_subdirectory(apps/coll_app)
 
 # # build test
 # add_subdirectory(tests)

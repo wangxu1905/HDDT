@@ -47,7 +47,7 @@ public:
   Communicator(Memory *mem_op) : mem_op(mem_op) { return; }
   ~Communicator() { this->mem_op->free(); }
 
-  virtual status_t alloc_buffer(size_t size) { return status_t::SUCCESS; };
+  virtual status_t allocate_buffer(size_t size) { return status_t::SUCCESS; };
 
   virtual status_t Send() = 0;
   virtual status_t Recv() = 0;
@@ -82,7 +82,7 @@ public:
   }
 
   // for TCP, client send data from send_buffer, recv data to recv_buffer
-  status_t alloc_buffer(size_t size) {
+  status_t allocate_buffer(size_t size) {
     status_t sret = status_t::SUCCESS;
     sret = this->mem_op->allocate_buffer(&this->client_send_buffer, size);
     if (sret != status_t::SUCCESS)
@@ -198,10 +198,10 @@ public:
     }
     if (client_port == 0)
       client_port = RDMA_DEFAULT_PORT;
-    this->Init_sockaddr(client_ip.c_str(), client_port, server_ip.c_str(),
+    this->init_sockaddr(client_ip.c_str(), client_port, server_ip.c_str(),
                         server_port);
     logDebug("start alloc buffer.");
-    sret = this->alloc_buffer(this->mem_size);
+    sret = this->allocate_buffer(this->mem_size);
     if (sret != status_t::SUCCESS) {
       return;
     }
@@ -223,7 +223,7 @@ public:
     }
   }
   // for rdma, client and server operate the same buffer
-  status_t alloc_buffer(size_t size) {
+  status_t allocate_buffer(size_t size) {
     status_t sret = status_t::SUCCESS;
     sret = this->mem_op->allocate_buffer(&this->share_buffer, size);
     if (sret != status_t::SUCCESS)
@@ -235,7 +235,7 @@ public:
     return sret;
   };
 
-  status_t Init_sockaddr(const char *client_ip, uint16_t client_port,
+  status_t init_sockaddr(const char *client_ip, uint16_t client_port,
                          const char *server_ip, uint16_t server_port) {
     // server addr
     bzero(&this->server_addr, sizeof this->server_addr);

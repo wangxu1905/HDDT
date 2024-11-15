@@ -1,6 +1,6 @@
 #include <hddt.h>
 #include <iostream>
-#include <net.h>
+#include <p2p.h>
 
 using namespace hddt;
 
@@ -37,6 +37,8 @@ int main() {
   printf("client Write Data: %s\n", host_data);
 
   con->Write(con->share_buffer, 1024);
+
+  con->Close();
   sleep(10);
   return 0;
 }
