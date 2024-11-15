@@ -20,6 +20,8 @@ std::unique_ptr<Memory> HddtMemory::createMemoryClass(memory_type_t mem_type){
             return std::make_unique<CudaMemory>(this->hddtDeviceId, this->hddtMemoryType);
         case memory_type_t::AMD_GPU:
             return std::make_unique<RocmMemory>(this->hddtDeviceId, this->hddtMemoryType);
+        case memory_type_t::CAMBRICON_MLU:
+            return std::make_unique<NeuwareMemory>(this->hddtDeviceId, this->hddtMemoryType);
         default:
             return nullptr;
     }

@@ -2,10 +2,6 @@
 
 namespace hddt {
 
-#ifdef ENABLE_NEUWARE
-/*
- * nvidia gpu memory
- */
 status_t NeuwareMemory::init() { return init_gpu_driver(this->device_id); }
 
 status_t NeuwareMemory::free() { return free_gpu_driver(); }
@@ -99,28 +95,5 @@ status_t NeuwareMemory::copy_buffer_to_buffer(void *dest, const void *src,
 
   return status_t::SUCCESS;
 }
-
-#else
-status_t NeuwareMemory::init() { return status_t::UNSUPPORT; }
-status_t NeuwareMemory::free() { return status_t::UNSUPPORT; }
-status_t NeuwareMemory::allocate_buffer(void **addr, size_t size) {
-  return status_t::UNSUPPORT;
-}
-status_t NeuwareMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
-
-status_t NeuwareMemory::copy_host_to_buffer(void *dest, const void *src,
-                                            size_t size) {
-  return status_t::UNSUPPORT;
-}
-status_t NeuwareMemory::copy_buffer_to_host(void *dest, const void *src,
-                                            size_t size) {
-  return status_t::UNSUPPORT;
-}
-status_t NeuwareMemory::copy_buffer_to_buffer(void *dest, const void *src,
-                                              size_t size) {
-  return status_t::UNSUPPORT;
-}
-
-#endif
 
 } // namespace hddt
