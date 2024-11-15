@@ -11,10 +11,11 @@ namespace hddt {
 #define ACCEL_PAGE_SIZE (64 * 1024)
 
 enum class memory_type_t {
+  DEFAULT,       // 默认情况, 系统决定
   CPU,
   NVIDIA_GPU,
   AMD_GPU,
-  DEFAULT         // 默认情况, 系统决定
+  CAMBRICON_MLU  
 }; // todo: NVIDIA_GPU_MANAGED, AMD_GPU_MANAGED
 
 memory_type_t memory_supported();
@@ -142,6 +143,32 @@ class HddtMemory {
   memory_type_t get_MemoryType();
   status_t get_init_Status();
   int get_DeviceId();
+};
+
+class NeuwareMemory : public Memory {
+public:
+  CNaddr mlu_addr;
+
+public:
+  NeuwareMemory(int device_id, memory_type_t mem_type)
+      : Memory(device_id, mem_type) {
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("Fail to init mem_ops");
+      exit(1);
+    }
+  };
+  ~NeuwareMemory() { this->free(); };
+
+  status_t init();
+  status_t free();
+  status_t allocate_buffer(void **addr, size_t size);
+  status_t free_buffer(void *addr);
+
+  status_t copy_host_to_buffer(void *dest, const void *src, size_t size);
+  status_t copy_buffer_to_host(void *dest, const void *src, size_t size);
+  status_t copy_buffer_to_buffer(void *dest, const void *src, size_t size);
 };
 
 } // namespace hddt
