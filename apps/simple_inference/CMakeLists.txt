@@ -24,11 +24,15 @@ target_include_directories(simple_inference PRIVATE
 
 include(FindMPI)
 include_directories(${MPI_INCLUDE_DIR})
-target_link_libraries(simple_inference PRIVATE ${MPI_LIBRARIES})
+target_link_libraries(simple_inference PRIVATE ${MPI_LIBRARY})
 
 # find mpixx
-find_program(MPICC mpicxx REQUIRED)
-set(CMAKE_C_COMPILER ${MPICC})
-set(CMAKE_CXX_COMPILER ${MPICC})
+if(ROCM_FOUND)
+    # skip using mpicc while using hipcc as compiler
+else()
+    find_program(MPICC mpicxx REQUIRED)
+    set(CMAKE_C_COMPILER ${MPICC})
+    set(CMAKE_CXX_COMPILER ${MPICC})
+endif()
 
 # install(TARGETS simple_inference DESTINATION bin)

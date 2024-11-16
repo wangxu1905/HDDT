@@ -15,4 +15,4 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-// sudo mpirun -np 2 -host 10.102.0.240,10.102.0.286 ./coll_app
+// sudo mpirun -np 2 -host ip1,ip2 ./coll_app
