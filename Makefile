@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mahaoyuan/mhyHDDT/HDDT
+CMAKE_SOURCE_DIR = /home/mahaoyuan/HDDT
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mahaoyuan/mhyHDDT/HDDT
+CMAKE_BINARY_DIR = /home/mahaoyuan/HDDT
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles /home/mahaoyuan/mhyHDDT/HDDT//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mahaoyuan/HDDT/CMakeFiles /home/mahaoyuan/HDDT//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mahaoyuan/mhyHDDT/HDDT/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mahaoyuan/HDDT/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -227,17 +227,56 @@ torch_app/fast:
 .PHONY : torch_app/fast
 
 #=============================================================================
-# Target rules for targets named rdma_app
+# Target rules for targets named rdma_server
 
 # Build rule for target.
-rdma_app: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rdma_app
-.PHONY : rdma_app
+rdma_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rdma_server
+.PHONY : rdma_server
 
 # fast build rule for target.
-rdma_app/fast:
-	$(MAKE) $(MAKESILENT) -f apps/rdma_app/CMakeFiles/rdma_app.dir/build.make apps/rdma_app/CMakeFiles/rdma_app.dir/build
-.PHONY : rdma_app/fast
+rdma_server/fast:
+	$(MAKE) $(MAKESILENT) -f apps/rdma_app/CMakeFiles/rdma_server.dir/build.make apps/rdma_app/CMakeFiles/rdma_server.dir/build
+.PHONY : rdma_server/fast
+
+#=============================================================================
+# Target rules for targets named rdma_client
+
+# Build rule for target.
+rdma_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rdma_client
+.PHONY : rdma_client
+
+# fast build rule for target.
+rdma_client/fast:
+	$(MAKE) $(MAKESILENT) -f apps/rdma_app/CMakeFiles/rdma_client.dir/build.make apps/rdma_app/CMakeFiles/rdma_client.dir/build
+.PHONY : rdma_client/fast
+
+#=============================================================================
+# Target rules for targets named mem
+
+# Build rule for target.
+mem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mem
+.PHONY : mem
+
+# fast build rule for target.
+mem/fast:
+	$(MAKE) $(MAKESILENT) -f apps/rdma_app/CMakeFiles/mem.dir/build.make apps/rdma_app/CMakeFiles/mem.dir/build
+.PHONY : mem/fast
+
+#=============================================================================
+# Target rules for targets named coll_app
+
+# Build rule for target.
+coll_app: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 coll_app
+.PHONY : coll_app
+
+# fast build rule for target.
+coll_app/fast:
+	$(MAKE) $(MAKESILENT) -f apps/coll_app/CMakeFiles/coll_app.dir/build.make apps/coll_app/CMakeFiles/coll_app.dir/build
+.PHONY : coll_app/fast
 
 #=============================================================================
 # Target rules for targets named HDDT_test
@@ -275,30 +314,6 @@ src/driver.s: src/driver.cpp.s
 src/driver.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/driver.cpp.s
 .PHONY : src/driver.cpp.s
-
-src/log.o: src/log.cpp.o
-.PHONY : src/log.o
-
-# target to build an object file
-src/log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/log.cpp.o
-.PHONY : src/log.cpp.o
-
-src/log.i: src/log.cpp.i
-.PHONY : src/log.i
-
-# target to preprocess a source file
-src/log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/log.cpp.i
-.PHONY : src/log.cpp.i
-
-src/log.s: src/log.cpp.s
-.PHONY : src/log.s
-
-# target to generate assembly for a file
-src/log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/log.cpp.s
-.PHONY : src/log.cpp.s
 
 src/mem/cuda_memory.o: src/mem/cuda_memory.cpp.o
 .PHONY : src/mem/cuda_memory.o
@@ -372,6 +387,30 @@ src/mem/host_memory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/host_memory.cpp.s
 .PHONY : src/mem/host_memory.cpp.s
 
+src/mem/neuware_memory.o: src/mem/neuware_memory.cpp.o
+.PHONY : src/mem/neuware_memory.o
+
+# target to build an object file
+src/mem/neuware_memory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/neuware_memory.cpp.o
+.PHONY : src/mem/neuware_memory.cpp.o
+
+src/mem/neuware_memory.i: src/mem/neuware_memory.cpp.i
+.PHONY : src/mem/neuware_memory.i
+
+# target to preprocess a source file
+src/mem/neuware_memory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/neuware_memory.cpp.i
+.PHONY : src/mem/neuware_memory.cpp.i
+
+src/mem/neuware_memory.s: src/mem/neuware_memory.cpp.s
+.PHONY : src/mem/neuware_memory.s
+
+# target to generate assembly for a file
+src/mem/neuware_memory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/mem/neuware_memory.cpp.s
+.PHONY : src/mem/neuware_memory.cpp.s
+
 src/mem/rocm_memory.o: src/mem/rocm_memory.cpp.o
 .PHONY : src/mem/rocm_memory.o
 
@@ -444,53 +483,53 @@ src/net/net.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/net.cpp.s
 .PHONY : src/net/net.cpp.s
 
-src/net/rdmaCommunictor.o: src/net/rdmaCommunictor.cpp.o
-.PHONY : src/net/rdmaCommunictor.o
+src/net/rdma_communictor.o: src/net/rdma_communictor.cpp.o
+.PHONY : src/net/rdma_communictor.o
 
 # target to build an object file
-src/net/rdmaCommunictor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.o
-.PHONY : src/net/rdmaCommunictor.cpp.o
+src/net/rdma_communictor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/rdma_communictor.cpp.o
+.PHONY : src/net/rdma_communictor.cpp.o
 
-src/net/rdmaCommunictor.i: src/net/rdmaCommunictor.cpp.i
-.PHONY : src/net/rdmaCommunictor.i
+src/net/rdma_communictor.i: src/net/rdma_communictor.cpp.i
+.PHONY : src/net/rdma_communictor.i
 
 # target to preprocess a source file
-src/net/rdmaCommunictor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.i
-.PHONY : src/net/rdmaCommunictor.cpp.i
+src/net/rdma_communictor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/rdma_communictor.cpp.i
+.PHONY : src/net/rdma_communictor.cpp.i
 
-src/net/rdmaCommunictor.s: src/net/rdmaCommunictor.cpp.s
-.PHONY : src/net/rdmaCommunictor.s
+src/net/rdma_communictor.s: src/net/rdma_communictor.cpp.s
+.PHONY : src/net/rdma_communictor.s
 
 # target to generate assembly for a file
-src/net/rdmaCommunictor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/rdmaCommunictor.cpp.s
-.PHONY : src/net/rdmaCommunictor.cpp.s
+src/net/rdma_communictor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/rdma_communictor.cpp.s
+.PHONY : src/net/rdma_communictor.cpp.s
 
-src/net/tcpCommunictor.o: src/net/tcpCommunictor.cpp.o
-.PHONY : src/net/tcpCommunictor.o
+src/net/tcp_communictor.o: src/net/tcp_communictor.cpp.o
+.PHONY : src/net/tcp_communictor.o
 
 # target to build an object file
-src/net/tcpCommunictor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.o
-.PHONY : src/net/tcpCommunictor.cpp.o
+src/net/tcp_communictor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/tcp_communictor.cpp.o
+.PHONY : src/net/tcp_communictor.cpp.o
 
-src/net/tcpCommunictor.i: src/net/tcpCommunictor.cpp.i
-.PHONY : src/net/tcpCommunictor.i
+src/net/tcp_communictor.i: src/net/tcp_communictor.cpp.i
+.PHONY : src/net/tcp_communictor.i
 
 # target to preprocess a source file
-src/net/tcpCommunictor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.i
-.PHONY : src/net/tcpCommunictor.cpp.i
+src/net/tcp_communictor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/tcp_communictor.cpp.i
+.PHONY : src/net/tcp_communictor.cpp.i
 
-src/net/tcpCommunictor.s: src/net/tcpCommunictor.cpp.s
-.PHONY : src/net/tcpCommunictor.s
+src/net/tcp_communictor.s: src/net/tcp_communictor.cpp.s
+.PHONY : src/net/tcp_communictor.s
 
 # target to generate assembly for a file
-src/net/tcpCommunictor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/tcpCommunictor.cpp.s
-.PHONY : src/net/tcpCommunictor.cpp.s
+src/net/tcp_communictor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/net/tcp_communictor.cpp.s
+.PHONY : src/net/tcp_communictor.cpp.s
 
 src/nn/cuda/nn_cuda_cnn.o: src/nn/cuda/nn_cuda_cnn.cu.o
 .PHONY : src/nn/cuda/nn_cuda_cnn.o
@@ -540,6 +579,30 @@ src/nn/nn.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/nn/nn.cpp.s
 .PHONY : src/nn/nn.cpp.s
 
+src/test_py.o: src/test_py.cpp.o
+.PHONY : src/test_py.o
+
+# target to build an object file
+src/test_py.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/test_py.cpp.o
+.PHONY : src/test_py.cpp.o
+
+src/test_py.i: src/test_py.cpp.i
+.PHONY : src/test_py.i
+
+# target to preprocess a source file
+src/test_py.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/test_py.cpp.i
+.PHONY : src/test_py.cpp.i
+
+src/test_py.s: src/test_py.cpp.s
+.PHONY : src/test_py.s
+
+# target to generate assembly for a file
+src/test_py.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hddt_shared_lib.dir/build.make CMakeFiles/hddt_shared_lib.dir/src/test_py.cpp.s
+.PHONY : src/test_py.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -553,18 +616,18 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... HDDT_test"
+	@echo "... coll_app"
 	@echo "... hddt_cuda_shared"
 	@echo "... hddt_shared_lib"
-	@echo "... rdma_app"
+	@echo "... mem"
+	@echo "... rdma_client"
+	@echo "... rdma_server"
 	@echo "... simple_inference"
 	@echo "... torch_app"
 	@echo "... train_cnn"
 	@echo "... src/driver.o"
 	@echo "... src/driver.i"
 	@echo "... src/driver.s"
-	@echo "... src/log.o"
-	@echo "... src/log.i"
-	@echo "... src/log.s"
 	@echo "... src/mem/cuda_memory.o"
 	@echo "... src/mem/cuda_memory.i"
 	@echo "... src/mem/cuda_memory.s"
@@ -574,6 +637,9 @@ help:
 	@echo "... src/mem/host_memory.o"
 	@echo "... src/mem/host_memory.i"
 	@echo "... src/mem/host_memory.s"
+	@echo "... src/mem/neuware_memory.o"
+	@echo "... src/mem/neuware_memory.i"
+	@echo "... src/mem/neuware_memory.s"
 	@echo "... src/mem/rocm_memory.o"
 	@echo "... src/mem/rocm_memory.i"
 	@echo "... src/mem/rocm_memory.s"
@@ -583,18 +649,21 @@ help:
 	@echo "... src/net/net.o"
 	@echo "... src/net/net.i"
 	@echo "... src/net/net.s"
-	@echo "... src/net/rdmaCommunictor.o"
-	@echo "... src/net/rdmaCommunictor.i"
-	@echo "... src/net/rdmaCommunictor.s"
-	@echo "... src/net/tcpCommunictor.o"
-	@echo "... src/net/tcpCommunictor.i"
-	@echo "... src/net/tcpCommunictor.s"
+	@echo "... src/net/rdma_communictor.o"
+	@echo "... src/net/rdma_communictor.i"
+	@echo "... src/net/rdma_communictor.s"
+	@echo "... src/net/tcp_communictor.o"
+	@echo "... src/net/tcp_communictor.i"
+	@echo "... src/net/tcp_communictor.s"
 	@echo "... src/nn/cuda/nn_cuda_cnn.o"
 	@echo "... src/nn/cuda/nn_cuda_cnn.i"
 	@echo "... src/nn/cuda/nn_cuda_cnn.s"
 	@echo "... src/nn/nn.o"
 	@echo "... src/nn/nn.i"
 	@echo "... src/nn/nn.s"
+	@echo "... src/test_py.o"
+	@echo "... src/test_py.i"
+	@echo "... src/test_py.s"
 .PHONY : help
 
 

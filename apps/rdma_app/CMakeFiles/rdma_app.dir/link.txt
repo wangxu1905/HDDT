@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/rdma_app.dir/main.cpp.o -o rdma_app  -Wl,-rpath,/home/mahaoyuan/mhyHDDT/HDDT:/usr/local/cuda/lib64 ../../libhddt_shared_lib.so /usr/local/cuda/lib64/libcudart.so ../../libhddt_cuda_shared.so 

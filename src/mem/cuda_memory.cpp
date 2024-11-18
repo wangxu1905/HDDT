@@ -5,9 +5,7 @@ namespace hddt {
 /*
  * nvidia gpu memory
  */
-status_t CudaMemory::init() { 
-  return init_gpu_driver(this->device_id); 
-}
+status_t CudaMemory::init() { return init_gpu_driver(this->device_id); }
 
 status_t CudaMemory::free() { return free_gpu_driver(); }
 

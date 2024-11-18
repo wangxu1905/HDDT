@@ -49,3 +49,6 @@ target_include_directories(mem PRIVATE
 )
 
 # install(TARGETS rdma_app DESTINATION bin)
+target_link_libraries(rdma_server PUBLIC glog)
+target_link_libraries(rdma_client PUBLIC glog)
+target_link_libraries(mem PUBLIC glog)

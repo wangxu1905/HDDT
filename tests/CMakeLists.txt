@@ -28,3 +28,6 @@ target_include_directories(${BINARY} PRIVATE ${CMAKE_SOURCE_DIR}/include)
 # 链接 Google Test 库
 find_package(GTest REQUIRED)
 target_link_libraries(${BINARY} PRIVATE GTest::GTest GTest::Main)
+
+target_link_libraries(${BINARY} PUBLIC glog)
+target_link_libraries(${BINARY} PUBLIC ${VERBS_LIBRARIES} ${RDMACM_LIBRARIES})

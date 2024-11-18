@@ -1,1 +1,0 @@
-/usr/bin/g++ -fPIC -shared -Wl,-soname,libhddt_cuda_shared.so -o libhddt_cuda_shared.so @CMakeFiles/hddt_cuda_shared.dir/objects1.rsp @CMakeFiles/hddt_cuda_shared.dir/linkLibs.rsp -L"/usr/local/cuda/targets/x86_64-linux/lib/stubs" -L"/usr/local/cuda/targets/x86_64-linux/lib"
