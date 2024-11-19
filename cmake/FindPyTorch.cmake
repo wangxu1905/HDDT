@@ -1,5 +1,5 @@
 # which conda Env
-set(CONDA_ENV "py310")
+set(CONDA_ENV "pytorch")
 set(PYTHON_ENV "python3.10")
 # which Conda
 execute_process(
