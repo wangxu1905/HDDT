@@ -1,7 +1,6 @@
 #include <mem.h>
 
 namespace hddt {
-
 #ifdef ENABLE_CUDA
 /*
  * nvidia gpu memory
@@ -40,12 +39,12 @@ status_t CudaMemory::free_buffer(void *addr) {
   return status_t::SUCCESS;
 }
 
-status_t CudaMemory::copy_host_to_buffer(void *dest, const void *src,
+status_t CudaMemory::copy_host_to_device(void *dest, const void *src,
                                          size_t size) {
   cudaError_t ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("HostMemory::copy_host_to_buffer Error.");
+    logError("HostMemory::copy_host_to_device Error.");
     return status_t::ERROR;
   }
 
@@ -58,12 +57,12 @@ status_t CudaMemory::copy_host_to_buffer(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-status_t CudaMemory::copy_buffer_to_host(void *dest, const void *src,
+status_t CudaMemory::copy_device_to_host(void *dest, const void *src,
                                          size_t size) {
   cudaError_t ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("HostMemory::copy_buffer_to_host Error.");
+    logError("HostMemory::copy_device_to_host Error.");
     return status_t::ERROR;
   }
 
@@ -76,12 +75,12 @@ status_t CudaMemory::copy_buffer_to_host(void *dest, const void *src,
   return status_t::SUCCESS;
 }
 
-status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
+status_t CudaMemory::copy_device_to_device(void *dest, const void *src,
                                            size_t size) {
   cudaError_t ret;
 
   if (dest == nullptr || src == nullptr) {
-    logError("HostMemory::copy_buffer_to_buffer Error.");
+    logError("HostMemory::copy_device_to_device Error.");
     return status_t::ERROR;
   }
 
@@ -102,15 +101,15 @@ status_t CudaMemory::allocate_buffer(void **addr, size_t size) {
 }
 status_t CudaMemory::free_buffer(void *addr) { return status_t::UNSUPPORT; }
 
-status_t CudaMemory::copy_host_to_buffer(void *dest, const void *src,
+status_t CudaMemory::copy_host_to_device(void *dest, const void *src,
                                          size_t size) {
   return status_t::UNSUPPORT;
 }
-status_t CudaMemory::copy_buffer_to_host(void *dest, const void *src,
+status_t CudaMemory::copy_device_to_host(void *dest, const void *src,
                                          size_t size) {
   return status_t::UNSUPPORT;
 }
-status_t CudaMemory::copy_buffer_to_buffer(void *dest, const void *src,
+status_t CudaMemory::copy_device_to_device(void *dest, const void *src,
                                            size_t size) {
   return status_t::UNSUPPORT;
 }

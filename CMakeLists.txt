@@ -187,4 +187,4 @@ add_subdirectory(apps/rdma_app)
 add_subdirectory(apps/coll_app)
 
 # # build test
-# add_subdirectory(tests)
+add_subdirectory(tests)
