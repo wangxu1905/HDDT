@@ -27,6 +27,7 @@ struct __attribute((packed)) rdma_buffer_attr {
 };
 /* resolves a given destination name to sin_addr */
 int get_addr(char *dst, struct sockaddr *addr);
+bool support_rdma();
 
 namespace hddt {
 
@@ -49,10 +50,8 @@ public:
 
   virtual status_t allocate_buffer(size_t size) { return status_t::SUCCESS; };
 
-  virtual status_t Send() = 0;
-  virtual status_t Recv() = 0;
-  virtual status_t Write(void *addr, size_t length) = 0;
-  virtual status_t Read(void *addr, size_t length) = 0;
+  virtual status_t Send(void *input_buffer, size_t size) = 0;
+  virtual status_t Recv(void *output_buffer, size_t size) = 0;
 
   virtual status_t Start() = 0;
   virtual status_t Close() = 0;
@@ -63,6 +62,8 @@ private:
   char *ip;
   int32_t port;
   size_t mem_size;
+  bool is_server = false;
+  bool is_client = false;
 
   void *client_send_buffer;
   void *client_recv_buffer;
@@ -71,7 +72,20 @@ private:
   bool is_buffer_ok = false;
 
 public:
-  TCPCommunicator(Memory *mem_op) : Communicator(mem_op){};
+  int retry_times;
+  int retry_delay_time;
+
+public:
+  TCPCommunicator(Memory *mem_op, size_t mem_size, bool is_server = false,
+                  bool is_client = false, std::string client_ip = "",
+                  uint16_t client_port = 0, std::string server_ip = "",
+                  uint16_t server_port = 0, int retry_times = 10,
+                  int retry_delay_time = 1000)
+      : Communicator(mem_op), mem_size(mem_size), is_server(is_server),
+        is_client(is_client), retry_times(retry_times),
+        retry_delay_time(retry_delay_time){
+            // todo
+        };
   ~TCPCommunicator() {
     if (is_buffer_ok) {
       this->mem_op->free_buffer(this->client_send_buffer);
@@ -101,10 +115,8 @@ public:
     return sret;
   };
 
-  status_t Send();
-  status_t Recv();
-  status_t Write(void *addr, size_t length);
-  status_t Read(void *addr, size_t length);
+  status_t Send(void *input_buffer, size_t size);
+  status_t Recv(void *output_buffer, size_t size);
 
   status_t Start();
   status_t Close();
@@ -154,8 +166,7 @@ private:
   struct rdma_buffer_attr client_metadata_attr;           // local client
 
   // Event Channel : report asynchronous communication event
-  struct rdma_event_channel *client_cm_event_channel =
-      NULL; // 是否可以用同一个channel
+  struct rdma_event_channel *client_cm_event_channel = NULL;
   struct rdma_event_channel *server_cm_event_channel = NULL;
 
   // Completion Channel
@@ -187,7 +198,8 @@ public:
         is_client(is_client), retry_times(retry_times),
         retry_delay_time(retry_delay_time) {
     status_t sret;
-    logDebug("init sockaddr.");
+
+    // init sockaddr
     if (server_ip == "")
       server_ip = "0.0.0.0";
     if (server_port == 0)
@@ -200,26 +212,32 @@ public:
       client_port = RDMA_DEFAULT_PORT;
     this->init_sockaddr(client_ip.c_str(), client_port, server_ip.c_str(),
                         server_port);
-    logDebug("start alloc buffer.");
+    logDebug("RDMACommunicator init_sockaddr success.");
+
+    // init buffer
     sret = this->allocate_buffer(this->mem_size);
     if (sret != status_t::SUCCESS) {
       return;
     }
+    logDebug("RDMACommunicator allocate_buffer success.");
 
     if (is_server) {
-      logDebug("setup server.");
+      logDebug("RDMACommunicator using server.");
       setup_server();
+      logDebug("RDMACommunicator setup_server success.");
     }
     if (is_client) {
-      logDebug("setup client.");
+      logDebug("RDMACommunicator using client.");
       setup_client();
+      logDebug("RDMACommunicator setup_client success.");
     }
   };
 
   ~RDMACommunicator() {
-    Close();
+    this->Close();
     if (is_buffer_ok) {
       this->mem_op->free_buffer(this->share_buffer);
+      logDebug("RDMACommunicator free_buffer success.");
     }
   }
   // for rdma, client and server operate the same buffer
@@ -227,9 +245,12 @@ public:
     status_t sret = status_t::SUCCESS;
     sret = this->mem_op->allocate_buffer(&this->share_buffer, size);
     if (sret != status_t::SUCCESS)
-      logError("mem_op alloc buffer failed.");
+      logError(
+          "RDMACommunicator::allocate_buffer mem_op->allocate_buffer err %s.",
+          status_to_string(sret));
     return sret;
-    logDebug("mem_op alloc buffer success: %p.", this->share_buffer);
+    logDebug("RDMACommunicator::allocate_buffer success: %p.",
+             this->share_buffer);
     this->is_buffer_ok = true;
     this->mem_size = size;
     return sret;
@@ -251,8 +272,10 @@ public:
   }
 
   // IO interface()
-  status_t Send();
-  status_t Recv();
+  // high level send and recv by using Write/Read with send/recv
+  status_t Send(void *input_buffer, size_t size);
+  status_t Recv(void *output_buffer, size_t size);
+  //
   status_t Write(void *addr, size_t length);
   status_t Read(void *addr, size_t length);
 
@@ -287,6 +310,38 @@ private:
   status_t setup_client();
   status_t start_client();
   status_t close_client();
+};
+
+class HddtCommunicator {
+private:
+  std::unique_ptr<Communicator> communicatorClass;
+
+  size_t mem_size = 2048; // dynamic memory size balance input_data_size with qp
+
+public:
+  HddtCommunicator(Memory *mem_op, bool is_server = false,
+                   bool is_client = false, std::string client_ip = "",
+                   uint16_t client_port = 0, std::string server_ip = "",
+                   uint16_t server_port = 0, int retry_times = 10,
+                   int retry_delay_time = 1000) {
+    if (support_rdma()) {
+      this->communicatorClass = std::make_unique<RDMACommunicator>(
+          mem_op, this->mem_size, is_server, is_client, client_ip, client_port,
+          server_ip, server_port, retry_times, retry_delay_time);
+    } else {
+      this->communicatorClass = std::make_unique<TCPCommunicator>(
+          mem_op, this->mem_size, is_server, is_client, client_ip, client_port,
+          server_ip, server_port, retry_times, retry_delay_time);
+    }
+  }
+
+  ~HddtCommunicator() { this->communicatorClass->~Communicator(); }
+
+  status_t Send(void *input_buffer, size_t size);
+  status_t Recv(void *output_buffer, size_t size);
+
+  status_t Start();
+  status_t Close();
 };
 
 } // namespace hddt

@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(HDDT)
 enable_language(CXX)
+set(CMAKE_CXX_STANDARD 14)
 
 
 # # cmake modules
@@ -185,10 +186,10 @@ install(DIRECTORY include/ DESTINATION include)
 
 # # build apps
 # add_subdirectory(apps/train_cnn)
-add_subdirectory(apps/simple_inference)
+# add_subdirectory(apps/simple_inference)
 # add_subdirectory(apps/torch_app)
-# add_subdirectory(apps/rdma_app)
-add_subdirectory(apps/coll_app)
+add_subdirectory(apps/rdma_app)
+# add_subdirectory(apps/coll_app)
 
 # # build test
-add_subdirectory(tests)
+# add_subdirectory(tests)

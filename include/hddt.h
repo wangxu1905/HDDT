@@ -34,6 +34,8 @@ namespace hddt {
 /* status and log */
 enum class status_t { SUCCESS, ERROR, UNSUPPORT };
 
+const char *status_to_string(status_t status);
+
 #define logError(fmt, ...)                                                     \
   do {                                                                         \
     char buffer[1024];                                                         \

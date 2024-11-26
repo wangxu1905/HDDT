@@ -18,13 +18,6 @@ find_path(CUDA_INCLUDE_DIRS
     HINTS ${CUDA_PATH}/include
 )
 
-# 检验是否查到了CUDA的include目录，并将其添加到编译的include目录中
-if(NOT CUDA_INCLUDE_DIRS)
-    message(FATAL_ERROR "CUDA include directory not found!")
-else()
-    include_directories(${CUDA_INCLUDE_DIRS})
-endif()
-
 # 查找CUDA的库目录
 find_library(CUDA_CUDART_LIBRARY
     NAMES cudart

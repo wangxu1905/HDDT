@@ -19,13 +19,15 @@ int main() {
 
   // Memory *mem_ops = new CudaMemory(0, memory_type_t::NVIDIA_GPU);
   // Memory *mem_ops = new RocmMemory(0, memory_type_t::AMD_GPU);
-  Memory *mem_ops = new NeuwareMemory(1, memory_type_t::CAMBRICON_MLU);
+  // Memory *mem_ops = new NeuwareMemory(1, memory_type_t::CAMBRICON_MLU);
   // Memory *mem_ops = new HostMemory(1, memory_type_t::CPU);
+  Memory *mem_ops = new HddtMemory(1);
 
-  logInfo("%p", mem_ops);
   // RDMACommunicator *con = new RDMACommunicator(mem_ops, 1024, true, true,
   // client_ip, 2025, server_ip, 2024);
-  RDMACommunicator *con = new RDMACommunicator(mem_ops, 1024, true);
+  // RDMACommunicator *con = new RDMACommunicator(mem_ops, 1024, true);
+  Communicator *con = new HddtCommunicator(mem_ops, true);
+      
   sret = con->Start();
   if (sret != status_t::SUCCESS)
     return 0;

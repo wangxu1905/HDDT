@@ -58,13 +58,13 @@ status_t RDMACommunicator::Close() {
  */
 
 // client send notification to server to notify operation status.
-status_t RDMACommunicator::Send() {
+status_t RDMACommunicator::Send(void *input_buffer, size_t size) {
   // client send notification to server : Write is done;
   return status_t::SUCCESS;
 }
 
 // server recv notification by loop waiting.
-status_t RDMACommunicator::Recv() {
+status_t RDMACommunicator::Recv(void *input_buffer, size_t size) {
   // for loop to check ACK
   return status_t::SUCCESS;
 }

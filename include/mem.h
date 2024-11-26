@@ -16,7 +16,6 @@ enum class memory_type_t {
   NVIDIA_GPU,
   AMD_GPU,
   CAMBRICON_MLU
-
 }; // todo: NVIDIA_GPU_MANAGED, AMD_GPU_MANAGED
 
 memory_type_t memory_supported();
@@ -43,74 +42,6 @@ public:
                                        size_t size) = 0;
   virtual status_t copy_device_to_device(void *dest, const void *src,
                                          size_t size) = 0;
-};
-
-class HostMemory : public Memory {
-public:
-  HostMemory(int device_id, memory_type_t mem_type)
-      : Memory(device_id, mem_type) {
-    status_t sret;
-    sret = this->init();
-    if (sret != status_t::SUCCESS) {
-      logError("Fail to init mem_ops");
-      exit(1);
-    }
-  };
-  ~HostMemory() { this->free(); }
-  status_t init();
-  status_t free();
-  status_t allocate_buffer(void **addr, size_t size);
-  status_t free_buffer(void *addr);
-
-  status_t copy_host_to_device(void *dest, const void *src, size_t size);
-  status_t copy_device_to_host(void *dest, const void *src, size_t size);
-  status_t copy_device_to_device(void *dest, const void *src, size_t size);
-};
-
-class CudaMemory : public Memory {
-public:
-  CudaMemory(int device_id, memory_type_t mem_type)
-      : Memory(device_id, mem_type) {
-    status_t sret;
-    sret = this->init();
-    if (sret != status_t::SUCCESS) {
-      logError("Fail to init mem_ops");
-      exit(1);
-    }
-  };
-  ~CudaMemory() { this->free(); };
-
-  status_t init();
-  status_t free();
-  status_t allocate_buffer(void **addr, size_t size);
-  status_t free_buffer(void *addr);
-
-  status_t copy_host_to_device(void *dest, const void *src, size_t size);
-  status_t copy_device_to_host(void *dest, const void *src, size_t size);
-  status_t copy_device_to_device(void *dest, const void *src, size_t size);
-};
-
-class RocmMemory : public Memory {
-public:
-  RocmMemory(int device_id, memory_type_t mem_type)
-      : Memory(device_id, mem_type) {
-    status_t sret;
-    sret = this->init();
-    if (sret != status_t::SUCCESS) {
-      logError("Fail to init mem_ops");
-      exit(1);
-    }
-  };
-  ~RocmMemory() { this->free(); };
-
-  status_t init();
-  status_t free();
-  status_t allocate_buffer(void **addr, size_t size);
-  status_t free_buffer(void *addr);
-
-  status_t copy_host_to_device(void *dest, const void *src, size_t size);
-  status_t copy_device_to_host(void *dest, const void *src, size_t size);
-  status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
 /*
@@ -152,6 +83,74 @@ public:
   int get_DeviceId();
 };
 
+class HostMemory : public Memory {
+public:
+  HostMemory(int device_id, memory_type_t mem_type)
+      : Memory(device_id, mem_type) {
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("HostMemory init mem_ops err %s.", status_to_string(sret));
+      exit(1);
+    }
+  };
+  ~HostMemory() { this->free(); }
+  status_t init();
+  status_t free();
+  status_t allocate_buffer(void **addr, size_t size);
+  status_t free_buffer(void *addr);
+
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
+};
+
+class CudaMemory : public Memory {
+public:
+  CudaMemory(int device_id, memory_type_t mem_type)
+      : Memory(device_id, mem_type) {
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("CudaMemory init mem_ops err %s.", status_to_string(sret));
+      exit(1);
+    }
+  };
+  ~CudaMemory() { this->free(); };
+
+  status_t init();
+  status_t free();
+  status_t allocate_buffer(void **addr, size_t size);
+  status_t free_buffer(void *addr);
+
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
+};
+
+class RocmMemory : public Memory {
+public:
+  RocmMemory(int device_id, memory_type_t mem_type)
+      : Memory(device_id, mem_type) {
+    status_t sret;
+    sret = this->init();
+    if (sret != status_t::SUCCESS) {
+      logError("RocmMemory init mem_ops err %s.", status_to_string(sret));
+      exit(1);
+    }
+  };
+  ~RocmMemory() { this->free(); };
+
+  status_t init();
+  status_t free();
+  status_t allocate_buffer(void **addr, size_t size);
+  status_t free_buffer(void *addr);
+
+  status_t copy_host_to_device(void *dest, const void *src, size_t size);
+  status_t copy_device_to_host(void *dest, const void *src, size_t size);
+  status_t copy_device_to_device(void *dest, const void *src, size_t size);
+};
+
 class NeuwareMemory : public Memory {
 public:
   CNaddr mlu_addr;
@@ -162,7 +161,7 @@ public:
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
-      logError("Fail to init mem_ops");
+      logError("NeuwareMemory init mem_ops err %s.", status_to_string(sret));
       exit(1);
     }
   };
