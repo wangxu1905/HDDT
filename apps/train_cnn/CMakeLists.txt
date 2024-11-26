@@ -27,7 +27,7 @@ include(FindPyTorch)
 if(ROCM_FOUND)
 target_link_libraries(train_cnn PRIVATE
     ${TORCH_LIBRARIES}
-    ${GLOG_LIBRARY}  # 使用rocm的glog的库变量
+    ${GLOG_LIBRARY} # Hygon DTK using glog as log lib.
 )
 elseif(CUDA_FOUND)
 target_link_libraries(train_cnn PRIVATE

@@ -37,7 +37,7 @@ public:
 
   void exchange_ip();
   std::string get_ip(int rank);
-  
+
 private:
   std::string get_local_ip();
 };

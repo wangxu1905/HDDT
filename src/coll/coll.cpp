@@ -2,7 +2,6 @@
 
 namespace hddt {
 
-
 void MpiOob::exchange_ip() {
   int max_ip_len = MAX_IP_SIZE;
   char *all_ips = new char[world_size * max_ip_len];
@@ -74,6 +73,5 @@ std::string MpiOob::get_local_ip() {
 /*
  * AllToAll
  */
-
 
 } // namespace hddt

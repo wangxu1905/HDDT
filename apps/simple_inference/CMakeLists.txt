@@ -26,7 +26,10 @@ include(FindMPI)
 include_directories(${MPI_INCLUDE_DIR})
 target_link_libraries(simple_inference PRIVATE ${MPI_LIBRARY})
 
-# find mpixx
+# for ROCm, we don't use mpicc.
+# mpicc -showme
+# -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi
+# has been added by FindMPI
 if(ROCM_FOUND)
     # skip using mpicc while using hipcc as compiler
 else()
