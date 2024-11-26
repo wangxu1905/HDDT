@@ -24,11 +24,18 @@ target_include_directories(simple_inference PRIVATE
 
 include(FindMPI)
 include_directories(${MPI_INCLUDE_DIR})
-target_link_libraries(simple_inference PRIVATE ${MPI_LIBRARIES})
+target_link_libraries(simple_inference PRIVATE ${MPI_LIBRARY})
 
-# find mpixx
-find_program(MPICC mpicxx REQUIRED)
-set(CMAKE_C_COMPILER ${MPICC})
-set(CMAKE_CXX_COMPILER ${MPICC})
+# for ROCm, we don't use mpicc.
+# mpicc -showme
+# -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi
+# has been added by FindMPI
+if(ROCM_FOUND)
+    # skip using mpicc while using hipcc as compiler
+else()
+    find_program(MPICC mpicxx REQUIRED)
+    set(CMAKE_C_COMPILER ${MPICC})
+    set(CMAKE_CXX_COMPILER ${MPICC})
+endif()
 
 # install(TARGETS simple_inference DESTINATION bin)

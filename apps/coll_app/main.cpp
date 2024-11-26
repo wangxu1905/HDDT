@@ -14,3 +14,5 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+// sudo mpirun -np 2 -host ip1,ip2 ./coll_app

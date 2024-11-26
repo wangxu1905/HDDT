@@ -157,6 +157,10 @@ find_package(glog REQUIRED)
 target_include_directories(hddt_shared_lib PUBLIC ${GLOG_INCLUDE_DIRS})
 target_link_libraries(hddt_shared_lib PUBLIC glog)
 
+# with openmpi
+include(FindMPI)
+include_directories(${MPI_INCLUDE_DIR})
+
 if(BUILD_PYTHON_MOD)
     # # pybind
     # git submodule add -b stable ../../pybind/pybind11 extern/pybind11
@@ -180,10 +184,10 @@ install(DIRECTORY include/ DESTINATION include)
 
 
 # # build apps
-add_subdirectory(apps/train_cnn)
+# add_subdirectory(apps/train_cnn)
 add_subdirectory(apps/simple_inference)
-add_subdirectory(apps/torch_app)
-add_subdirectory(apps/rdma_app)
+# add_subdirectory(apps/torch_app)
+# add_subdirectory(apps/rdma_app)
 add_subdirectory(apps/coll_app)
 
 # # build test

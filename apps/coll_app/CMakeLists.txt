@@ -23,11 +23,16 @@ target_include_directories(coll_app PRIVATE
 
 include(FindMPI)
 include_directories(${MPI_INCLUDE_DIR})
-target_link_libraries(coll_app PRIVATE ${MPI_LIBRARIES})
+target_link_libraries(coll_app PRIVATE ${MPI_LIBRARY})
 
-# find mpixx
-find_program(MPICC mpicxx REQUIRED)
-set(CMAKE_C_COMPILER ${MPICC})
-set(CMAKE_CXX_COMPILER ${MPICC})
-
+# for ROCm, we don't use mpicc.
+# mpicc -showme
+# -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi
+# has been added by FindMPI
+if(ROCM_FOUND)
+else()
+    find_program(MPICC mpicxx REQUIRED)
+    set(CMAKE_C_COMPILER ${MPICC})
+    set(CMAKE_CXX_COMPILER ${MPICC})
+endif()
 # install(TARGETS rdma_app DESTINATION bin)
