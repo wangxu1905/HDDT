@@ -31,4 +31,15 @@ target_link_libraries(torch_app PRIVATE
 )
 endif()
 
+include(FindMPI)
+include_directories(${MPI_INCLUDE_DIR})
+target_link_libraries(torch_app ${MPI_LIBRARY})
+
+if(ROCM_FOUND)
+else()
+    find_program(MPICC mpicxx REQUIRED)
+    set(CMAKE_C_COMPILER ${MPICC})
+    set(CMAKE_CXX_COMPILER ${MPICC})
+endif()
+
 # install(TARGETS torch_app DESTINATION bin)

@@ -13,7 +13,7 @@ status_t CudaMemory::allocate_buffer(void **addr, size_t size) {
   size_t buf_size = (size + ACCEL_PAGE_SIZE - 1) & ~(ACCEL_PAGE_SIZE - 1);
   cudaError_t ret;
 
-  if (this->mem_type != memory_type_t::NVIDIA_GPU) {
+  if (this->mem_type != MemoryType::NVIDIA_GPU) {
     return status_t::UNSUPPORT;
   }
   logInfo("Allocate memory using cudaMalloc.");

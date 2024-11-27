@@ -7,7 +7,7 @@
 namespace hddt {
 class CudaMemoryTest : public ::testing::Test {
 protected:
-  memory_type_t mem_type_ = memory_type_t::NVIDIA_GPU;
+  MemoryType mem_type_ = MemoryType::NVIDIA_GPU;
   CudaMemory *cuda_memory = new CudaMemory(0, mem_type_);
 
   void SetUp() override {

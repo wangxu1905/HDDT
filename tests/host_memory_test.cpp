@@ -8,7 +8,7 @@ class HostMemoryTest : public ::testing::Test {
 protected:
   int device_id_src = 0;
   int device_id_des = 1;
-  memory_type_t mem_type_ = memory_type_t::CPU;
+  MemoryType mem_type_ = MemoryType::CPU;
   HostMemory *src_host_memory = new HostMemory(device_id_src, mem_type_);
 
   void SetUp() override {

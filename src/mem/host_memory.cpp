@@ -1,16 +1,16 @@
 #include <mem.h>
 
 namespace hddt {
-memory_type_t memory_supported() {
+MemoryType memory_supported() {
 #ifdef ENABLE_CUDA
-  return memory_type_t::NVIDIA_GPU;
+  return MemoryType::NVIDIA_GPU;
 #endif
 
 #ifdef ENABLE_ROCM
-  return memory_type_t::AMD_GPU;
+  return MemoryType::AMD_GPU;
 #endif
 
-  return memory_type_t::CPU;
+  return MemoryType::CPU;
 }
 
 bool memory_dmabuf_supported() {

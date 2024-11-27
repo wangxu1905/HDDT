@@ -14,7 +14,7 @@ status_t NeuwareMemory::allocate_buffer(void **addr, size_t size) {
   CNresult ret;
   cn_uint64_t buf_size = (size + ACCEL_PAGE_SIZE - 1) & ~(ACCEL_PAGE_SIZE - 1);
 
-  if (this->mem_type != memory_type_t::CAMBRICON_MLU) {
+  if (this->mem_type != MemoryType::CAMBRICON_MLU) {
     return status_t::UNSUPPORT;
   }
   logInfo("Allocate memory using cnMalloc.");

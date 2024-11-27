@@ -5,8 +5,8 @@ using namespace hddt;
 
 int main() {
   /* GPU memory test */
-  // Memory *mem_ops = new CudaMemory(1, memory_type_t::NVIDIA_GPU);
-  Memory *mem_ops = new RocmMemory(1, memory_type_t::AMD_GPU);
+  // Memory *mem_ops = new CudaMemory(1, MemoryType::NVIDIA_GPU);
+  Memory *mem_ops = new RocmMemory(1, MemoryType::AMD_GPU);
   void *addr;
   mem_ops->allocate_buffer(&addr, 1024);
 
@@ -18,7 +18,7 @@ int main() {
   printf("Server get Data: %s\n", host_data);
 
   /* Host memory test */
-  // Memory *mem_ops = new HostMemory(1, memory_type_t::CPU);
+  // Memory *mem_ops = new HostMemory(1, MemoryType::CPU);
   // void *addr;
   // mem_ops->allocate_buffer(&addr, 1024);
 

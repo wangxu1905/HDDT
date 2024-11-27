@@ -19,28 +19,28 @@ protected:
 TEST_F(HddtMemoryTest, init_with_memory_type_Default) {
   HddtMemory *memory_init_test = new HddtMemory(0);
   EXPECT_EQ(memory_init_test->get_init_Status(), status_t::SUCCESS);
-  EXPECT_EQ(memory_init_test->get_MemoryType(), memory_type_t::NVIDIA_GPU);
+  EXPECT_EQ(memory_init_test->get_MemoryType(), MemoryType::NVIDIA_GPU);
   EXPECT_EQ(memory_init_test->free(), status_t::SUCCESS);
 }
 
 TEST_F(HddtMemoryTest, init_with_memory_type_CPU) {
-  memory_type_t mem_init_type = memory_type_t::CPU;
+  MemoryType mem_init_type = MemoryType::CPU;
   HddtMemory *memory_init_test = new HddtMemory(0, mem_init_type);
   EXPECT_EQ(memory_init_test->get_init_Status(), status_t::SUCCESS);
-  EXPECT_EQ(memory_init_test->get_MemoryType(), memory_type_t::CPU);
+  EXPECT_EQ(memory_init_test->get_MemoryType(), MemoryType::CPU);
   EXPECT_EQ(memory_init_test->free(), status_t::SUCCESS);
 }
 
 TEST_F(HddtMemoryTest, init_with_memory_type_NVIDIA_GPU) {
-  memory_type_t mem_init_type = memory_type_t::NVIDIA_GPU;
+  MemoryType mem_init_type = MemoryType::NVIDIA_GPU;
   HddtMemory *memory_init_test = new HddtMemory(0, mem_init_type);
   EXPECT_EQ(memory_init_test->get_init_Status(), status_t::SUCCESS);
-  EXPECT_EQ(memory_init_test->get_MemoryType(), memory_type_t::NVIDIA_GPU);
+  EXPECT_EQ(memory_init_test->get_MemoryType(), MemoryType::NVIDIA_GPU);
   EXPECT_EQ(memory_init_test->free(), status_t::SUCCESS);
 }
 
 TEST_F(HddtMemoryTest, init_with_memory_type_AMD_GPU_NOT_SUPPORTED) {
-  memory_type_t mem_init_type = memory_type_t::AMD_GPU;
+  MemoryType mem_init_type = MemoryType::AMD_GPU;
   EXPECT_THROW(HddtMemory *memory_init_test = new HddtMemory(0, mem_init_type),
                std::runtime_error);
   // EXPECT_EQ(memory_init_test->get_init_Status(), status_t::UNSUPPORT);
@@ -70,30 +70,30 @@ TEST_F(HddtMemoryTest, CopyBufferToBuffer_NullSource) {
 }
 
 TEST_F(HddtMemoryTest, set_new_id_memory_type_NVIDIA_GPUtoCPU) {
-  memory_type_t mem_init_type = memory_type_t::NVIDIA_GPU;
+  MemoryType mem_init_type = MemoryType::NVIDIA_GPU;
   HddtMemory *memory_init_test = new HddtMemory(0, mem_init_type);
   EXPECT_EQ(memory_init_test->get_init_Status(), status_t::SUCCESS);
   EXPECT_EQ(memory_init_test->get_DeviceId(), 0);
-  EXPECT_EQ(memory_init_test->get_MemoryType(), memory_type_t::NVIDIA_GPU);
+  EXPECT_EQ(memory_init_test->get_MemoryType(), MemoryType::NVIDIA_GPU);
 
-  memory_init_test->set_DeviceId_and_MemoryType(1, memory_type_t::CPU);
+  memory_init_test->set_DeviceId_and_MemoryType(1, MemoryType::CPU);
   EXPECT_EQ(memory_init_test->get_init_Status(), status_t::SUCCESS);
   EXPECT_EQ(memory_init_test->get_DeviceId(), 1);
-  EXPECT_EQ(memory_init_test->get_MemoryType(), memory_type_t::CPU);
+  EXPECT_EQ(memory_init_test->get_MemoryType(), MemoryType::CPU);
 
   EXPECT_EQ(memory_init_test->free(), status_t::SUCCESS);
 }
 
 TEST_F(HddtMemoryTest,
        set_new_id_memory_type_NVIDIA_GPUtoAMD_GPU_NOT_SUPPORTED) {
-  memory_type_t mem_init_type = memory_type_t::NVIDIA_GPU;
+  MemoryType mem_init_type = MemoryType::NVIDIA_GPU;
   HddtMemory *memory_init_test = new HddtMemory(0, mem_init_type);
   EXPECT_EQ(memory_init_test->get_init_Status(), status_t::SUCCESS);
   EXPECT_EQ(memory_init_test->get_DeviceId(), 0);
-  EXPECT_EQ(memory_init_test->get_MemoryType(), memory_type_t::NVIDIA_GPU);
+  EXPECT_EQ(memory_init_test->get_MemoryType(), MemoryType::NVIDIA_GPU);
 
   EXPECT_THROW(
-      memory_init_test->set_DeviceId_and_MemoryType(1, memory_type_t::AMD_GPU),
+      memory_init_test->set_DeviceId_and_MemoryType(1, MemoryType::AMD_GPU),
       std::runtime_error);
   EXPECT_EQ(memory_init_test->free(), status_t::SUCCESS);
 }

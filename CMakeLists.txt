@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(HDDT)
 enable_language(CXX)
+set(CMAKE_CXX_STANDARD 14)
 
 
 # # cmake modules
@@ -127,6 +128,11 @@ if(BUILD_STATIC_LIB)
     find_package(glog REQUIRED)
     target_include_directories(hddt_static_lib PUBLIC ${GLOG_INCLUDE_DIRS})
     target_link_libraries(hddt_static_lib PUBLIC glog)
+
+    # with openmpi
+    include(FindMPI)
+    target_include_directories(hddt_static_lib PUBLIC ${MPI_INCLUDE_DIR})
+    target_link_libraries(hddt_static_lib PUBLIC ${MPI_LIBRARY})
     
     install(TARGETS hddt_static_lib DESTINATION lib)
 endif()
@@ -160,6 +166,7 @@ target_link_libraries(hddt_shared_lib PUBLIC glog)
 # with openmpi
 include(FindMPI)
 include_directories(${MPI_INCLUDE_DIR})
+target_link_libraries(hddt_shared_lib PUBLIC ${MPI_LIBRARY})
 
 if(BUILD_PYTHON_MOD)
     # # pybind
@@ -185,10 +192,10 @@ install(DIRECTORY include/ DESTINATION include)
 
 # # build apps
 # add_subdirectory(apps/train_cnn)
-add_subdirectory(apps/simple_inference)
+# add_subdirectory(apps/simple_inference)
 # add_subdirectory(apps/torch_app)
-# add_subdirectory(apps/rdma_app)
-add_subdirectory(apps/coll_app)
+add_subdirectory(apps/rdma_app)
+# add_subdirectory(apps/coll_app)
 
 # # build test
-add_subdirectory(tests)
+# add_subdirectory(tests)
