@@ -56,8 +56,6 @@ public:
   inline Communicator(Memory *mem_op) : mem_op(mem_op) {}
   inline ~Communicator() { this->mem_op->free(); }
 
-  virtual status_t allocate_buffer(size_t size) { return status_t::SUCCESS; };
-
   /**
    * @brief Send data to remote
    *
@@ -132,15 +130,10 @@ public:
                   uint16_t server_port = 0, int retry_times = 10,
                   int retry_delay_time = 1000)
       : Communicator(mem_op), is_server(is_server), is_client(is_client),
-        retry_times(retry_times), retry_delay_time(retry_delay_time){};
-  ~TCPCommunicator() {
-    if (this->is_buffer_ok) {
-      this->mem_op->free_buffer(this->client_send_buffer);
-      this->mem_op->free_buffer(this->client_recv_buffer);
-      this->mem_op->free_buffer(this->server_send_buffer);
-      this->mem_op->free_buffer(this->server_recv_buffer);
-    }
-  }
+        retry_times(retry_times), retry_delay_time(retry_delay_time) {
+    this->allocate_buffer();
+  };
+  ~TCPCommunicator() { this->free_buffer(); }
 
   status_t Send(void *input_buffer, size_t size, size_t flags) override;
   status_t Recv(void *output_buffer, size_t size, size_t flags) override;
@@ -150,7 +143,8 @@ public:
 
 private:
   // for TCP, client send data from send_buffer, recv data to recv_buffer
-  status_t allocate_buffer(size_t size);
+  status_t allocate_buffer();
+  status_t free_buffer();
 };
 
 class RDMACommunicator : public Communicator {
@@ -254,11 +248,12 @@ public:
     logDebug("RDMACommunicator init_sockaddr success.");
 
     // init buffer
-    sret = this->allocate_buffer(this->mem_size);
+    sret = this->allocate_buffer();
     if (sret != status_t::SUCCESS) {
       return;
     }
-    logDebug("RDMACommunicator allocate_buffer success.");
+    logDebug("RDMACommunicator allocate_buffer success: %p.",
+             this->share_buffer);
 
     if (is_server) {
       logDebug("RDMACommunicator using server.");
@@ -273,10 +268,12 @@ public:
   };
 
   ~RDMACommunicator() {
+    /* if forgot close, it will be force closed here. */
     this->Close();
+    /* force free mem_op buffer */
     if (this->is_buffer_ok) {
-      this->mem_op->free_buffer(this->share_buffer);
-      logDebug("RDMACommunicator free_buffer success.");
+      this->free_buffer();
+      logDebug("RDMACommunicator::Close free_buffer success.");
     }
   }
 
@@ -319,7 +316,8 @@ private:
    */
   status_t read(void *addr, size_t length);
 
-  status_t allocate_buffer(size_t size);
+  status_t allocate_buffer();
+  status_t free_buffer();
   status_t init_sockaddr(const char *client_ip, uint16_t client_port,
                          const char *server_ip, uint16_t server_port);
   status_t post_work_request(struct ibv_qp *qp, uint64_t sge_addr,

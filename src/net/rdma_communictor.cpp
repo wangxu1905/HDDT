@@ -6,18 +6,28 @@ namespace hddt {
  * Public API
  */
 
-status_t RDMACommunicator::allocate_buffer(size_t size) {
+status_t RDMACommunicator::allocate_buffer() {
   status_t sret = status_t::SUCCESS;
-  sret = this->mem_op->allocate_buffer(&this->share_buffer, size);
-  if (sret != status_t::SUCCESS)
+  sret = this->mem_op->allocate_buffer(&this->share_buffer, this->mem_size);
+  if (sret != status_t::SUCCESS) {
     logError(
         "RDMACommunicator::allocate_buffer mem_op->allocate_buffer err %s.",
         status_to_string(sret));
-  return sret;
-  logDebug("RDMACommunicator::allocate_buffer success: %p.",
-           this->share_buffer);
+    return sret;
+  }
   this->is_buffer_ok = true;
-  this->mem_size = size;
+  return sret;
+};
+
+status_t RDMACommunicator::free_buffer() {
+  status_t sret = status_t::SUCCESS;
+  sret = this->mem_op->free_buffer(this->share_buffer);
+  if (sret != status_t::SUCCESS) {
+    logError("RDMACommunicator::allocate_buffer mem_op->free_buffer err %s.",
+             status_to_string(sret));
+    return sret;
+  }
+  this->is_buffer_ok = false; // only free once time
   return sret;
 };
 
@@ -79,6 +89,13 @@ status_t RDMACommunicator::Close() {
     this->close_server();
   if (this->is_client)
     this->close_client();
+  /* It is uncertain whether the destructor of unique_ptr truly releases memory
+   * upon destruction, so we explicitly release the memory each time we close.
+   */
+  if (this->is_buffer_ok) {
+    this->free_buffer();
+    logDebug("RDMACommunicator::Close free_buffer success.");
+  }
   return status_t::SUCCESS;
 }
 
@@ -92,7 +109,8 @@ status_t RDMACommunicator::Close() {
 
 status_t RDMACommunicator::Send(void *input_buffer, size_t size, size_t flags) {
   // client send notification to server : Write is done;
-  this->write(input_buffer, flags);
+  this->mem_op->copy_device_to_device(this->share_buffer, input_buffer, flags);
+  this->write(this->share_buffer, flags);
   return status_t::SUCCESS;
 }
 
@@ -328,69 +346,71 @@ status_t RDMACommunicator::close_server() {
   int ret = -1;
   status_t sret;
   /* Wait for the client to send a disconnect event */
-  logDebug("Waiting for cm event: RDMA_CM_EVENT_DISCONNECTED.");
-  sret = process_rdma_cm_event(this->server_cm_event_channel,
-                               RDMA_CM_EVENT_DISCONNECTED, &cm_event);
+  logDebug("RDMACommunicator::close_server: Waiting for cm event: "
+           "RDMA_CM_EVENT_DISCONNECTED.");
+  sret = this->process_rdma_cm_event(this->server_cm_event_channel,
+                                     RDMA_CM_EVENT_DISCONNECTED, &cm_event);
   if (sret != status_t::SUCCESS) {
-    logError("Failed to get disconnect event.");
+    logError("RDMACommunicator::close_server: Get disconnect event err %s.",
+             status_to_string(sret));
     return status_t::ERROR;
   }
   /* Acknowledge the event */
   ret = rdma_ack_cm_event(cm_event);
   if (ret) {
-    logError("Failed to acknowledge the cm event.");
+    logError("RDMACommunicator::close_server: Acknowledge the cm event err %d.",
+             ret);
     return status_t::ERROR;
   }
-  logInfo("A disconnect event is received from the client...");
   /* Free all the resources */
   /* Destroy QP */
   rdma_destroy_qp(this->server_cm_newconnection_id);
   /* Destroy client cm id */
+  logDebug("RDMACommunicator::close_server: Destory new_connection cm id.");
   ret = rdma_destroy_id(this->server_cm_newconnection_id);
   if (ret) {
-    logError("Failed to destroy client id cleanly.");
+    logError("RDMACommunicator::close_server: Destroy client id err %d.", ret);
   }
   /* Destroy CQ */
   ret = ibv_destroy_cq(this->server_cq);
   if (ret) {
-    logError("Failed to destroy completion queue cleanly.");
+    logError("RDMACommunicator::close_server: Destroy completion queue err %d.",
+             ret);
   }
   /* Destroy completion channel */
   ret = ibv_destroy_comp_channel(this->server_completion_channel);
   if (ret) {
-    logError("Failed to destroy completion channel cleanly.");
+    logError(
+        "RDMACommunicator::close_server: Destroy completion channel err %d.",
+        ret);
   }
+
   /* Destroy memory buffers */
-  void *buf = this->server_newconnection_metadata_mr->addr;
+  logDebug("RDMACommunicator::close_server: Destory memory buffers.");
+  // to avoid double free, we free the memory buffer by this->Close, so we
+  // don't need to free it here.
+  this->rdma_buffer_deregister(this->server_send_buffer_mr);
+  this->rdma_buffer_deregister(this->server_recv_buffer_mr);
   this->rdma_buffer_deregister(this->server_newconnection_metadata_mr);
-  logDebug("Buffer %p free'ed.", buf);
-  free(buf);
-  if (this->server_metadata_mr) {
-    logDebug("Deregistered: %p , len: %u , stag : 0x%x.",
-             this->server_metadata_mr->addr,
-             (unsigned int)this->server_metadata_mr->length,
-             this->server_metadata_mr->lkey);
-    ibv_dereg_mr(this->server_metadata_mr);
-  }
-  if (this->server_newconnection_metadata_mr) {
-    logDebug("Deregistered: %p , len: %u , stag : 0x%x.",
-             this->server_newconnection_metadata_mr->addr,
-             (unsigned int)this->server_newconnection_metadata_mr->length,
-             this->server_newconnection_metadata_mr->lkey);
-    ibv_dereg_mr(this->server_newconnection_metadata_mr);
-  }
+  this->rdma_buffer_deregister(this->server_metadata_mr);
+  logDebug("RDMACommunicator::close_server: Destory memory buffers success.");
+
   /* Destroy protection domain */
   ret = ibv_dealloc_pd(this->server_newconnection_pd);
   if (ret) {
-    logError("Failed to destroy client protection domain cleanly.");
+    logError("RDMACommunicator::close_server: Destroy client protection domain "
+             "err %s.",
+             status_to_string(sret));
   }
   /* Destroy rdma server id */
   ret = rdma_destroy_id(this->server_cm_id);
   if (ret) {
-    logError("Failed to destroy server id cleanly.");
+    logError("RDMACommunicator::close_server: Destroy server cm id err %d.",
+             ret);
   }
   rdma_destroy_event_channel(this->server_cm_event_channel);
-  printf("Server shut-down is complete \n");
+  logInfo("RDMACommunicator::close_server: Server shut-down is complete.");
+
   return status_t::SUCCESS;
 }
 
@@ -663,7 +683,78 @@ status_t RDMACommunicator::start_client() {
   return status_t::SUCCESS;
 }
 
-status_t RDMACommunicator::close_client() { return status_t::SUCCESS; };
+status_t RDMACommunicator::close_client() {
+  struct rdma_cm_event *cm_event = NULL;
+  int ret = -1;
+  status_t sret;
+  /* active disconnect from the client side */
+  ret = rdma_disconnect(this->client_cm_id);
+  if (ret) {
+    logError("RDMACommunicator::close_client: Disconnect err: %d.", ret);
+    // continuing anyways
+  }
+  sret = this->process_rdma_cm_event(this->client_cm_event_channel,
+                                     RDMA_CM_EVENT_DISCONNECTED, &cm_event);
+  if (sret != status_t::SUCCESS) {
+    logError("RDMACommunicator::close_client: Get RDMA_CM_EVENT_DISCONNECTED "
+             "event err %s.",
+             status_to_string(sret));
+    // continuing anyways
+  }
+  ret = rdma_ack_cm_event(cm_event);
+  if (ret) {
+    logError("RDMACommunicator::close_client: Acknowledge cm event err: %d.",
+             ret);
+    // continuing anyways
+  }
+
+  /* Free all the resources */
+  /* Destroy QP */
+  rdma_destroy_qp(this->client_cm_id);
+  /* Destroy client cm id */
+  logDebug("RDMACommunicator::close_client: Destory new_connection cm id.");
+  /* Destroy CQ */
+  ret = ibv_destroy_cq(this->client_cq);
+  if (ret) {
+    logError("RDMACommunicator::close_client: Destroy completion queue err %d.",
+             ret);
+  }
+  /* Destroy completion channel */
+  ret = ibv_destroy_comp_channel(this->client_completion_channel);
+  if (ret) {
+    logError(
+        "RDMACommunicator::close_server: Destroy completion channel err %d.",
+        ret);
+  }
+
+  /* Destroy memory buffers */
+  logDebug("RDMACommunicator::close_client: Destory memory buffers.");
+  // to avoid double free, we free the memory buffer by this->Close, so we
+  // don't need to free it here.
+  this->rdma_buffer_deregister(this->client_send_buffer_mr);
+  this->rdma_buffer_deregister(this->client_recv_buffer_mr);
+  this->rdma_buffer_deregister(this->client_newserver_metadata_mr);
+  this->rdma_buffer_deregister(this->client_metadata_mr);
+  logDebug("RDMACommunicator::close_client: Destory memory buffers success.");
+
+  /* Destroy protection domain */
+  ret = ibv_dealloc_pd(this->client_pd);
+  if (ret) {
+    logError("RDMACommunicator::close_client: Destroy client protection domain "
+             "err %d.",
+             ret);
+  }
+  /* Destroy rdma client id */
+  ret = rdma_destroy_id(this->client_cm_id);
+  if (ret) {
+    logError("RDMACommunicator::close_client: Destroy client cm id err %d.",
+             ret);
+  }
+  rdma_destroy_event_channel(this->client_cm_event_channel);
+  logInfo("RDMACommunicator::close_client: Client shut-down is complete.");
+
+  return status_t::SUCCESS;
+};
 
 /* Post a work_request to QP
  * : qp: which qp to send
@@ -732,12 +823,16 @@ RDMACommunicator::process_rdma_cm_event(struct rdma_event_channel *echannel,
   int ret = 1;
   ret = rdma_get_cm_event(echannel, cm_event);
   if (ret) {
-    logError("Failed to retrieve a cm event");
+    logError(
+        "RDMACommunicator::process_rdma_cm_event: Retrieve a cm event err %d.",
+        ret);
     return status_t::ERROR;
   }
 
   if (0 != (*cm_event)->status) {
-    logError("CM event has non zero status: %d\n", (*cm_event)->status);
+    logError("RDMACommunicator::process_rdma_cm_event: CM event has non zero "
+             "status: %d\n",
+             (*cm_event)->status);
     ret = -((*cm_event)->status);
     /* important, we acknowledge the event */
     rdma_ack_cm_event(*cm_event);
@@ -745,14 +840,16 @@ RDMACommunicator::process_rdma_cm_event(struct rdma_event_channel *echannel,
   }
   /* good event, was it of the expected type */
   if ((*cm_event)->event != expected_event) {
-    logError("Unexpected event received: %s [ expecting: %s ]",
+    logError("RDMACommunicator::process_rdma_cm_event: Unexpected event "
+             "received: %s [ expecting: %s ]",
              rdma_event_str((*cm_event)->event),
              rdma_event_str(expected_event));
     /* acknowledge the event */
     rdma_ack_cm_event(*cm_event);
     return status_t::ERROR;
   }
-  logDebug("A new %s type event is received \n",
+  logDebug("RDMACommunicator::process_rdma_cm_event: A new %s type event is "
+           "received \n",
            rdma_event_str((*cm_event)->event));
   /* The caller must acknowledge the event */
   return status_t::SUCCESS;
