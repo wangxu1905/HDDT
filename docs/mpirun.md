@@ -1,8 +1,8 @@
 ---
-title: mpirun
+title: mpi环境一致配置
 ---
 
-# 卸载
+# 卸载已有的openmpi
 
 ```shell
 sudo apt-get remove --purge openmpi-bin libopenmpi-dev
@@ -13,12 +13,12 @@ sudo apt-get clean
 
 # 安装openmpi
 
-这里安装的是 openmpi 4.1.7的版本，下载链接：
+这里以 openmpi 4.1.7为例，下载链接：
 https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.7.tar.gz
 
 ## 安装
 
-这里安装到了`/usr/local`
+这里安装到`/usr/local`
 
 ```shell
 # 安装依赖
@@ -45,10 +45,10 @@ sudo make install
 在`/etc/profile`中添加了下面的内容
 
 ```shell
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH  #解决mpirun却链接库问题
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH  #解决mpirun缺链接库问题
 ```
 
-## 编译
+## 编译测试用例
 
 ```shell
 .
@@ -61,16 +61,14 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH  #解决mpirun却链接�
 
 ```
 
-命令
 ```shell
 g++ -o program main.cpp -lstdc++ -lglog -L <你的glog目录> -I <mpi头文件目录> -lmpi -lrt -I ./
 ```
 
 ## 运行
 
-
 ```shell
-#这个命令可以通
+#完整测试命令
 mpirun -np 2 -pernode --allow-run-as-root \
 --host ip1,iP2 \
 --mca btl ^openib,ofi \
@@ -78,7 +76,7 @@ mpirun -np 2 -pernode --allow-run-as-root \
 --mca pml ob1 \
 ./program
 
-#最小能通命令
+#最简测试命令
 mpirun -np 2 -pernode --allow-run-as-root \
 --host ip1,ip2 \
 --mca pml ob1 \
