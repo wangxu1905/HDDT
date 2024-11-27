@@ -82,6 +82,7 @@ status_t RDMACommunicator::Start() {
     sret = server_sret.load();
   }
 
+  this->is_closed = false;
   return sret;
 }
 status_t RDMACommunicator::Close() {
@@ -96,6 +97,7 @@ status_t RDMACommunicator::Close() {
     this->free_buffer();
     logDebug("RDMACommunicator::Close free_buffer success.");
   }
+  this->is_closed = true;
   return status_t::SUCCESS;
 }
 

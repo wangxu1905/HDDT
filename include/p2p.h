@@ -54,7 +54,7 @@ protected:
 
 public:
   inline Communicator(Memory *mem_op) : mem_op(mem_op) {}
-  inline ~Communicator() { this->mem_op->free(); }
+  virtual inline ~Communicator() { this->mem_op->free(); }
 
   /**
    * @brief Send data to remote
@@ -222,6 +222,8 @@ private:
   int retry_delay_time;
   int retry_count = 0;
 
+  bool is_closed = true;
+
 public:
   RDMACommunicator(Memory *mem_op, bool is_server = false,
                    bool is_client = false, std::string client_ip = "",
@@ -269,11 +271,8 @@ public:
 
   ~RDMACommunicator() {
     /* if forgot close, it will be force closed here. */
-    this->Close();
-    /* force free mem_op buffer */
-    if (this->is_buffer_ok) {
-      this->free_buffer();
-      logDebug("RDMACommunicator::Close free_buffer success.");
+    if (!this->is_closed) {
+      this->Close();
     }
   }
 
