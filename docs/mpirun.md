@@ -2,7 +2,14 @@
 title: mpirun
 ---
 
+# 卸载
 
+```shell
+sudo apt-get remove --purge openmpi-bin libopenmpi-dev
+#清理残留文件
+sudo apt-get autoremove
+sudo apt-get clean
+```
 
 # 安装openmpi
 
@@ -10,6 +17,8 @@ title: mpirun
 https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.7.tar.gz
 
 ## 安装
+
+这里安装到了`/usr/local`
 
 ```shell
 # 安装依赖
