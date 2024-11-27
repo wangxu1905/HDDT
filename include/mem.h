@@ -10,7 +10,7 @@ namespace hddt {
 #define ACCEL_PAGE_SIZE (64 * 1024)
 typedef uint64_t CNaddr;
 
-enum class memory_type_t {
+enum class MemoryType {
   DEFAULT, // 默认情况, 系统决定
   CPU,
   NVIDIA_GPU,
@@ -18,16 +18,16 @@ enum class memory_type_t {
   CAMBRICON_MLU
 }; // todo: NVIDIA_GPU_MANAGED, AMD_GPU_MANAGED
 
-memory_type_t memory_supported();
+MemoryType memory_supported();
 bool memory_dmabuf_supported();
 
 class Memory {
 protected:
   int device_id;
-  memory_type_t mem_type;
+  MemoryType mem_type;
 
 public:
-  Memory(int device_id, memory_type_t mem_type)
+  Memory(int device_id, MemoryType mem_type)
       : device_id(device_id), mem_type(mem_type){};
   virtual ~Memory(){};
 
@@ -52,18 +52,18 @@ public:
 class HddtMemory {
 private:
   int hddtDeviceId;
-  memory_type_t hddtMemoryType;
+  MemoryType hddtMemoryType;
   std::unique_ptr<Memory> memoryClass;
   status_t initStatus;
 
 public:
-  HddtMemory(int device_id, memory_type_t mem_type = memory_type_t::DEFAULT) {
+  HddtMemory(int device_id, MemoryType mem_type = MemoryType::DEFAULT) {
     this->set_DeviceId_and_MemoryType(device_id, mem_type);
   }
 
   ~HddtMemory() { this->free(); }
 
-  std::unique_ptr<Memory> createMemoryClass(memory_type_t mem_type);
+  std::unique_ptr<Memory> createMemoryClass(MemoryType mem_type);
   status_t init();
   status_t free();
 
@@ -76,17 +76,16 @@ public:
 
   status_t
   set_DeviceId_and_MemoryType(int device_id,
-                              memory_type_t mem_type = memory_type_t::DEFAULT);
+                              MemoryType mem_type = MemoryType::DEFAULT);
 
-  memory_type_t get_MemoryType();
+  MemoryType get_MemoryType();
   status_t get_init_Status();
   int get_DeviceId();
 };
 
 class HostMemory : public Memory {
 public:
-  HostMemory(int device_id, memory_type_t mem_type)
-      : Memory(device_id, mem_type) {
+  HostMemory(int device_id, MemoryType mem_type) : Memory(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -107,8 +106,7 @@ public:
 
 class CudaMemory : public Memory {
 public:
-  CudaMemory(int device_id, memory_type_t mem_type)
-      : Memory(device_id, mem_type) {
+  CudaMemory(int device_id, MemoryType mem_type) : Memory(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -130,8 +128,7 @@ public:
 
 class RocmMemory : public Memory {
 public:
-  RocmMemory(int device_id, memory_type_t mem_type)
-      : Memory(device_id, mem_type) {
+  RocmMemory(int device_id, MemoryType mem_type) : Memory(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -156,7 +153,7 @@ public:
   CNaddr mlu_addr;
 
 public:
-  NeuwareMemory(int device_id, memory_type_t mem_type)
+  NeuwareMemory(int device_id, MemoryType mem_type)
       : Memory(device_id, mem_type) {
     status_t sret;
     sret = this->init();

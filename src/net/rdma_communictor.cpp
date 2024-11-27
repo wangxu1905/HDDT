@@ -5,6 +5,39 @@ namespace hddt {
 /*
  * Public API
  */
+
+status_t RDMACommunicator::allocate_buffer(size_t size) {
+  status_t sret = status_t::SUCCESS;
+  sret = this->mem_op->allocate_buffer(&this->share_buffer, size);
+  if (sret != status_t::SUCCESS)
+    logError(
+        "RDMACommunicator::allocate_buffer mem_op->allocate_buffer err %s.",
+        status_to_string(sret));
+  return sret;
+  logDebug("RDMACommunicator::allocate_buffer success: %p.",
+           this->share_buffer);
+  this->is_buffer_ok = true;
+  this->mem_size = size;
+  return sret;
+};
+
+status_t RDMACommunicator::init_sockaddr(const char *client_ip,
+                                         uint16_t client_port,
+                                         const char *server_ip,
+                                         uint16_t server_port) {
+  // server addr
+  bzero(&this->server_addr, sizeof this->server_addr);
+  this->server_addr.sin_family = AF_INET;
+  this->server_addr.sin_port = htons(server_port);
+  inet_pton(AF_INET, server_ip, &this->server_addr.sin_addr);
+  // client addr
+  bzero(&this->client_addr, sizeof this->client_addr);
+  this->client_addr.sin_family = AF_INET;
+  this->client_addr.sin_port = htons(client_port);
+  inet_pton(AF_INET, client_ip, &this->client_addr.sin_addr);
+  return status_t::SUCCESS;
+}
+
 status_t RDMACommunicator::Start() {
   status_t sret = status_t::SUCCESS;
   std::atomic<status_t> server_sret(status_t::SUCCESS);
@@ -57,20 +90,20 @@ status_t RDMACommunicator::Close() {
  * server recv notification by loop waiting.
  */
 
-// client send notification to server to notify operation status.
-status_t RDMACommunicator::Send(void *input_buffer, size_t size) {
+status_t RDMACommunicator::Send(void *input_buffer, size_t size, size_t flags) {
   // client send notification to server : Write is done;
+  this->write(input_buffer, flags);
   return status_t::SUCCESS;
 }
 
-// server recv notification by loop waiting.
-status_t RDMACommunicator::Recv(void *input_buffer, size_t size) {
+status_t RDMACommunicator::Recv(void *output_buffer, size_t size,
+                                size_t flags) {
   // for loop to check ACK
+  this->mem_op->copy_device_to_device(output_buffer, this->share_buffer, flags);
   return status_t::SUCCESS;
 }
 
-// client write data to remote server buffer
-status_t RDMACommunicator::Write(void *addr, size_t length) {
+status_t RDMACommunicator::write(void *addr, size_t length) {
   status_t sret;
   struct ibv_wc wc;
   int wc_count;
@@ -95,20 +128,7 @@ status_t RDMACommunicator::Write(void *addr, size_t length) {
   return status_t::SUCCESS;
 }
 
-/**
- * @brief Writes data to a remote memory address
- *
- * Uses RDMA to write data from the local buffer to a remote memory address.
- *
- * @param addr The address of the local buffer that contains the data to be
- * written
- * @param length The length of the data to be written
- *
- * @return The status code of the operation result
- *         - Returns status_t::SUCCESS if the operation is successful
- *         - Returns status_t::ERROR if the operation fails
- */
-status_t RDMACommunicator::Read(void *addr, size_t length) {
+status_t RDMACommunicator::read(void *addr, size_t length) {
   status_t sret;
   struct ibv_wc wc;
   int wc_count;
@@ -133,15 +153,6 @@ status_t RDMACommunicator::Read(void *addr, size_t length) {
   return status_t::SUCCESS;
 }
 
-/**
- * @brief Set up the server side of the RDMA communicator
- *
- * Configure the server side of the RDMA communicator, including creating an
- * event channel, creating an RDMA ID, and binding the server address.
- *
- * @return Returns status_t::SUCCESS if the setup is successful, otherwise
- * returns status_t::ERROR.
- */
 status_t RDMACommunicator::setup_server() {
   int ret = -1;
 
@@ -175,14 +186,6 @@ status_t RDMACommunicator::setup_server() {
   return status_t::SUCCESS;
 }
 
-/**
- * @brief Starts the RDMA server
- *
- * Initiates the RDMA server and waits for client connections.
- *
- * @return The status of starting the server, returns status_t::SUCCESS on
- * success, or status_t::ERROR on failure.
- */
 status_t RDMACommunicator::start_server() {
   int ret = -1;
   status_t sret;

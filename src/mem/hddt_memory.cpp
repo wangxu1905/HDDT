@@ -8,18 +8,18 @@ status_t HddtMemory::init() { return this->memoryClass->init(); }
 status_t HddtMemory::free() { return this->memoryClass->free(); }
 
 // create memory class according to memory type
-std::unique_ptr<Memory> HddtMemory::createMemoryClass(memory_type_t mem_type) {
+std::unique_ptr<Memory> HddtMemory::createMemoryClass(MemoryType mem_type) {
   switch (mem_type) {
-  case memory_type_t::CPU:
+  case MemoryType::CPU:
     return std::make_unique<HostMemory>(this->hddtDeviceId,
                                         this->hddtMemoryType);
-  case memory_type_t::NVIDIA_GPU:
+  case MemoryType::NVIDIA_GPU:
     return std::make_unique<CudaMemory>(this->hddtDeviceId,
                                         this->hddtMemoryType);
-  case memory_type_t::AMD_GPU:
+  case MemoryType::AMD_GPU:
     return std::make_unique<RocmMemory>(this->hddtDeviceId,
                                         this->hddtMemoryType);
-  case memory_type_t::CAMBRICON_MLU:
+  case MemoryType::CAMBRICON_MLU:
     return std::make_unique<NeuwareMemory>(this->hddtDeviceId,
                                            this->hddtMemoryType);
   default:
@@ -54,7 +54,7 @@ status_t HddtMemory::free_buffer(void *addr) {
 }
 
 // get memory type
-memory_type_t HddtMemory::get_MemoryType() { return this->hddtMemoryType; }
+MemoryType HddtMemory::get_MemoryType() { return this->hddtMemoryType; }
 
 // get init status
 status_t HddtMemory::get_init_Status() { return this->initStatus; }
@@ -64,36 +64,36 @@ int HddtMemory::get_DeviceId() { return this->hddtDeviceId; }
 
 // reset device id and memory type
 status_t HddtMemory::set_DeviceId_and_MemoryType(int device_id,
-                                                 memory_type_t mem_type) {
-  if (mem_type == memory_type_t::DEFAULT) { // 未指定mem_type, 则根据系统决定
-    this->hddtMemoryType = memory_type_t::CPU;
+                                                 MemoryType mem_type) {
+  if (mem_type == MemoryType::DEFAULT) { // 未指定mem_type, 则根据系统决定
+    this->hddtMemoryType = MemoryType::CPU;
 
 #ifdef ENABLE_CUDA
-    this->hddtMemoryType = memory_type_t::NVIDIA_GPU;
+    this->hddtMemoryType = MemoryType::NVIDIA_GPU;
 #endif
 
 #ifdef ENABLE_ROCM
-    this->hddtMemoryType = memory_type_t::AMD_GPU;
+    this->hddtMemoryType = MemoryType::AMD_GPU;
 #endif
 
 #ifdef ENABLE_NEUWARE
-    this->hddtMemoryType = memory_type_t::CAMBRICON_MLU;
+    this->hddtMemoryType = MemoryType::CAMBRICON_MLU;
 #endif
 
     this->initStatus = status_t::SUCCESS;
   } else {
     this->initStatus = status_t::SUCCESS;
-    if (mem_type == memory_type_t::NVIDIA_GPU) {
+    if (mem_type == MemoryType::NVIDIA_GPU) {
 #ifndef ENABLE_CUDA
       throw std::runtime_error("NVIDIA GPU is not supported");
       this->initStatus = status_t::UNSUPPORT;
 #endif
-    } else if (mem_type == memory_type_t::AMD_GPU) {
+    } else if (mem_type == MemoryType::AMD_GPU) {
 #ifndef ENABLE_ROCM
       throw std::runtime_error("AMD GPU is not supported");
       this->initStatus = status_t::UNSUPPORT;
 #endif
-    } else if (mem_type == memory_type_t::CAMBRICON_MLU) {
+    } else if (mem_type == MemoryType::CAMBRICON_MLU) {
 #ifndef ENABLE_NEUWARE
       throw std::runtime_error("Cambricon MLU is not supported");
       this->initStatus = status_t::UNSUPPORT;

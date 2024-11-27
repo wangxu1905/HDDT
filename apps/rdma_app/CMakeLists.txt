@@ -52,3 +52,17 @@ target_include_directories(mem PRIVATE
 target_link_libraries(rdma_server PUBLIC glog)
 target_link_libraries(rdma_client PUBLIC glog)
 target_link_libraries(mem PUBLIC glog)
+
+
+include(FindMPI)
+include_directories(${MPI_INCLUDE_DIR})
+target_link_libraries(rdma_server PUBLIC ${MPI_LIBRARY})
+target_link_libraries(rdma_client PUBLIC ${MPI_LIBRARY})
+target_link_libraries(mem PUBLIC ${MPI_LIBRARY})
+
+if(ROCM_FOUND)
+else()
+    find_program(MPICC mpicxx REQUIRED)
+    set(CMAKE_C_COMPILER ${MPICC})
+    set(CMAKE_CXX_COMPILER ${MPICC})
+endif()

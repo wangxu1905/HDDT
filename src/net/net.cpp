@@ -28,16 +28,31 @@ bool support_rdma() {
 
 namespace hddt {
 
-status_t HddtCommunicator::Send(void *input_buffer, size_t size) {
-  return this->communicatorClass->Send(input_buffer, size);
+[[nodiscard]] std::unique_ptr<Communicator>
+CreateCommunicator(Memory *mem_op, CommunicatorType comm_type, bool is_server,
+                   bool is_client, std::string client_ip, uint16_t client_port,
+                   std::string server_ip, uint16_t server_port, int retry_times,
+                   int retry_delay_time) {
+  if (comm_type == CommunicatorType::DEFAULT) {
+    if (support_rdma()) {
+      comm_type = CommunicatorType::RDMA;
+    } else {
+      comm_type = CommunicatorType::TCP;
+    }
+  }
+
+  switch (comm_type) {
+  case CommunicatorType::RDMA:
+    return std::make_unique<RDMACommunicator>(
+        mem_op, is_server, is_client, client_ip, client_port, server_ip,
+        server_port, retry_times, retry_delay_time);
+  case CommunicatorType::TCP:
+    return std::make_unique<TCPCommunicator>(
+        mem_op, is_server, is_client, client_ip, client_port, server_ip,
+        server_port, retry_times, retry_delay_time);
+  default:
+    return nullptr;
+  }
 }
-
-status_t HddtCommunicator::Recv(void *recv_buffer, size_t size) {
-  return this->communicatorClass->Recv(recv_buffer, size);
-}
-
-status_t HddtCommunicator::Start() { return this->communicatorClass->Start(); }
-
-status_t HddtCommunicator::Close() { return this->communicatorClass->Close(); }
 
 } // namespace hddt
