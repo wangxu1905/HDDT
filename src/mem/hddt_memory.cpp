@@ -28,20 +28,18 @@ std::unique_ptr<MemoryBase> Memory::createMemoryClass(MemoryType mem_type) {
 }
 
 // copy data from host to device
-status_t Memory::copy_host_to_device(void *dest, const void *src,
-                                         size_t size) {
+status_t Memory::copy_host_to_device(void *dest, const void *src, size_t size) {
   return this->memoryClass->copy_host_to_device(dest, src, size);
 }
 
 // copy data from device to host
-status_t Memory::copy_device_to_host(void *dest, const void *src,
-                                         size_t size) {
+status_t Memory::copy_device_to_host(void *dest, const void *src, size_t size) {
   return this->memoryClass->copy_device_to_host(dest, src, size);
 }
 
 // copy data from device to device
 status_t Memory::copy_device_to_device(void *dest, const void *src,
-                                           size_t size) {
+                                       size_t size) {
   return this->memoryClass->copy_device_to_device(dest, src, size);
 }
 
@@ -64,7 +62,7 @@ int Memory::get_DeviceId() { return this->hddtDeviceId; }
 
 // reset device id and memory type
 status_t Memory::set_DeviceId_and_MemoryType(int device_id,
-                                                 MemoryType mem_type) {
+                                             MemoryType mem_type) {
   if (mem_type == MemoryType::DEFAULT) { // 未指定mem_type, 则根据系统决定
     this->hddtMemoryType = MemoryType::CPU;
 

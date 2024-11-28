@@ -85,7 +85,8 @@ public:
 
 class HostMemory : public MemoryBase {
 public:
-  HostMemory(int device_id, MemoryType mem_type) : MemoryBase(device_id, mem_type) {
+  HostMemory(int device_id, MemoryType mem_type)
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -106,7 +107,8 @@ public:
 
 class CudaMemory : public MemoryBase {
 public:
-  CudaMemory(int device_id, MemoryType mem_type) : MemoryBase(device_id, mem_type) {
+  CudaMemory(int device_id, MemoryType mem_type)
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -128,7 +130,8 @@ public:
 
 class RocmMemory : public MemoryBase {
 public:
-  RocmMemory(int device_id, MemoryType mem_type) : MemoryBase(device_id, mem_type) {
+  RocmMemory(int device_id, MemoryType mem_type)
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
