@@ -36,7 +36,7 @@ setup(
     description='HDDT python binding',
     packages=['hddt'],
     package_data={
-        'hddt': ['python/pkg/hddt.so'],
+        'hddt': ['hddt/hddt.so'],
     },
     include_package_data=True,
     zip_safe=False,
