@@ -8,9 +8,9 @@ set(CMAKE_CXX_STANDARD 14)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 
-# # option
-set(BUILD_STATIC_LIB OFF)
-set(BUILD_PYTHON_MOD OFF)
+# # option: you can use follow cmd to open some features
+# -DBUILD_STATIC_LIB=ON
+# -DBUILD_PYTHON_MOD=ON
 if(BUILD_PYTHON_MOD)
     set(BUILD_STATIC_LIB ON)
 endif()
