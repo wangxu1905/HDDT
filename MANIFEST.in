@@ -1,2 +1,2 @@
 include README.md
-include python/pkg/hddt.so
+include hddt/hddt.so
