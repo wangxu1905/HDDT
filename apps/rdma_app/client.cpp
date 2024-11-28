@@ -16,9 +16,9 @@ int main() {
 
   // Memory *mem_ops = new CudaMemory(1, MemoryType::NVIDIA_GPU);
   // Memory *mem_ops = new RocmMemory(1, MemoryType::AMD_GPU);
-  Memory *mem_ops = new NeuwareMemory(1, MemoryType::CAMBRICON_MLU);
+  // Memory *mem_ops = new NeuwareMemory(1, MemoryType::CAMBRICON_MLU);
   // Memory *mem_ops = new HostMemory(1, MemoryType::CPU);
-  // Memory *mem_ops = new HddtMemory(1);
+  Memory *mem_ops = new Memory(1, MemoryType);
 
   // RDMACommunicator *con =
   //     new RDMACommunicator(mem_ops, 1024, true, true, client_ip, 2024,
