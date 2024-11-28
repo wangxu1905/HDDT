@@ -6,7 +6,7 @@ using namespace hddt;
 int main() {
   /* GPU memory test */
   // Memory *mem_ops = new CudaMemory(1, MemoryType::NVIDIA_GPU);
-  Memory *mem_ops = new RocmMemory(1, MemoryType::AMD_GPU);
+  MemoryBase *mem_ops = new RocmMemory(1, MemoryType::AMD_GPU);
   void *addr;
   mem_ops->allocate_buffer(&addr, 1024);
 

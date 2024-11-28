@@ -3,12 +3,12 @@
 
 namespace hddt {
 
-status_t HddtMemory::init() { return this->memoryClass->init(); }
+status_t Memory::init() { return this->memoryClass->init(); }
 
-status_t HddtMemory::free() { return this->memoryClass->free(); }
+status_t Memory::free() { return this->memoryClass->free(); }
 
 // create memory class according to memory type
-std::unique_ptr<Memory> HddtMemory::createMemoryClass(MemoryType mem_type) {
+std::unique_ptr<MemoryBase> Memory::createMemoryClass(MemoryType mem_type) {
   switch (mem_type) {
   case MemoryType::CPU:
     return std::make_unique<HostMemory>(this->hddtDeviceId,
@@ -28,43 +28,41 @@ std::unique_ptr<Memory> HddtMemory::createMemoryClass(MemoryType mem_type) {
 }
 
 // copy data from host to device
-status_t HddtMemory::copy_host_to_device(void *dest, const void *src,
-                                         size_t size) {
+status_t Memory::copy_host_to_device(void *dest, const void *src, size_t size) {
   return this->memoryClass->copy_host_to_device(dest, src, size);
 }
 
 // copy data from device to host
-status_t HddtMemory::copy_device_to_host(void *dest, const void *src,
-                                         size_t size) {
+status_t Memory::copy_device_to_host(void *dest, const void *src, size_t size) {
   return this->memoryClass->copy_device_to_host(dest, src, size);
 }
 
 // copy data from device to device
-status_t HddtMemory::copy_device_to_device(void *dest, const void *src,
-                                           size_t size) {
+status_t Memory::copy_device_to_device(void *dest, const void *src,
+                                       size_t size) {
   return this->memoryClass->copy_device_to_device(dest, src, size);
 }
 
-status_t HddtMemory::allocate_buffer(void **addr, size_t size) {
+status_t Memory::allocate_buffer(void **addr, size_t size) {
   return this->memoryClass->allocate_buffer(addr, size);
 }
 
-status_t HddtMemory::free_buffer(void *addr) {
+status_t Memory::free_buffer(void *addr) {
   return this->memoryClass->free_buffer(addr);
 }
 
 // get memory type
-MemoryType HddtMemory::get_MemoryType() { return this->hddtMemoryType; }
+MemoryType Memory::get_MemoryType() { return this->hddtMemoryType; }
 
 // get init status
-status_t HddtMemory::get_init_Status() { return this->initStatus; }
+status_t Memory::get_init_Status() { return this->initStatus; }
 
 // get device id
-int HddtMemory::get_DeviceId() { return this->hddtDeviceId; }
+int Memory::get_DeviceId() { return this->hddtDeviceId; }
 
 // reset device id and memory type
-status_t HddtMemory::set_DeviceId_and_MemoryType(int device_id,
-                                                 MemoryType mem_type) {
+status_t Memory::set_DeviceId_and_MemoryType(int device_id,
+                                             MemoryType mem_type) {
   if (mem_type == MemoryType::DEFAULT) { // 未指定mem_type, 则根据系统决定
     this->hddtMemoryType = MemoryType::CPU;
 

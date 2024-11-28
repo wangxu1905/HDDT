@@ -21,15 +21,15 @@ enum class MemoryType {
 MemoryType memory_supported();
 bool memory_dmabuf_supported();
 
-class Memory {
+class MemoryBase {
 protected:
   int device_id;
   MemoryType mem_type;
 
 public:
-  Memory(int device_id, MemoryType mem_type)
+  MemoryBase(int device_id, MemoryType mem_type)
       : device_id(device_id), mem_type(mem_type){};
-  virtual ~Memory(){};
+  virtual ~MemoryBase(){};
 
   virtual status_t init() = 0;
   virtual status_t free() = 0;
@@ -49,21 +49,21 @@ public:
  * 也可由系统自动识别支持device的类型
  *
  */
-class HddtMemory {
+class Memory {
 private:
   int hddtDeviceId;
   MemoryType hddtMemoryType;
-  std::unique_ptr<Memory> memoryClass;
+  std::unique_ptr<MemoryBase> memoryClass;
   status_t initStatus;
 
 public:
-  HddtMemory(int device_id, MemoryType mem_type = MemoryType::DEFAULT) {
+  Memory(int device_id, MemoryType mem_type = MemoryType::DEFAULT) {
     this->set_DeviceId_and_MemoryType(device_id, mem_type);
   }
 
-  ~HddtMemory() { this->free(); }
+  ~Memory() { this->free(); }
 
-  std::unique_ptr<Memory> createMemoryClass(MemoryType mem_type);
+  std::unique_ptr<MemoryBase> createMemoryClass(MemoryType mem_type);
   status_t init();
   status_t free();
 
@@ -83,9 +83,10 @@ public:
   int get_DeviceId();
 };
 
-class HostMemory : public Memory {
+class HostMemory : public MemoryBase {
 public:
-  HostMemory(int device_id, MemoryType mem_type) : Memory(device_id, mem_type) {
+  HostMemory(int device_id, MemoryType mem_type)
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -104,9 +105,10 @@ public:
   status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
-class CudaMemory : public Memory {
+class CudaMemory : public MemoryBase {
 public:
-  CudaMemory(int device_id, MemoryType mem_type) : Memory(device_id, mem_type) {
+  CudaMemory(int device_id, MemoryType mem_type)
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -126,9 +128,10 @@ public:
   status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
-class RocmMemory : public Memory {
+class RocmMemory : public MemoryBase {
 public:
-  RocmMemory(int device_id, MemoryType mem_type) : Memory(device_id, mem_type) {
+  RocmMemory(int device_id, MemoryType mem_type)
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
@@ -148,13 +151,13 @@ public:
   status_t copy_device_to_device(void *dest, const void *src, size_t size);
 };
 
-class NeuwareMemory : public Memory {
+class NeuwareMemory : public MemoryBase {
 public:
   CNaddr mlu_addr;
 
 public:
   NeuwareMemory(int device_id, MemoryType mem_type)
-      : Memory(device_id, mem_type) {
+      : MemoryBase(device_id, mem_type) {
     status_t sret;
     sret = this->init();
     if (sret != status_t::SUCCESS) {
