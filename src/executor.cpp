@@ -11,10 +11,27 @@ namespace hddt {
     CudaExecutor::CudaExecutor() 
         : state(ExecutorStatus::INITIALIZED), pidx(0), cidx(0) {
         // 初始化设备上的状态和任务列表
-        cudaMalloc((void**)&dev_state, sizeof(ExecutorStatus));
-        cudaMalloc((void**)&dev_tasks, sizeof(TaskCopy) * 1024);  // 假设 TASK_QUEUE_SIZE 为 1024
-        cudaMalloc((void**)&dev_pidx, sizeof(int));
-        cudaMalloc((void**)&dev_cidx, sizeof(int));
+        cudaError_t err;
+        err = cudaMalloc((void**)&dev_state, sizeof(ExecutorStatus));
+        if (err != cudaSuccess) {
+            std::cerr << "Failed to allocate dev_state: " << cudaGetErrorString(err) << std::endl;
+            throw std::runtime_error("CUDA allocation failed");
+        }
+        err = cudaMalloc((void**)&dev_tasks, sizeof(TaskCopy) * 1024);  // 假设 TASK_QUEUE_SIZE 为 1024
+        if (err != cudaSuccess) {
+            std::cerr << "Failed to allocate dev_tasks: " << cudaGetErrorString(err) << std::endl;
+            throw std::runtime_error("CUDA allocation failed");
+        }
+        err = cudaMalloc((void**)&dev_pidx, sizeof(int));
+        if (err != cudaSuccess) {
+            std::cerr << "Failed to allocate dev_pidx: " << cudaGetErrorString(err) << std::endl;
+            throw std::runtime_error("CUDA allocation failed");
+        }
+        err = cudaMalloc((void**)&dev_cidx, sizeof(int));
+        if (err != cudaSuccess) {
+            std::cerr << "Failed to allocate dev_cidx: " << cudaGetErrorString(err) << std::endl;
+            throw std::runtime_error("CUDA allocation failed");
+        }
 
         // 初始化状态和索引
         cudaMemcpy(dev_state, &state, sizeof(ExecutorStatus), cudaMemcpyHostToDevice);
@@ -43,7 +60,16 @@ namespace hddt {
         state = ExecutorStatus::POSTED;
         pidx = 0;
 
+        /*
+        // 设置执行器的操作函数
+        ops.task_post = TaskPost;
+        ops.task_test = TaskTest;
+        ops.task_finalize = TaskFinalize;
+        */
+        return status_t::SUCCESS;
+    }
 
+    status_t CudaExecutor::Executor() {
         // 启动持久内核
         status_t status = kernelStart(this);
         if (status != status_t::SUCCESS) {
@@ -51,13 +77,6 @@ namespace hddt {
             std::cerr << "failed to launch executor kernel" << std::endl;
             return status;
         }
-
-        /*
-        // 设置执行器的操作函数
-        ops.task_post = TaskPost;
-        ops.task_test = TaskTest;
-        ops.task_finalize = TaskFinalize;
-        */
         return status_t::SUCCESS;
     }
 
@@ -74,7 +93,7 @@ namespace hddt {
         pidx = -1; // 设置生产者索引为 -1 表示停止
 
         // 等待执行器确认停止
-        while (state != ExecutorStatus::SHUTDOWN_ACK) { }
+        //while (state != ExecutorStatus::SHUTDOWN_ACK) { }
 
         // 重置执行器上下文和状态
         //ee_context = nullptr;
@@ -87,7 +106,7 @@ namespace hddt {
         if (state != ExecutorStatus::POSTED) {
            return status_t::ERROR; 
         }
-
+        //std::cout << "task post in " << std::endl;
         // 获取最大任务数
         int max_tasks = 1024;  // 假设 TASK_QUEUE_SIZE 为 1024
 
@@ -97,21 +116,31 @@ namespace hddt {
             return status_t::ERROR; // 如果没有可用的任务结构体，返回内存不足错误
         }
 
+        //std::cout << "task new"  << std::endl;
+
         // 初始化任务结构体
         ee_task->src = task_copy.src;
         ee_task->dst = task_copy.dst;
         ee_task->len = task_copy.len;
         ee_task->status = TaskStatus::INPROGRESS;
+        ee_task->id = task_copy.id = pidx;
 
+        //std::cout << "task fuzhi"  << std::endl;
+        //std::cout << "pidx : " << pidx << "    dev_tasks" << sizeof(dev_tasks) << std::endl;
         // 保存任务到任务队列
-        tasks[pidx] = *ee_task;
+        cudaMemcpy(&dev_tasks[pidx], ee_task, sizeof(TaskCopy), cudaMemcpyHostToDevice);
+        //dev_tasks[pidx] = *ee_task;
         pidx = (pidx + 1) % max_tasks;  // 更新生产者索引
+        //cudaMemcpy(&dev_pidx, &pidx, sizeof(int), cudaMemcpyHostToDevice);
+        cudaMemcpy(dev_pidx, &pidx, sizeof(int), cudaMemcpyHostToDevice);
+
+        //std::cout << "task queue"  << std::endl;
 
         // 确保内存写入顺序
         cudaDeviceSynchronize();
 
         // 打印调试信息
-        std::cout << "executor task post, eee: " << this << std::endl;
+        //std::cout << "executor task post, eee: " << this << std::endl;
 
         //*task = ee_task; // 返回任务指针
         return status_t::SUCCESS;
@@ -136,7 +165,9 @@ namespace hddt {
 
 
     TaskStatus CudaExecutor::TaskTest(TaskCopy *task) {
-
+        return task->status;
+    }
+/*
         // 如果任务状态不是进行中，直接返回
         if (task->status != TaskStatus::INPROGRESS) {
             return task->status;
@@ -153,139 +184,6 @@ namespace hddt {
         task->status = TaskStatus::OK;
 
         return task->status;
-    }
-
-    int main() {
-        // 初始化 CUDA 驱动 API
-        /*CUresult cu_result = cuInit(0);
-        if (cu_result != CUDA_SUCCESS) {
-            const char *error_str;
-            cuGetErrorString(cu_result, &error_str);
-            std::cerr << "Failed to initialize CUDA driver API: " << error_str << std::endl;
-            return 1;
-        }
-
-        // 获取当前的 CUDA 上下文
-        CUcontext ee_context = nullptr;
-        cu_result = cuCtxGetCurrent(&ee_context);
-        if (cu_result != CUDA_SUCCESS || ee_context == nullptr) {
-            const char *error_str;
-            cuGetErrorString(cu_result, &error_str);
-            std::cerr << "Failed to get current CUDA context: " << error_str << std::endl;
-            return 1;
-        }*/
-
-        // 创建执行器对象
-        //hddt::CudaExecutor executor(&ee_context);  // 假设 ee_context 为 nullptr
-        hddt::CudaExecutor executor; 
-        // 启动执行器
-        hddt::status_t start_status = executor.Start();
-        if (start_status != hddt::status_t::SUCCESS) {
-            std::cerr << "Failed to start the executor: " << static_cast<int>(start_status) << std::endl;
-            return 1;
-        }
-
-        // 准备测试任务
-        size_t task1_size = 1024;
-        size_t task2_size = 2048;
-
-        // 分配主机内存
-        char *host_src1 = new char[task1_size];
-        char *host_dst1 = new char[task1_size];
-        char *host_src2 = new char[task2_size];
-        char *host_dst2 = new char[task2_size];
-
-        // 初始化源数据
-        for (size_t i = 0; i < task1_size; ++i) {
-            host_src1[i] = static_cast<char>(i % 256);
-        }
-        for (size_t i = 0; i < task2_size; ++i) {
-            host_src2[i] = static_cast<char>(i % 256);
-        }
-
-        // 分配设备内存
-        char *dev_src1, *dev_dst1, *dev_src2, *dev_dst2;
-        cudaMalloc(&dev_src1, task1_size);
-        cudaMalloc(&dev_dst1, task1_size);
-        cudaMalloc(&dev_src2, task2_size);
-        cudaMalloc(&dev_dst2, task2_size);
-
-        // 将数据从主机复制到设备
-        cudaMemcpy(dev_src1, host_src1, task1_size, cudaMemcpyHostToDevice);
-        cudaMemcpy(dev_src2, host_src2, task2_size, cudaMemcpyHostToDevice);
-
-        // 创建任务结构体
-        hddt::TaskCopy task1 = {dev_src1, dev_dst1, task1_size, hddt::TaskStatus::OPERATION_INITIALIZED};
-        hddt::TaskCopy task2 = {dev_src2, dev_dst2, task2_size, hddt::TaskStatus::OPERATION_INITIALIZED};
-
-        hddt::status_t post_status1 = executor.TaskPost(task1);
-        hddt::status_t post_status2 = executor.TaskPost(task2);
-
-        if (post_status1 != hddt::status_t::SUCCESS) {
-            std::cerr << "Failed to post task1: " << static_cast<int>(post_status1) << std::endl;
-            return 1;
-        }
-
-        if (post_status2 != hddt::status_t::SUCCESS) {
-            std::cerr << "Failed to post task2: " << static_cast<int>(post_status2) << std::endl;
-            return 1;
-        }
-
-        // 等待任务完成
-        while (executor.TaskTest(&task1) != hddt::TaskStatus::OK) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        }
-
-        while (executor.TaskTest(&task2) != hddt::TaskStatus::OK) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        }
-
-        // 完成任务
-        hddt::status_t finalize_status1 = executor.TaskFinalize(&task1);
-        hddt::status_t finalize_status2 = executor.TaskFinalize(&task2);
-
-        if (finalize_status1 != hddt::status_t::SUCCESS) {
-            std::cerr << "Failed to finalize task1: " << static_cast<int>(finalize_status1) << std::endl;
-            return 1;
-        }
-
-        if (finalize_status2 != hddt::status_t::SUCCESS) {
-            std::cerr << "Failed to finalize task2: " << static_cast<int>(finalize_status2) << std::endl;
-            return 1;
-        }
-
-        // 将结果从设备复制回主机
-        cudaMemcpy(host_dst1, dev_dst1, task1_size, cudaMemcpyDeviceToHost);
-        cudaMemcpy(host_dst2, dev_dst2, task2_size, cudaMemcpyDeviceToHost);
-
-        // 验证结果
-        for (size_t i = 0; i < task1_size; ++i) {
-            assert(host_dst1[i] == host_src1[i]);
-        }
-        for (size_t i = 0; i < task2_size; ++i) {
-            assert(host_dst2[i] == host_src2[i]);
-        }
-
-        // 释放内存
-        delete[] host_src1;
-        delete[] host_dst1;
-        delete[] host_src2;
-        delete[] host_dst2;
-        cudaFree(dev_src1);
-        cudaFree(dev_dst1);
-        cudaFree(dev_src2);
-        cudaFree(dev_dst2);
-
-        // 停止执行器
-        hddt::status_t stop_status = executor.Stop();
-        if (stop_status != hddt::status_t::SUCCESS) {
-            std::cerr << "Failed to stop the executor: " << static_cast<int>(stop_status) << std::endl;
-            return 1;
-        }
-
-        std::cout << "All tasks completed successfully." << std::endl;
-
-        return 0;
-    }
+    }*/
 
 }  // namespace hddt

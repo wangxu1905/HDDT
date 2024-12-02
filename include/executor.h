@@ -49,6 +49,7 @@ namespace hddt {
         void *dst;  // 目标缓冲区
         size_t len;  // 复制长度（以字节为单位）
         TaskStatus status;
+        int id;
     };
     /*
     // CUDA 执行器任务操作结构体
@@ -93,6 +94,8 @@ namespace hddt {
 
         // 测试任务是否完成
         TaskStatus TaskTest(TaskCopy *task);
+
+	status_t Executor();
 
     //private:
         //CUcontext *ee_context;  // 执行环境上下文
